@@ -192,9 +192,7 @@ function printAceStacks (_game) {
 	}
 }
 
-function rule_toSlot (playerCard, slot){
-	var slotCard = slot[slot.length - 1];
-
+function rule_toSlot (playerCard, slotCard){
 	var ruleResult = !slotCard || (playerCard && slotCard && playerCard.type.color !== slotCard.type.color && playerCard.value === slotCard.value-1);
 
 	console.log('Attempt to move '+cardNamePrint(playerCard)+' to slot with '+cardNamePrint(slotCard)+' : '+ruleResult, playerCard, slotCard);
@@ -205,7 +203,7 @@ function move_toSlot (player, pileName, slotId, _game) {
 	if(!player[pileName].length){
 		return; // UI should not happen
 	}
-	if(!rule_toSlot(player[pileName][player[pileName].length - 1], _game.slots[slotId])){
+	if(!rule_toSlot(player[pileName][player[pileName].length - 1], _game.slots[slotId][_game.slots[slotId].length - 1])){
 		return;	// TODO error
 	}
 	var c = player[pileName].pop();
@@ -220,9 +218,7 @@ function move_deckToSlot(player, slotId, _game){
 	move_toSlot(player, 'deck', slotId, _game);
 }
 
-function rule_toAceStack (playerCard, aceStack) {
-	var aceStackCard = aceStack[aceStack.length - 1];
-
+function rule_toAceStack (playerCard, aceStackCard) {
 	var ruleResult = (!aceStackCard && playerCard.value === 1) || (playerCard && aceStackCard && playerCard.type.id === aceStackCard.type.id && playerCard.value === aceStackCard.value + 1);
 
 	console.log('Attempt to move '+cardNamePrint(playerCard)+' to Ace Stack with '+cardNamePrint(aceStackCard)+' : '+ruleResult, playerCard, aceStackCard);
@@ -233,7 +229,7 @@ function move_toAceStack(player, pileName, aceStackId, _game) {
 	if(!player[pileName].length){
 		return; // UI should not happen
 	}
-	if(!rule_toAceStack(player[pileName][player[pileName].length - 1], _game.aceStacks[aceStackId])){
+	if(!rule_toAceStack(player[pileName][player[pileName].length - 1], _game.aceStacks[aceStackId][_game.aceStacks[aceStackId].length - 1])){
 		return;	// TODO error
 	}
 	var c = player[pileName].pop();
@@ -313,11 +309,11 @@ var blue = game.players[1];
 for(var i=0;i<NSLOTS;i++){
 	move_crapetteToSlot(red, i, game);
 }
+move_crapetteToAceStack(red, 0, game);
 /*
 red.crapette.push(blue.refs[0]);
-move_crapetteToAceStack(red, 0);
-move_crapetteToDiscard(red, blue);
-move_crapetteToCrapette(red, blue);
+move_crapetteToDiscard(red, blue, game);
+move_crapetteToCrapette(red, blue, game);
 */
 
 
