@@ -243,6 +243,10 @@ function move_toAceStack(player, pileName, aceStackId, _game) {
 function move_crapetteToAceStack(player, aceStackId, _game) {
 	move_toAceStack(player, 'crapette', aceStackId, _game);
 }
+function move_deckToAceStack(player, aceStackId, _game) {
+	move_toAceStack(player, 'deck', aceStackId, _game);
+}
+
 
 function rule_toDiscard (playerCard, opponentCard) {
 	var ruleResult = playerCard && opponentCard && playerCard.type.color !== opponentCard.type.color && (playerCard.value === opponentCard.value + 1 || playerCard.value === opponentCard.value - 1) && /*King*/ opponentCard.value !== CARDMAXHIGH;
@@ -251,18 +255,26 @@ function rule_toDiscard (playerCard, opponentCard) {
 	return ruleResult;
 }
 
-function move_crapetteToDiscard(player, opponent) {
+function move_toDiscard(player, pileName, opponent) {
 	if(player.id === opponent.id){
 		return; // UI should not happen
 	}
-	if(!player.crapette.length){
+	if(!player[pileName].length){
 		return; // UI should not happen
 	}
-	if(!rule_toDiscard(player.crapette[player.crapette.length - 1], opponent.discard[opponent.discard.length - 1])){
+	if(!rule_toDiscard(player[pileName][player[pileName].length - 1], opponent.discard[opponent.discard.length - 1])){
 		return;	// TODO error
 	}
-	var c = player.crapette.pop();
+	var c = player[pileName].pop();
 	opponent.discard.push(c);
+}
+
+function move_crapetteToDiscard(player, opponent) {
+	move_toDiscard(player, 'crapette', opponent);
+}
+
+function move_deckToDiscard(player, opponent) {
+	move_toDiscard(player, 'crapette', opponent);
 }
 
 function rule_toCrapette (playerCard, opponentCard) {
@@ -272,18 +284,26 @@ function rule_toCrapette (playerCard, opponentCard) {
 	return ruleResult;
 }
 
-function move_crapetteToCrapette(player, opponent) {
+function move_toCrapette(player, pileName, opponent) {
 	if(player.id === opponent.id){
 		return; // UI should not happen
 	}
-	if(!player.crapette.length){
+	if(!player[pileName].length){
 		return; // UI should not happen
 	}
-	if(!rule_toCrapette(player.crapette[player.crapette.length - 1], opponent.crapette[opponent.crapette.length - 1])){
+	if(!rule_toCrapette(player[pileName][player[pileName].length - 1], opponent.crapette[opponent.crapette.length - 1])){
 		return;	// TODO error
 	}
-	var c = player.crapette.pop();
-	opponent.crapette.push(c);
+	var c = player[pileName].pop();
+	opponent[pileName].push(c);
+}
+
+function move_crapetteToCrapette(player, opponent) {
+	move_toCrapette(player, 'crapette', opponent);
+}
+
+function move_deckToCrapette(player, opponent) {
+	move_toCrapette(player, 'deck', opponent);
 }
 
 var red = game.players[0];
