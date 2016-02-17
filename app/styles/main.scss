@@ -36,4 +36,9 @@ div {
 
 	.card-unturned {
 	}
+
+	.card-rotate-90 {
+		width: $cardHeight;
+		height: $cardWidth;
+	}
 }

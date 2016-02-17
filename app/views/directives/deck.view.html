@@ -1,6 +1,10 @@
 <div class="deck">
-	<div class="card card-{{c.turned ? 'turned' : 'unturned'}} card-player{{c.player}}" ng-repeat="c in deck">
+	<div class="card card-{{c.turned ? 'turned' : 'unturned'}} card-player{{c.player}} {{rotate ? 'card-rotate-90' : ''}}"
+		ng-repeat="c in deck track by $index" ng-if="c.turned || $index >= (deck.length - 5)"
+		style="{{rotate ? 'top' : 'left'}}:{{(deck.length - 1 - $index)*3}}px;">
+
 		<span ng-if="c.turned">{{cards.cardNamePrint(c)}}</span>
 		<span ng-if="!c.turned"></span>
+
 	</div>
 </div>

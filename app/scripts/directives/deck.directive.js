@@ -6,7 +6,8 @@ angular.module('cardsDirectives', [])
   	restrict: 'E',
     templateUrl: 'views/directives/deck.view.html',
     scope: {
-    	deck: '='
+    	deck: '=',
+      rotate: '='
     },
     link: function(scope){
     	scope.cards = cards;
