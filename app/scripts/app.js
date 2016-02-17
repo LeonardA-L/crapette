@@ -14,6 +14,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ngMaterial',
     'cardsDirectives'
   ])
   .config(function ($routeProvider) {
