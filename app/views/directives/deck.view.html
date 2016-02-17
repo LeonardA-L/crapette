@@ -1,4 +1,6 @@
-<div>
-{{deck.length}} : 
-{{cards.cardNamePrint(deck[deck.length -1])}}
+<div class="deck">
+	<div class="card card-{{c.turned ? 'turned' : 'unturned'}} card-player{{c.player}}" ng-repeat="c in deck">
+		<span ng-if="c.turned">{{cards.cardNamePrint(c)}}</span>
+		<span ng-if="!c.turned"></span>
+	</div>
 </div>

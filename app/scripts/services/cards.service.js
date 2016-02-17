@@ -49,7 +49,7 @@ angular.module('cardsApp').factory('cards', function() {
       break;
     }
 
-    name += ' '+_c.type.name+(_c.turned ? ' turned' : '');
+    name += ' '+_c.type.name;
 
     return name;
   }
@@ -106,7 +106,9 @@ angular.module('cardsApp').factory('cards', function() {
       var c = _deck[i];
       _newDeck.push({
         value: c.value,
-        type: c.type
+        type: c.type,
+        player: c.player,
+        turned: c.turned
       });
     }
     return _newDeck;

@@ -23,7 +23,7 @@ angular.module('cardsApp')
 	function initCrapettePlayer(playerId, _game){
 		var player = cards.createDeck();
 		for(var i=0; i < player.length; i++){
-			i.player = playerId;
+			player[i].player = playerId;
 		}
 
 		var playerDeck = cards.copyDeckDeep(player).shuffle();
@@ -33,6 +33,8 @@ angular.module('cardsApp')
 		for(var i = 0; i < SIZECRAPETTE; i++){
 			playerCrapette.push(playerDeck.pop());
 		}
+		playerCrapette[playerCrapette.length - 1].turned = true;
+
 		// Fill slots
 		for(var i=playerId*NSLOTS/2; i<(playerId+1)*NSLOTS/2; i++){
 			_game.slots[i].push(playerDeck.pop());
