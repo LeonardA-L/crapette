@@ -1,6 +1,19 @@
 // Stack css
+@import '../../../styles/variables';
 
 .stack {
   display: inline-block;
   border: solid 1px #F66;
+
+  padding: $stackPadding;
+}
+
+.no-card {
+  border: solid 1px;
+  display: inline-block;
+
+  width: $cardWidth;
+  height: $cardHeight;
+
+  background: #EEE;
 }

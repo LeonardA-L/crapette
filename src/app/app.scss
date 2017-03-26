@@ -1,0 +1,39 @@
+// Layout
+@import '../styles/variables';
+
+
+div {
+  border: solid 1px;
+}
+
+.row {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+.field {
+  flex: $sideColumnSize;
+}
+
+.crapette-field, .streets-field {
+  flex: $sideColumnSize;
+}
+
+.main-field {
+  flex: $mainColumnSize;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+
+  stack {
+    flex: 1;
+  }
+}
+
+.aces-field {
+  width: 2 * ($cardWidth + 2 * $stackPadding) + 20px;
+  flex: unset;
+}

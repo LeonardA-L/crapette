@@ -24,9 +24,11 @@ import { CrapetteService } from './services/crapette.service';
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'app.html',
+  styleUrls: ['app.scss'],
   providers: [CardToolsService, CrapetteService]
 })
 export class AppComponent implements OnInit {
+  public stacks;
 
   constructor(
     public appState: AppState,
@@ -40,9 +42,9 @@ export class AppComponent implements OnInit {
     let players = this.crapetteService.initPlayers();
     console.log(players);
 
-    let stacks = this.crapetteService.initStacks(players);
-    this.crapetteService.dealStacks(stacks, players);
-    console.log(stacks);
+    this.stacks = this.crapetteService.initStacks(players);
+    this.crapetteService.dealStacks(this.stacks, players);
+    console.log(this.stacks);
   }
 
 }

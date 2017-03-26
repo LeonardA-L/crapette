@@ -1,3 +1,40 @@
 <div>
-OK
+  <div class="row player-row player-row-top">
+    <div class="field crappette-field">
+      <stack [stack]="stacks.player0Crapette"></stack>
+    </div>
+    <div class="field main-field">
+      <stack [stack]="stacks.player0Main"></stack>
+      <stack [stack]="stacks.player0Discard"></stack>
+    </div>
+  </div>
+
+  <div class="row mid-row">
+    <div class="field streets-field streets-left">
+      <div *ngFor="let street of stacks.streets | slice:0:crapetteService.NUMBEROFSTREETS;  let i=index">
+        <stack [stack]="street"></stack>
+      </div>
+    </div>
+
+    <div class="field aces-field">
+      <stack *ngFor="let pile of stacks.aces" [stack]="pile"></stack>
+    </div>
+
+    <div class="field streets-field streets-left">
+      <div *ngFor="let street of stacks.streets | slice:crapetteService.NUMBEROFSTREETS:crapetteService.NUMBEROFSTREETS*2;  let i=index">
+        <stack [stack]="street"></stack>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row player-row player-row-bottom">
+    <div class="field main-field">
+      <stack [stack]="stacks.player1Main"></stack>
+      <stack [stack]="stacks.player1Discard"></stack>
+    </div>
+    <div class="field crappette-field">
+      <stack [stack]="stacks.player1Crapette"></stack>
+    </div>
+  </div>
 </div>
