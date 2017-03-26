@@ -22,5 +22,7 @@ export class Card {
     this.player = player;
     this.type = type;
     this.value = value;
+
+    player.deck.addCard(this);
   }
 }

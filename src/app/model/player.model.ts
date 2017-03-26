@@ -1,4 +1,4 @@
-import Deck from './deck.model';
+import { Deck } from './deck.model';
 
 export class Player {
   public id: Number;
@@ -6,5 +6,6 @@ export class Player {
 
   constructor(id) {
     this.id = id;
+    this.deck = new Deck();
   }
 }

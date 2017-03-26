@@ -5,6 +5,12 @@ export class Deck {
 
   constructor(cards) {
     this.cards = [];
-    this.cards.push(...cards);
+    if (cards) {
+      this.cards.push(...cards);
+    }
+  }
+
+  public addCard(card: Card) {
+    this.cards.push(card);
   }
 }
