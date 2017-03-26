@@ -39,9 +39,9 @@ export class AppComponent implements OnInit {
     console.log(player);
     this.card = new Card(player, CardType.CLUBS, 12);
     const set = this.cardToolsService.createSet(player);
-    console.log(set);
     let deck = new Deck(set);
     console.log(deck);
+    this.cardToolsService.shuffleDeck(deck);
   }
 
 }

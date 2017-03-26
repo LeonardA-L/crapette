@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core';
 
 import { Card, CardType } from './../model/card.model';
+import { Deck } from './../model/deck.model';
 
 @Injectable()
 export class CardToolsService {
@@ -48,6 +49,10 @@ export class CardToolsService {
     return numeric;
   }
 
+  public shuffleDeck(deck: Deck) {
+    deck.cards = this.shuffle(deck.cards);
+  }
+
   public createSet (player, cardMinHigh, cardMaxHigh) {
     let cards: Card[] = [];
     cardMinHigh = cardMinHigh || this.CARDMINHIGH;
@@ -61,6 +66,26 @@ export class CardToolsService {
       }
     }
     return cards;
+  }
+
+  // -> Fisher–Yates shuffle algorithm
+  private shuffle(arr) {
+    const m = arr.length;
+    let t;
+    let i;
+
+    // While there remain elements to shuffle
+    while (m) {
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+
+      // And swap it with the current element.
+      t = arr[m];
+      arr[m] = arr[i];
+      arr[i] = t;
+    }
+
+    return arr;
   }
 
 }
