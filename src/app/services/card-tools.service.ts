@@ -53,7 +53,7 @@ export class CardToolsService {
     deck.cards = this.shuffle(deck.cards);
   }
 
-  public createSet (player, cardMinHigh, cardMaxHigh) {
+  public createSet (player, cardMinHigh?, cardMaxHigh?) {
     let cards: Card[] = [];
     cardMinHigh = cardMinHigh || this.CARDMINHIGH;
     cardMaxHigh = cardMaxHigh || this.CARDMAXHIGH;

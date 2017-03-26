@@ -1,9 +1,9 @@
-import Card from './card.model';
+import { Card } from './card.model';
 
 export class Deck {
   public cards: Card[];
 
-  constructor(cards) {
+  constructor(cards?) {
     this.cards = [];
     if (cards) {
       this.cards.push(...cards);

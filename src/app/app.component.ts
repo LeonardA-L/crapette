@@ -27,8 +27,6 @@ import { CrapetteService } from './services/crapette.service';
   providers: [CardToolsService, CrapetteService]
 })
 export class AppComponent implements OnInit {
-  public card;
-  public stack;
 
   constructor(
     public appState: AppState,
@@ -38,16 +36,6 @@ export class AppComponent implements OnInit {
 
   public ngOnInit() {
     console.log('Initial App State', this.appState.state);
-
-    let player = new Player(0);
-    console.log(player);
-    this.card = new Card(player, CardType.CLUBS, 12);
-    const set = this.cardToolsService.createSet(player);
-    let deck = new Deck(set);
-    console.log(deck);
-    this.cardToolsService.shuffleDeck(deck);
-
-    this.stack = new Stack(deck, true);
 
     let players = this.crapetteService.initPlayers();
     console.log(players);
