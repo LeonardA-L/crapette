@@ -10,5 +10,50 @@
   width: $cardWidth;
   height: $cardHeight;
 
+  color: $black-card;
+  font-size: 0.9em;
+  font-weight: 600;
+
+  $shift: 1.5;
+
   background: $white-card;
+
+  .card-content {
+    margin: $card-padding;
+    border-radius: $card-radius;
+
+    height: calc(100% - 2 * #{$card-padding});
+  }
+
+  .invisible {
+    background: $blue-player;
+  }
+
+  .red.invisible {
+    background: $red-player;
+  }
+
+  .red-card {
+    color: $red-card;
+  }
+
+  .top-left, .bottom-right {
+    position: absolute;
+  }
+
+  .top-left {
+    top: $shift * $card-radius;
+    left: $shift * $card-radius;
+  }
+
+  .bottom-right {
+    $d: 180deg;
+    -ms-transform: rotate($d); /* IE 9 */
+    -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
+    transform: rotate($d);
+
+    bottom: $shift * $card-radius;
+    right: $shift * $card-radius;
+  }
 }
+
