@@ -48,4 +48,12 @@ export class AppComponent implements OnInit {
     console.log(this.stacks);
   }
 
+  public pick(event) {
+    this.crapetteService.pick(event.stack);
+  }
+
+  public push(event) {
+    this.crapetteService.push(event.stack);
+  }
+
 }

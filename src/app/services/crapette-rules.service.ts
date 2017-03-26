@@ -11,7 +11,8 @@ import { CardToolsService } from './card-tools.service';
 
 @Injectable()
 export class RulesService {
-  public simpleRule() {
-    return true;
+  public simpleRule(stack: Stack, card: Card, player: Player) {
+    console.log(card, stack.deck.cards[stack.deck.cards.length - 1]);
+    return card === stack.deck.cards[stack.deck.cards.length - 1];
   }
 }

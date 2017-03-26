@@ -1,8 +1,8 @@
 <div class="stack">
   <div *ngIf="stack.deck.cards.length === 0">
-    <div class="no-card"></div>
+    <div class="no-card" (click)="clickCard()"></div>
   </div>
   <div *ngIf="(stack.deck.cards.length > 0)">
-    <card [card]="stack.deck.cards[stack.deck.cards.length - 1]"></card>
+    <card [card]="stack.deck.cards[stack.deck.cards.length - 1]" (click)="clickCard(stack.deck.cards[stack.deck.cards.length - 1])"></card>
   <div>
 </div>

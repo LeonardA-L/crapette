@@ -22,6 +22,8 @@ export class Card {
   public type: CardType;
   public value: Number;
   public visible: Boolean;
+  public picked: Boolean;
+  public stack;
 
   constructor(player, type, value) {
     if (player) {
@@ -30,6 +32,7 @@ export class Card {
     this.type = type;
     this.value = value;
     this.visible = false;
+    this.picked = false;
 
     player.deck.addCard(this);
   }

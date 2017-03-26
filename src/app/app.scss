@@ -36,4 +36,15 @@ div {
 .aces-field {
   width: 2 * ($cardWidth + 2 * $stackPadding) + 20px;
   flex: unset;
+
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-align-content: flex-end;
+  align-content: flex-end;
 }
