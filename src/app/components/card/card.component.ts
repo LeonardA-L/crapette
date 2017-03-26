@@ -1,6 +1,7 @@
 // Card component
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Card } from './../../model/card.model';  // Get the model
+import { CardToolsService } from './../../services/card-tools.service';  // Get the model
 
 @Component({  // Declare the Todo item component with its view and style
   selector: 'card',
@@ -13,5 +14,9 @@ export class CardComponent {
   // This class receives a Todo item as an input value through the component's attributes
   @Input()
   public card: Card;
+
+  constructor(private cardToolsService: CardToolsService) {
+    this.cardToolsService = cardToolsService;
+  }
 
 }

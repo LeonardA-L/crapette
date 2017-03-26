@@ -12,6 +12,8 @@ import { Player } from './model/player.model';
 import { Deck } from './model/deck.model';
 import { CardType, Card } from './model/card.model';
 
+import { CardToolsService } from './services/card-tools.service';  // Get the model
+
 /*
  * App Component
  * Top Level Component
@@ -19,7 +21,8 @@ import { CardType, Card } from './model/card.model';
 @Component({
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [CardToolsService]
 })
 export class AppComponent implements OnInit {
   public card;
@@ -33,7 +36,7 @@ export class AppComponent implements OnInit {
 
     let player = new Player(0);
     console.log(player);
-    this.card = new Card(player, CardType.CLUBS, 6);
+    this.card = new Card(player, CardType.CLUBS, 12);
     let deck = new Deck([this.card]);
     console.log(deck);
   }
