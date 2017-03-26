@@ -11,7 +11,8 @@ import { CardToolsService } from './card-tools.service';
 
 @Injectable()
 export class CrapetteService {
-  public NUMBEROFSTREETS = 8;
+  public NUMBEROFSTREETS = 4;  // Per player
+  public CRAPETTEHIGH = 13;
 
   constructor(
     public cardToolsService: CardToolsService,
@@ -44,11 +45,28 @@ export class CrapetteService {
       }
     }
 
-    for (let s=0; s<this.NUMBEROFSTREETS; s++) {
+    for (let s=0; s<this.NUMBEROFSTREETS * players.length; s++) {
       stacks.streets.push(new Stack(new Deck(), true, null, null, Spread.NONE));
     }
 
     return stacks;
+  }
+
+  public dealStacks(stacks, players) {
+    for (let p of players) {
+      const main = stacks['player'+p.id+'Main'];
+      const crapette = stacks['player'+p.id+'Crapette'];
+
+      for (let i=0; i<this.CRAPETTEHIGH; i++) {
+        const card = main.deck.pop();
+        crapette.deck.addCard(card);
+      }
+
+      for (let s=0; s<this.NUMBEROFSTREETS; s++) {
+        const card = main.deck.pop();
+        stacks.streets[p.id * this.NUMBEROFSTREETS + s].deck.addCard(card);
+      }
+    }
   }
 
   private initPlayer(id) {

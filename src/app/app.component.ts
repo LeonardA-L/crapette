@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
     console.log(players);
 
     let stacks = this.crapetteService.initStacks(players);
+    this.crapetteService.dealStacks(stacks, players);
     console.log(stacks);
   }
 

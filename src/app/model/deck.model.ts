@@ -13,4 +13,8 @@ export class Deck {
   public addCard(card: Card) {
     this.cards.push(card);
   }
+
+  public pop() {
+    return this.cards.pop();
+  }
 }
