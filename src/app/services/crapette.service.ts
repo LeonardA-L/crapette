@@ -24,13 +24,13 @@ export class CrapetteService {
 
   public initStacks(players) {
     let stacks = {
-      player0Main : new Stack(players[0].deck, false, null, null, Spread.NONE),
-      player0Discard : new Stack(new Deck(), false, null, null, Spread.NONE),
-      player0Crapette : new Stack(new Deck(), true, null, null, Spread.NONE),
+      player0Main : new Stack(players[0].deck, false, null, null, players[0], Spread.NONE),
+      player0Discard : new Stack(new Deck(), false, null, null, players[0], Spread.NONE),
+      player0Crapette : new Stack(new Deck(), true, null, null, players[0], Spread.NONE),
 
-      player1Main : new Stack(players[1].deck, false, null, null, Spread.NONE),
-      player1Discard : new Stack(new Deck(), false, null, null, Spread.NONE),
-      player1Crapette : new Stack(new Deck(), true, null, null, Spread.NONE),
+      player1Main : new Stack(players[1].deck, false, null, null, players[1], Spread.NONE),
+      player1Discard : new Stack(new Deck(), false, null, null, players[1], Spread.NONE),
+      player1Crapette : new Stack(new Deck(), true, null, null, players[1], Spread.NONE),
 
       aces : [],
       streets : []

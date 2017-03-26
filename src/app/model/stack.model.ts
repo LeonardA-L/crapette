@@ -12,12 +12,14 @@ export class Stack {
   public spread: Number;
   public pushRule: Function;
   public popRule: Function;
+  public owner;
 
-  constructor(deck, vertical, pushRule, popRule, spread?) {
+  constructor(deck, vertical, pushRule, popRule, owner?, spread?) {
     this.deck = deck;
     this.vertical = vertical;
     this.spread = spread;
     this.pushRule = pushRule;
     this.popRule = popRule;
+    this.owner = owner;
   }
 }
