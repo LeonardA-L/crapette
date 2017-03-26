@@ -21,6 +21,7 @@ export class Card {
   public player;
   public type: CardType;
   public value: Number;
+  public visible: Boolean;
 
   constructor(player, type, value) {
     if (player) {
@@ -28,6 +29,7 @@ export class Card {
     }
     this.type = type;
     this.value = value;
+    this.visible = false;
 
     player.deck.addCard(this);
   }

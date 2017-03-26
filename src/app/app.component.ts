@@ -13,7 +13,8 @@ import { Deck } from './model/deck.model';
 import { Stack } from './model/stack.model';
 import { CardType, Card } from './model/card.model';
 
-import { CardToolsService } from './services/card-tools.service';  // Get the model
+import { CardToolsService } from './services/card-tools.service';
+import { CrapetteService } from './services/crapette.service';
 
 /*
  * App Component
@@ -23,7 +24,7 @@ import { CardToolsService } from './services/card-tools.service';  // Get the mo
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'app.html',
-  providers: [CardToolsService]
+  providers: [CardToolsService, CrapetteService]
 })
 export class AppComponent implements OnInit {
   public card;
@@ -31,7 +32,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     public appState: AppState,
-    public cardToolsService: CardToolsService
+    public cardToolsService: CardToolsService,
+    public crapetteService: CrapetteService,
   ) {}
 
   public ngOnInit() {
@@ -46,6 +48,12 @@ export class AppComponent implements OnInit {
     this.cardToolsService.shuffleDeck(deck);
 
     this.stack = new Stack(deck, true);
+
+    let players = this.crapetteService.initPlayers();
+    console.log(players);
+
+    let stacks = this.crapetteService.initStacks(players);
+    console.log(stacks);
   }
 
 }
