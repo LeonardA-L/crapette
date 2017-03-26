@@ -1,5 +1,5 @@
 <div class="card">
-  {{cardToolsService.getCharFromNumeric(card.value)}}{{card.type.name}}
+  {{card.visible ? cardToolsService.getCharFromNumeric(card.value)+''+card.type.name : 'invisible'}}
   <br />
   {{card.picked ? 'Picked':''}}
 </div>

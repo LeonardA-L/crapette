@@ -85,9 +85,11 @@ export class CrapetteService {
         const card = main.deck.pop();
         crapette.deck.addCard(card);
       }
+      crapette.deck.cards[crapette.deck.cards.length - 1].visible = true;
 
       for (let s = 0; s < this.NUMBEROFSTREETS; s++) {
         const card = main.deck.pop();
+        card.visible = true;
         stacks.streets[p.id * this.NUMBEROFSTREETS + s].deck.addCard(card);
       }
     }
@@ -96,6 +98,7 @@ export class CrapetteService {
   public pick(stackFrom: Stack) {
     this.pickedCard = stackFrom.deck.cards[stackFrom.deck.cards.length - 1];
     this.pickedCard.picked = true;
+    this.pickedCard.visible = true;
     this.pickedStack = stackFrom;
   }
 
