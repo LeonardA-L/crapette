@@ -15,8 +15,6 @@ export class CardComponent {
   @Input()
   public card: Card;
 
-  constructor(private cardToolsService: CardToolsService) {
-    this.cardToolsService = cardToolsService;
-  }
+  constructor(public cardToolsService: CardToolsService) {}
 
 }

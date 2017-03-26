@@ -28,7 +28,8 @@ export class AppComponent implements OnInit {
   public card;
 
   constructor(
-    public appState: AppState
+    public appState: AppState,
+    public cardToolsService: CardToolsService
   ) {}
 
   public ngOnInit() {
@@ -37,7 +38,9 @@ export class AppComponent implements OnInit {
     let player = new Player(0);
     console.log(player);
     this.card = new Card(player, CardType.CLUBS, 12);
-    let deck = new Deck([this.card]);
+    const set = this.cardToolsService.createSet(player);
+    console.log(set);
+    let deck = new Deck(set);
     console.log(deck);
   }
 

@@ -1,15 +1,19 @@
 export const CardType = {
   CLUBS: {
-    name: 'clubs'
+    name: 'clubs',
+    color: 0
   },
   HEARTS: {
-    name: 'hearts'
+    name: 'hearts',
+    color: 1
   },
   DIAMONDS: {
-    name: 'diamonds'
+    name: 'diamonds',
+    color: 1
   },
   SPADES: {
-    name: 'spades'
+    name: 'spades',
+    color: 0
   }
 };
 
@@ -19,7 +23,9 @@ export class Card {
   public value: Number;
 
   constructor(player, type, value) {
-    this.player = player;
+    if (player) {
+      this.player = player;
+    }
     this.type = type;
     this.value = value;
 
