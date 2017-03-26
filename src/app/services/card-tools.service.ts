@@ -13,6 +13,9 @@ export class CardToolsService {
   public getCharFromNumeric(value: Number): string {
     let name: string = '' + value;
     switch (value) {
+      case 1:
+        name = 'A';
+      break;
       case 11:
         name = 'J';
       break;
@@ -33,6 +36,9 @@ export class CardToolsService {
     let numeric = parseInt(value, 10);
 
     switch (value) {
+      case 'A':
+        numeric = 1;
+      break;
       case 'J':
         numeric = 11;
       break;

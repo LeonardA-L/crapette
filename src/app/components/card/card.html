@@ -6,12 +6,12 @@
   }">
     <div class="top-left" *ngIf="card.visible">
       <div class="card-value">{{cardToolsService.getCharFromNumeric(card.value)}}</div>
-      <div class="card-suit" [ngClass]="card.type.name"></div>
+      <div class="card-suit" [ngClass]="'icon-'+card.type.name+'15'"></div>
     </div>
 
     <div class="bottom-right" *ngIf="card.visible">
       <div class="card-value">{{cardToolsService.getCharFromNumeric(card.value)}}</div>
-      <div class="card-suit" [ngClass]="card.type.name"></div>
+      <div class="card-suit" [ngClass]="'icon-'+card.type.name+'15'"></div>
     </div>
     {{card.picked ? 'Picked':''}}
   </div>

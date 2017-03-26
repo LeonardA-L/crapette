@@ -55,5 +55,18 @@
     bottom: $shift * $card-radius;
     right: $shift * $card-radius;
   }
+
+  .card-suit {
+    transform: scale(0.85);
+    margin: 2px 0 2px -2px;
+  }
+
+  .card-value {
+    padding-left: 0;
+  }
+
+  .icon-hearts15 {
+    margin-top: 4px;
+  }
 }
 
