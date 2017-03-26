@@ -10,6 +10,7 @@ import { AppState } from './app.service';
 
 import { Player } from './model/player.model';
 import { Deck } from './model/deck.model';
+import { Stack } from './model/stack.model';
 import { CardType, Card } from './model/card.model';
 
 import { CardToolsService } from './services/card-tools.service';  // Get the model
@@ -26,6 +27,7 @@ import { CardToolsService } from './services/card-tools.service';  // Get the mo
 })
 export class AppComponent implements OnInit {
   public card;
+  public stack;
 
   constructor(
     public appState: AppState,
@@ -42,6 +44,8 @@ export class AppComponent implements OnInit {
     let deck = new Deck(set);
     console.log(deck);
     this.cardToolsService.shuffleDeck(deck);
+
+    this.stack = new Stack(deck, true);
   }
 
 }

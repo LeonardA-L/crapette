@@ -26,6 +26,7 @@ import { AppState, InternalStateType } from './app.service';
 import '../styles/styles.scss';
 
 import { CardComponent } from './components/card/card.component';
+import { StackComponent } from './components/stack/stack.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -46,6 +47,7 @@ type StoreType = {
   declarations: [
     AppComponent,
     CardComponent,
+    StackComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,

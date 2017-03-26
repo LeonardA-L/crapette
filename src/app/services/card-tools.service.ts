@@ -70,7 +70,7 @@ export class CardToolsService {
 
   // -> Fisher–Yates shuffle algorithm
   private shuffle(arr) {
-    const m = arr.length;
+    let m = arr.length;
     let t;
     let i;
 

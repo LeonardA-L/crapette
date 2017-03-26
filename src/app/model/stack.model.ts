@@ -1,10 +1,10 @@
 import Deck from './deck.model';
 
 export const Spread = {
-	LEFT: -1,
-	NONE: 0,
-	RIGHT: 1
-}
+  LEFT: -1,
+  NONE: 0,
+  RIGHT: 1
+};
 
 export class Stack {
   public deck: Deck;
@@ -13,7 +13,7 @@ export class Stack {
   public pushRule: Function;
   public popRule: Function;
 
-  constructor(deck, vertical, spread, pushRule, popRule) {
+  constructor(deck, vertical, pushRule, popRule, spread) {
     this.deck = deck;
     this.vertical = vertical;
     this.spread = spread;
