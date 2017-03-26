@@ -70,7 +70,7 @@ export class CrapetteService {
     for (let s = 0; s < this.NUMBEROFSTREETS * players.length; s++) {
       stacks.streets.push(new Stack(new Deck(), true,
         this.rulesService.simpleRule, this.rulesService.simpleRule,
-        null, Spread.NONE));
+        null, s < this.NUMBEROFSTREETS ? Spread.LEFT : Spread.RIGHT));
     }
 
     return stacks;

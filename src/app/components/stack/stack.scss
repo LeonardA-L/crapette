@@ -2,18 +2,41 @@
 @import '../../../styles/variables';
 
 .stack {
-  display: inline-block;
-  border: solid 1px #F66;
-
+  display: inline-flex;
   padding: $stackPadding;
+
+  width: $cardWidth;
+  height: $cardHeight;
+
+  .horizontal {
+    $d: 90deg;
+    -ms-transform: rotate($d); /* IE 9 */
+    -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
+    transform: rotate($d);
+
+    height: $cardWidth;
+    width: $cardHeight;
+  }
+
+  .stack-wrap {
+    position: relative;
+  }
+
+  card {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }
 
 .no-card {
-  border: solid 1px;
+  border: dashed 1px $grey-noCardBorder;
   display: inline-block;
 
   width: $cardWidth;
   height: $cardHeight;
 
-  background: #EEE;
+  background: $noCardBG;
+
+  border-radius: $card-radius;
 }

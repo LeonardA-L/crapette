@@ -1,11 +1,16 @@
 // Colors
-
+$white-card: #FFF;
+$grey-cardBorder: #D8D8D8;
+$noCardBG: rgba(#FFF, 0.3);
+$grey-noCardBorder: #A2A2A2;
 // Sizes
 
 $sideColumnSize: 1;
 $mainColumnSize: 2;
 
-$stackPadding: 20px;
+$stackPadding: 10px;
 
 $cardWidth: 110px;
-$cardHeight: 196px;
+$cardHeight: 156px;
+
+$card-radius: 5px;

@@ -2,9 +2,13 @@
 @import '../../../styles/variables';
 
 .card {
-  border: solid 1px;
+  border: solid 1px $grey-cardBorder;
+  border-radius: $card-radius;
+
   display: inline-block;
 
   width: $cardWidth;
   height: $cardHeight;
+
+  background: $white-card;
 }

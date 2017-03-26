@@ -2,10 +2,6 @@
 @import '../styles/variables';
 
 
-div {
-  border: solid 1px;
-}
-
 .row {
   display: -webkit-flex;
   display: flex;
@@ -27,9 +23,28 @@ div {
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
+  text-align: center;
 
   stack {
     flex: 1;
+  }
+}
+
+.streets-field {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+  .street {
+    flex: 1;
+  }
+}
+
+.streets-left {
+  text-align: right;
+  stack {
+    text-align: left;
   }
 }
 
@@ -48,3 +63,4 @@ div {
   -webkit-align-content: flex-end;
   align-content: flex-end;
 }
+

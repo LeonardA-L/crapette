@@ -34,6 +34,16 @@ export class StackComponent {
     }
   }
 
+  public computeShift(card, stack, idx) {
+    let res = (4 - idx) * 3;
+
+    if (stack.spread) {
+      res = 20 * stack.spread * idx;
+    }
+
+    return res + 'px';
+  }
+
   private pickCard(card) {
     if (this.stack.popRule(this.stack, card, this.crapetteService.currentPlayer)) {
       this.pick.next(this);

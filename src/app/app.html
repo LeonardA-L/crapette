@@ -11,7 +11,7 @@
 
   <div class="row mid-row">
     <div class="field streets-field streets-left">
-      <div *ngFor="let street of stacks.streets | slice:0:crapetteService.NUMBEROFSTREETS;  let i=index">
+      <div class="street" *ngFor="let street of stacks.streets | slice:0:crapetteService.NUMBEROFSTREETS;  let i=index">
         <stack (pick)="pick($event)" (push)="push($event)" [stack]="street"></stack>
       </div>
     </div>
@@ -20,8 +20,8 @@
       <stack (pick)="pick($event)" (push)="push($event)" *ngFor="let pile of stacks.aces" [stack]="pile"></stack>
     </div>
 
-    <div class="field streets-field streets-left">
-      <div *ngFor="let street of stacks.streets | slice:crapetteService.NUMBEROFSTREETS:crapetteService.NUMBEROFSTREETS*2;  let i=index">
+    <div class="field streets-field streets-right">
+      <div class="street" *ngFor="let street of stacks.streets | slice:crapetteService.NUMBEROFSTREETS:crapetteService.NUMBEROFSTREETS*2;  let i=index">
         <stack (pick)="pick($event)" (push)="push($event)" [stack]="street"></stack>
       </div>
     </div>

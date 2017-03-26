@@ -1,8 +1,10 @@
 <div class="stack">
-  <div *ngIf="stack.deck.cards.length === 0">
-    <div class="no-card" (click)="clickCard()"></div>
+  <div class="stack-wrap" [ngClass]="{'horizontal': !stack.vertical}">
+    <div *ngIf="stack.deck.cards.length === 0">
+      <div class="no-card" (click)="clickCard()"></div>
+    </div>
+    <div *ngIf="(stack.deck.cards.length > 0)">
+      <card *ngFor="let card of stack.deck.cards | slice:stack.spread?0:-4; let i = index" [ngStyle]="{'left': computeShift(card, stack, i)}" [card]="card" (click)="clickCard(card)"></card>
+    <div>
   </div>
-  <div *ngIf="(stack.deck.cards.length > 0)">
-    <card [card]="stack.deck.cards[stack.deck.cards.length - 1]" (click)="clickCard(stack.deck.cards[stack.deck.cards.length - 1])"></card>
-  <div>
 </div>
