@@ -39,4 +39,8 @@
   background: $noCardBG;
 
   border-radius: $card-radius;
+
+  &.no-spread {
+    margin-left: 10px;
+  }
 }
