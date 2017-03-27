@@ -16,14 +16,15 @@ export const StackTypes = {
 
 export class Stack {
   public deck: Deck;
-  public vertical: Boolean;
-  public spread: Number;
+  public vertical: boolean;
+  public spread: number;
   public pushRule: Function;
   public popRule: Function;
   public owner;
   public type: StackTypes;
+  public cancelable: boolean;
 
-  constructor(deck, vertical, pushRule, popRule, owner, type, spread?) {
+  constructor(deck, vertical, pushRule, popRule, owner, type, cancelable, spread?) {
     this.deck = deck;
     this.vertical = vertical;
     this.spread = spread;
@@ -31,5 +32,6 @@ export class Stack {
     this.popRule = popRule;
     this.owner = owner;
     this.type = type;
+    this.cancelable = cancelable;
   }
 }

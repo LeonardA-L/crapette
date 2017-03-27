@@ -29,8 +29,10 @@ export class StackComponent {
 
   public clickCard(card) {
     if (this.crapetteService.pickedCard
-      && this.stack.pushRule(this.stack, this.crapetteService.pickedCard,
-        this.appState, this.appState.get('currentPlayer'))) {
+      && (this.stack.pushRule(this.stack, this.crapetteService.pickedCard,
+        this.appState, this.appState.get('currentPlayer'))
+        || (this.stack.cancelable && this.stack === this.crapetteService.pickedStack)
+      )) {
       this.push.next(this);
     } else if (!this.crapetteService.pickedCard && card) {
       this.pickCard(card);
