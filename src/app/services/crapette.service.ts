@@ -15,7 +15,7 @@ import { AppState } from './../app.service';
 @Injectable()
 export class CrapetteService {
   public NUMBEROFSTREETS = 4;  // Per player
-  public CRAPETTEHIGH = 13;
+  public CRAPETTEHIGH = 45;
   public pickedCard: Card;
   public pickedStack: Stack;
 
@@ -140,6 +140,17 @@ export class CrapetteService {
       this.pickedCard.picked = false;
       this.pickedCard = null;
     }
+  }
+
+  public refillMain(player: Player) {
+    const stacks = this.appState.get('stacks');
+    const main = stacks['player' + player.id + 'Main'];
+    const discard = stacks['player' + player.id + 'Discard'];
+
+    main.deck.cards = discard.deck.cards.reverse();
+    discard.deck.cards = [];
+
+    main.deck.cards.forEach((c) => c.visible = false);
   }
 
   private initPlayer(id) {

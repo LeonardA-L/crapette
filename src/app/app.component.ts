@@ -54,10 +54,13 @@ export class AppComponent implements OnInit {
   }
 
   public push(event) {
-    this.crapetteService.push(event.stack);
+    const stackFrom = event.stack;
+    const stackTo = this.crapetteService.pickedStack;
+    this.crapetteService.push(stackFrom);
 
-    if (event.stack.type === StackTypes.DISCARD
-      && event.stack.owner && event.stack.owner.id === this.appState.get('currentPlayer').id) {
+    if (stackFrom.type === StackTypes.DISCARD
+      && stackFrom !== stackTo
+      && stackFrom.owner && stackFrom.owner.id === this.appState.get('currentPlayer').id) {
       this.crapetteService.endTurn();
     }
   }

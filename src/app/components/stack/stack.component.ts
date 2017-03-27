@@ -1,6 +1,6 @@
 // Deck component
 import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { Stack } from './../../model/stack.model';
+import { Stack, StackTypes } from './../../model/stack.model';
 
 import { CrapetteService } from './../../services/crapette.service';
 import { AppState } from './../../app.service';
@@ -28,14 +28,17 @@ export class StackComponent {
   ) {}
 
   public clickCard(card) {
+    const player = this.appState.get('currentPlayer');
     if (this.crapetteService.pickedCard
       && (this.stack.pushRule(this.stack, this.crapetteService.pickedCard,
-        this.appState, this.appState.get('currentPlayer'))
+        this.appState, player, this.crapetteService.pickedStack)
         || (this.stack.cancelable && this.stack === this.crapetteService.pickedStack)
       )) {
       this.push.next(this);
     } else if (!this.crapetteService.pickedCard && card) {
       this.pickCard(card);
+    } else if (!card && this.stack.type === StackTypes.MAIN && this.stack.owner === player) {
+      this.crapetteService.refillMain(player);
     }
   }
 
@@ -50,7 +53,8 @@ export class StackComponent {
   }
 
   private pickCard(card) {
-    if (this.stack.popRule(this.stack, card, this.appState, this.appState.get('currentPlayer'))) {
+    if (this.stack.popRule(this.stack, card, this.appState, this.appState.get('currentPlayer'),
+      this.crapetteService.pickedStack)) {
       this.pick.next(this);
     }
   }

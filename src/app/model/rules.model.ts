@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 import { Card, CardType } from './card.model';
 import { Deck } from './deck.model';
-import { Stack, Spread } from './stack.model';
+import { Stack, Spread, StackTypes } from './stack.model';
 import { Player } from './player.model';
 
 import { AppState } from './../app.service';
@@ -49,20 +49,24 @@ const lastIsNotKing = (stack: Stack) => {
 
   // Pick up rules
 
-export const pickupAlways = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
+export const pickupAlways = (stack: Stack, card: Card, appState: AppState,
+  player: Player, stackFrom: Stack) => {
   return isOnTop(stack, card);
 };
 
-export const pickupNever = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
+export const pickupNever = (stack: Stack, card: Card, appState: AppState,
+  player: Player, stackFrom: Stack) => {
   return false;
 };
 
-export const pickupOwner = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
+export const pickupOwner = (stack: Stack, card: Card, appState: AppState,
+  player: Player, stackFrom: Stack) => {
   return isOnTop(stack, card)
      && isOwner(stack, player);
 };
 
-export const pickupDiscard = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
+export const pickupDiscard = (stack: Stack, card: Card, appState: AppState,
+  player: Player, stackFrom: Stack) => {
   return isOnTop(stack, card)
     && isOwner(stack, player)
     && appState.get('stacks')['player' + player.id + 'Crapette'].deck.cards.length === 0;
@@ -70,16 +74,19 @@ export const pickupDiscard = (stack: Stack, card: Card, appState: AppState, play
 
 // Push rules
 
-export const pushAlways = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
+export const pushAlways = (stack: Stack, card: Card, appState: AppState,
+  player: Player, stackFrom: Stack) => {
   return true;
 };
 
-export const pushNever = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
+export const pushNever = (stack: Stack, card: Card, appState: AppState,
+  player: Player, stackFrom: Stack) => {
   return false;
 };
 
-export const pushDiscard = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
-  if (isOwner(stack, player)) {
+export const pushDiscard = (stack: Stack, card: Card, appState: AppState,
+  player: Player, stackFrom: Stack) => {
+  if (isOwner(stack, player) && stackFrom.type === StackTypes.MAIN) {
     return true;
   }
   if (stack.deck.cards.length === 0) {
@@ -91,7 +98,8 @@ export const pushDiscard = (stack: Stack, card: Card, appState: AppState, player
     && valueIsNeighbour(stack, card);
 };
 
-export const pushCrapette = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
+export const pushCrapette = (stack: Stack, card: Card, appState: AppState,
+  player: Player, stackFrom: Stack) => {
   return stack.deck.cards.length !== 0
     && !isOwner(stack, player)
     && lastIsNotKing(stack)
@@ -99,7 +107,8 @@ export const pushCrapette = (stack: Stack, card: Card, appState: AppState, playe
     && valueIsNeighbour(stack, card);
 };
 
-export const pushAces = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
+export const pushAces = (stack: Stack, card: Card, appState: AppState,
+  player: Player, stackFrom: Stack) => {
   if (stack.deck.cards.length === 0) {
     if (card.value === 1) {
       return true;
@@ -111,7 +120,8 @@ export const pushAces = (stack: Stack, card: Card, appState: AppState, player?: 
     && suitIsSame(stack, card);
 };
 
-export const pushStreets = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
+export const pushStreets = (stack: Stack, card: Card, appState: AppState,
+  player: Player, stackFrom: Stack) => {
   return stack.deck.cards.length === 0
     || (colorIsDifferent(stack, card)
         && valueIsOneLess(stack, card));
