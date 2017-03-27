@@ -42,6 +42,11 @@ const valueIsOneMore = (stack: Stack, card: Card) => {
 const valueIsOneLess = (stack: Stack, card: Card) => {
   return card.value - stack.deck.cards[stack.deck.cards.length - 1].value === -1;
 };
+
+const lastIsNotKing = (stack: Stack) => {
+  return stack.deck.cards[stack.deck.cards.length - 1].value !== 13;
+};
+
   // Pick up rules
 
 export const pickupAlways = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
@@ -77,13 +82,15 @@ export const pushDiscard = (stack: Stack, card: Card, appState: AppState, player
   if (isOwner(stack, player) || stack.deck.cards.length === 0) {
     return true;
   } else {
-    return colorIsDifferent(stack, card)
+    return lastIsNotKing(stack)
+      && colorIsDifferent(stack, card)
       && valueIsNeighbour(stack, card);
   }
 };
 
 export const pushCrapette = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
   return !isOwner(stack, player)
+    && lastIsNotKing(stack)
     && suitIsSame(stack, card)
     && valueIsNeighbour(stack, card);
 };
