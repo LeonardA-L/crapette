@@ -79,17 +79,21 @@ export const pushNever = (stack: Stack, card: Card, appState: AppState, player?:
 };
 
 export const pushDiscard = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
-  if (isOwner(stack, player) || stack.deck.cards.length === 0) {
+  if (isOwner(stack, player)) {
     return true;
-  } else {
-    return lastIsNotKing(stack)
-      && colorIsDifferent(stack, card)
-      && valueIsNeighbour(stack, card);
   }
+  if (stack.deck.cards.length === 0) {
+    return false;
+  }
+
+  return lastIsNotKing(stack)
+    && colorIsDifferent(stack, card)
+    && valueIsNeighbour(stack, card);
 };
 
 export const pushCrapette = (stack: Stack, card: Card, appState: AppState, player?: Player) => {
-  return !isOwner(stack, player)
+  return stack.deck.cards.length !== 0
+    && !isOwner(stack, player)
     && lastIsNotKing(stack)
     && suitIsSame(stack, card)
     && valueIsNeighbour(stack, card);

@@ -4,28 +4,29 @@ import { Injectable } from '@angular/core';
 
 import { Card, CardType } from './../model/card.model';
 import { Deck } from './../model/deck.model';
-import { Stack, Spread } from './../model/stack.model';
+import { Stack, Spread, StackTypes } from './../model/stack.model';
 import { Player } from './../model/player.model';
 
 import { CardToolsService } from './card-tools.service';
 import * as Rules from './../model/rules.model';
 
+import { AppState } from './../app.service';
+
 @Injectable()
 export class CrapetteService {
   public NUMBEROFSTREETS = 4;  // Per player
   public CRAPETTEHIGH = 13;
-  public currentPlayer: Player;
   public pickedCard: Card;
   public pickedStack: Stack;
 
   constructor(
     public cardToolsService: CardToolsService,
+    public appState: AppState,
   ) {}
 
   public initPlayers() {
     let player0 = this.initPlayer(0);
     let player1 = this.initPlayer(1);
-    this.currentPlayer = player0;
     return [player0, player1];
   }
 
@@ -33,23 +34,23 @@ export class CrapetteService {
     let stacks = {
       player0Main : new Stack(players[0].deck, false,
         Rules.pushNever, Rules.pickupOwner,
-        players[0], Spread.NONE),
+        players[0], StackTypes.MAIN, Spread.NONE),
       player0Discard : new Stack(new Deck(), false,
         Rules.pushDiscard, Rules.pickupDiscard,
-        players[0], Spread.NONE),
+        players[0], StackTypes.DISCARD, Spread.NONE),
       player0Crapette : new Stack(new Deck(), true,
         Rules.pushCrapette, Rules.pickupOwner,
-        players[0], Spread.NONE),
+        players[0], StackTypes.CRAPETTE, Spread.NONE),
 
       player1Main : new Stack(players[1].deck, false,
         Rules.pushNever, Rules.pickupOwner,
-        players[1], Spread.NONE),
+        players[1], StackTypes.MAIN, Spread.NONE),
       player1Discard : new Stack(new Deck(), false,
         Rules.pushDiscard, Rules.pickupDiscard,
-        players[1], Spread.NONE),
+        players[1], StackTypes.DISCARD, Spread.NONE),
       player1Crapette : new Stack(new Deck(), true,
         Rules.pushCrapette, Rules.pickupOwner,
-        players[1], Spread.NONE),
+        players[1], StackTypes.CRAPETTE, Spread.NONE),
 
       aces : [],
       streets : []
@@ -61,7 +62,7 @@ export class CrapetteService {
           const type = CardType[typeName];
           stacks.aces.push(new Stack(new Deck(), true,
             Rules.pushAces, Rules.pickupNever,
-            null, Spread.NONE));
+            null, StackTypes.ACE, Spread.NONE));
         }
       }
     }
@@ -69,7 +70,7 @@ export class CrapetteService {
     for (let s = 0; s < this.NUMBEROFSTREETS * players.length; s++) {
       stacks.streets.push(new Stack(new Deck(), true,
         Rules.pushStreets, Rules.pickupAlways,
-        null, s < this.NUMBEROFSTREETS ? Spread.LEFT : Spread.RIGHT));
+        null, StackTypes.STREET, s < this.NUMBEROFSTREETS ? Spread.LEFT : Spread.RIGHT));
     }
 
     return stacks;
@@ -108,6 +109,37 @@ export class CrapetteService {
 
     this.pickedCard = null;
     this.pickedStack = null;
+  }
+
+  public endTurn() {
+    const currentPlayer = this.appState.get('currentPlayer');
+    // uncover top card on the crapette
+    const crapette = this.appState.get('stacks')['player' + currentPlayer.id + 'Crapette'];
+    const lastCard = crapette.deck.cards[crapette.deck.cards.length - 1];
+    if (lastCard) {
+      lastCard.visible = true;
+    }
+
+    // change current player
+    const nextPlayer: Player = this.appState.get('players')
+      [(currentPlayer.id + 1) % 2];
+    this.appState.set('currentPlayer', nextPlayer);
+
+    // Reset temporary states
+
+    // Discard card that is picked from main
+    if (this.pickedCard && this.pickedStack && this.pickedStack.type === StackTypes.MAIN) {
+      const discard = this.appState.get('stacks')['player' + currentPlayer.id + 'Discard'];
+      this.push(discard);
+    }
+
+    if (this.pickedStack) {
+      this.pickedStack = null;
+    }
+    if (this.pickedCard) {
+      this.pickedCard.picked = false;
+      this.pickedCard = null;
+    }
   }
 
   private initPlayer(id) {

@@ -40,14 +40,13 @@ export class AppComponent implements OnInit {
     console.log('Initial App State', this.appState.state);
 
     let players = this.crapetteService.initPlayers();
-    console.log(players);
 
     this.stacks = this.crapetteService.initStacks(players);
     this.crapetteService.dealStacks(this.stacks, players);
-    console.log(this.stacks);
 
     this.appState.set('stacks', this.stacks);
     this.appState.set('players', players);
+    this.appState.set('currentPlayer', players[0]);
   }
 
   public pick(event) {
@@ -59,7 +58,7 @@ export class AppComponent implements OnInit {
   }
 
   public changePlayer() {
-    this.crapetteService.currentPlayer = this.appState.get('players')[1];
+    this.crapetteService.endTurn();
   }
 
 }
