@@ -15,7 +15,6 @@ import { CardType, Card } from './model/card.model';
 
 import { CardToolsService } from './services/card-tools.service';
 import { CrapetteService } from './services/crapette.service';
-import { RulesService } from './services/crapette-rules.service';
 
 /*
  * App Component
@@ -26,7 +25,7 @@ import { RulesService } from './services/crapette-rules.service';
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'app.html',
   styleUrls: ['app.scss'],
-  providers: [CardToolsService, CrapetteService, RulesService]
+  providers: [CardToolsService, CrapetteService]
 })
 export class AppComponent implements OnInit {
   public stacks;
@@ -46,6 +45,8 @@ export class AppComponent implements OnInit {
     this.stacks = this.crapetteService.initStacks(players);
     this.crapetteService.dealStacks(this.stacks, players);
     console.log(this.stacks);
+
+    this.appState.set('stacks', this.stacks);
   }
 
   public pick(event) {

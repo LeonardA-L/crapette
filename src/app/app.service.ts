@@ -7,7 +7,7 @@ export type InternalStateType = {
 @Injectable()
 export class AppState {
 
-  public _state: InternalStateType = { };
+  public _state: InternalStateType = {};
 
   // already return a clone of the current state
   public get state() {
@@ -20,7 +20,7 @@ export class AppState {
 
   public get(prop?: any) {
     // use our state getter for the clone
-    const state = this.state;
+    const state = this._state;
     return state.hasOwnProperty(prop) ? state[prop] : state;
   }
 

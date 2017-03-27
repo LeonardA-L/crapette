@@ -3,6 +3,7 @@ import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angu
 import { Stack } from './../../model/stack.model';
 
 import { CrapetteService } from './../../services/crapette.service';
+import { AppState } from './../../app.service';
 
 @Component({
   selector: 'stack',
@@ -23,13 +24,15 @@ export class StackComponent {
 
   constructor(
     public crapetteService: CrapetteService,
+    public appState: AppState,
   ) {}
 
   public clickCard(card) {
     if (this.crapetteService.pickedCard
-      && this.stack.pushRule(this.stack, card, this.crapetteService.currentPlayer)) {
+      && this.stack.pushRule(this.stack, this.crapetteService.pickedCard,
+        this.appState, this.crapetteService.currentPlayer)) {
       this.push.next(this);
-    } else if (card) {
+    } else if (!this.crapetteService.pickedCard && card) {
       this.pickCard(card);
     }
   }
@@ -45,7 +48,7 @@ export class StackComponent {
   }
 
   private pickCard(card) {
-    if (this.stack.popRule(this.stack, card, this.crapetteService.currentPlayer)) {
+    if (this.stack.popRule(this.stack, card, this.appState, this.crapetteService.currentPlayer)) {
       this.pick.next(this);
     }
   }

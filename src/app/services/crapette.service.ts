@@ -8,7 +8,7 @@ import { Stack, Spread } from './../model/stack.model';
 import { Player } from './../model/player.model';
 
 import { CardToolsService } from './card-tools.service';
-import { RulesService } from './crapette-rules.service';
+import * as Rules from './../model/rules.model';
 
 @Injectable()
 export class CrapetteService {
@@ -20,7 +20,6 @@ export class CrapetteService {
 
   constructor(
     public cardToolsService: CardToolsService,
-    public rulesService: RulesService,
   ) {}
 
   public initPlayers() {
@@ -33,23 +32,23 @@ export class CrapetteService {
   public initStacks(players) {
     let stacks = {
       player0Main : new Stack(players[0].deck, false,
-        this.rulesService.simpleRule, this.rulesService.simpleRule,
+        Rules.pushNever, Rules.pickupOwner,
         players[0], Spread.NONE),
       player0Discard : new Stack(new Deck(), false,
-        this.rulesService.simpleRule, this.rulesService.simpleRule,
+        Rules.pushDiscard, Rules.pickupDiscard,
         players[0], Spread.NONE),
       player0Crapette : new Stack(new Deck(), true,
-        this.rulesService.simpleRule, this.rulesService.simpleRule,
+        Rules.pushCrapette, Rules.pickupOwner,
         players[0], Spread.NONE),
 
       player1Main : new Stack(players[1].deck, false,
-        this.rulesService.simpleRule, this.rulesService.simpleRule,
+        Rules.pushNever, Rules.pickupOwner,
         players[1], Spread.NONE),
       player1Discard : new Stack(new Deck(), false,
-        this.rulesService.simpleRule, this.rulesService.simpleRule,
+        Rules.pushDiscard, Rules.pickupDiscard,
         players[1], Spread.NONE),
       player1Crapette : new Stack(new Deck(), true,
-        this.rulesService.simpleRule, this.rulesService.simpleRule,
+        Rules.pushCrapette, Rules.pickupOwner,
         players[1], Spread.NONE),
 
       aces : [],
@@ -61,7 +60,7 @@ export class CrapetteService {
         if (CardType.hasOwnProperty(typeName)) {
           const type = CardType[typeName];
           stacks.aces.push(new Stack(new Deck(), true,
-            this.rulesService.simpleRule, this.rulesService.simpleRule,
+            Rules.pushAces, Rules.pickupNever,
             null, Spread.NONE));
         }
       }
@@ -69,7 +68,7 @@ export class CrapetteService {
 
     for (let s = 0; s < this.NUMBEROFSTREETS * players.length; s++) {
       stacks.streets.push(new Stack(new Deck(), true,
-        this.rulesService.simpleRule, this.rulesService.simpleRule,
+        Rules.pushStreets, Rules.pickupAlways,
         null, s < this.NUMBEROFSTREETS ? Spread.LEFT : Spread.RIGHT));
     }
 

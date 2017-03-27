@@ -20,9 +20,9 @@ export const CardType = {
 export class Card {
   public player;
   public type: CardType;
-  public value: Number;
-  public visible: Boolean;
-  public picked: Boolean;
+  public value: number;
+  public visible: boolean;
+  public picked: boolean;
   public stack;
 
   constructor(player, type, value) {
