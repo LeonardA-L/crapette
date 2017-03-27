@@ -10,7 +10,7 @@ import { AppState } from './app.service';
 
 import { Player } from './model/player.model';
 import { Deck } from './model/deck.model';
-import { Stack } from './model/stack.model';
+import { Stack, StackTypes } from './model/stack.model';
 import { CardType, Card } from './model/card.model';
 
 import { CardToolsService } from './services/card-tools.service';
@@ -55,6 +55,11 @@ export class AppComponent implements OnInit {
 
   public push(event) {
     this.crapetteService.push(event.stack);
+
+    if (event.stack.type === StackTypes.DISCARD
+      && event.stack.owner && event.stack.owner.id === this.appState.get('currentPlayer').id) {
+      this.crapetteService.endTurn();
+    }
   }
 
   public changePlayer() {
