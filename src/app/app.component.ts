@@ -63,10 +63,25 @@ export class AppComponent implements OnInit {
 
     const newAceOpportunities = this.crapetteService.countAceOpportunity(player);
 
-    console.log(aceOpportunities, newAceOpportunities);
+    console.log(aceOpportunities.length, newAceOpportunities.length);
 
-    if (newAceOpportunities > 0 && newAceOpportunities === aceOpportunities) {
+    if (aceOpportunities.length > 0 && newAceOpportunities.length === aceOpportunities.length) {
+      // Need to check that every opportunity is the same because
+      // solving one may have created another
+      // let same = true;
+      // for (let i = 0; i < aceOpportunities.length; i++) {
+      //   const cardOld = aceOpportunities[i];
+      //   const cardNew = newAceOpportunities[i];
+
+      //   if (cardOld !== cardNew) {
+      //     same = false;
+      //     break;
+      //   }
+      // }
+      // Special case that doesn't work : solving one opportunity may have created another
       this.crapetteService.crapetteAvailable = true;
+    } else {
+      this.crapetteService.crapetteAvailable = false;
     }
 
     if (stackFrom.type === StackTypes.DISCARD

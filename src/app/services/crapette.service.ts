@@ -166,15 +166,16 @@ export class CrapetteService {
 
       stacksToInspect.push(...stacks.streets);
 
-      let opportunities = 0;
+      let opportunities: Card[] = [];
 
       // GOOD OL' O(N*P)
       for (let stack of stacksToInspect) {
         const card: Card = stack.deck.cards[stack.deck.cards.length - 1];
-        if (card && stack.popRule(stack, card, this.appState, player)) {
+        if (card && card.visible
+          && stack.popRule(stack, card, this.appState, player)) {
           for (let aceStack of stacks.aces) {
             if (aceStack.pushRule(aceStack, card, this.appState, player, stack)) {
-              opportunities ++;
+              opportunities.push(card);
             }
           }
         }
