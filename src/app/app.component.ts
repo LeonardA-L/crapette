@@ -54,13 +54,37 @@ export class AppComponent implements OnInit {
   }
 
   public push(event) {
+    const player = this.appState.get('currentPlayer');
+    const aceOpportunities = this.crapetteService.countAceOpportunity(player);
+
     const stackFrom = event.stack;
     const stackTo = this.crapetteService.pickedStack;
     this.crapetteService.push(stackFrom);
 
+    const newAceOpportunities = this.crapetteService.countAceOpportunity(player);
+
+    console.log(aceOpportunities, newAceOpportunities);
+
+    if (newAceOpportunities > 0 && newAceOpportunities === aceOpportunities) {
+      this.crapetteService.crapetteAvailable = true;
+    }
+
     if (stackFrom.type === StackTypes.DISCARD
       && stackFrom !== stackTo
       && stackFrom.owner && stackFrom.owner.id === this.appState.get('currentPlayer').id) {
+      this.crapetteService.endTurn();
+    }
+  }
+
+  public crapette(playerId: number) {
+    // Get the other player
+    const player = this.appState.get('players')[(playerId + 1) % 2];
+    if (player !== this.appState.get('currentPlayer')) {
+      return;
+    }
+
+    if (this.crapetteService.crapetteAvailable) {
+      console.log('CRAPETTE');
       this.crapetteService.endTurn();
     }
   }

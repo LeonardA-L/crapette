@@ -9,6 +9,9 @@
       <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Main"></stack>
       <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Discard"></stack>
     </div>
+    <div class="field alertField">
+      <button (click)="crapette(0)">Crapette !</button>
+    </div>
   </div>
 
   <div class="row mid-row">
@@ -37,6 +40,9 @@
     </div>
     <div class="field crappette-field">
       <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Crapette"></stack>
+    </div>
+    <div class="field alertField">
+      <button (click)="crapette(1)">Crapette !</button>
     </div>
   </div>
 </div>

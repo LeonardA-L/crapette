@@ -15,9 +15,10 @@ import { AppState } from './../app.service';
 @Injectable()
 export class CrapetteService {
   public NUMBEROFSTREETS = 4;  // Per player
-  public CRAPETTEHIGH = 45;
+  public CRAPETTEHIGH = 13;
   public pickedCard: Card;
   public pickedStack: Stack;
+  public crapetteAvailable = false;
 
   constructor(
     public cardToolsService: CardToolsService,
@@ -140,6 +141,9 @@ export class CrapetteService {
       this.pickedCard.picked = false;
       this.pickedCard = null;
     }
+
+    // Reset crapette! state
+    this.crapetteAvailable = false;
   }
 
   public refillMain(player: Player) {
@@ -151,6 +155,32 @@ export class CrapetteService {
     discard.deck.cards = [];
 
     main.deck.cards.forEach((c) => c.visible = false);
+  }
+
+  public countAceOpportunity(player: Player) {
+      let stacksToInspect: Stack[] = [];
+      const stacks = this.appState.get('stacks');
+      stacksToInspect.push(stacks['player' + player.id + 'Main']);
+      stacksToInspect.push(stacks['player' + player.id + 'Crapette']);
+      stacksToInspect.push(stacks['player' + player.id + 'Discard']);
+
+      stacksToInspect.push(...stacks.streets);
+
+      let opportunities = 0;
+
+      // GOOD OL' O(N*P)
+      for (let stack of stacksToInspect) {
+        const card: Card = stack.deck.cards[stack.deck.cards.length - 1];
+        if (card && stack.popRule(stack, card, this.appState, player)) {
+          for (let aceStack of stacks.aces) {
+            if (aceStack.pushRule(aceStack, card, this.appState, player, stack)) {
+              opportunities ++;
+            }
+          }
+        }
+      }
+
+      return opportunities;
   }
 
   private initPlayer(id) {
