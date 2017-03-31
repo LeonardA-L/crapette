@@ -46,7 +46,13 @@ export class AppComponent implements OnInit {
 
     this.appState.set('stacks', this.stacks);
     this.appState.set('players', players);
-    this.appState.set('currentPlayer', players[0]);
+
+    const player0CrapetteCard: Card = this.stacks.player0Crapette.top;
+    const player1CrapetteCard: Card = this.stacks.player1Crapette.top;
+
+    let firstPlayerId = player1CrapetteCard.value > player0CrapetteCard.value ? 1 : 0;
+
+    this.appState.set('currentPlayer', players[firstPlayerId]);
   }
 
   public pick(event) {
