@@ -23,22 +23,20 @@ export class StackComponent {
   public push = new EventEmitter();
 
   constructor(
-    public crapetteService: CrapetteService,
+    public crapette: CrapetteService,
     public appState: AppState,
   ) {}
 
   public clickCard(card) {
     const player = this.appState.get('currentPlayer');
-    if (this.crapetteService.pickedCard
-      && (this.stack.pushRule(this.stack, this.crapetteService.pickedCard,
-        this.appState, player, this.crapetteService.pickedStack)
-        || (this.stack.cancelable && this.stack === this.crapetteService.pickedStack)
-      )) {
+    if (this.crapette.pickedCard
+      && (this.stack.pushRule(this.stack, this.crapette.pickedCard, this.appState, player, this.crapette.pickedStack)
+      || (this.stack.cancelable && this.stack === this.crapette.pickedStack) )) {
       this.push.next(this);
-    } else if (!this.crapetteService.pickedCard && card) {
+    } else if (!this.crapette.pickedCard && card) {
       this.pickCard(card);
     } else if (!card && this.stack.type === StackTypes.MAIN && this.stack.owner === player) {
-      this.crapetteService.refillMain(player);
+      this.crapette.refillMain(player);
     }
   }
 
@@ -53,8 +51,7 @@ export class StackComponent {
   }
 
   private pickCard(card) {
-    if (this.stack.popRule(this.stack, card, this.appState, this.appState.get('currentPlayer'),
-      this.crapetteService.pickedStack)) {
+    if (this.stack.popRule(this.stack, card, this.appState, this.appState.get('currentPlayer'), this.crapette.pickedStack)) {
       this.pick.next(this);
     }
   }

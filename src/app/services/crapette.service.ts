@@ -33,25 +33,13 @@ export class CrapetteService {
 
   public initStacks(players) {
     let stacks = {
-      player0Main : new Stack(players[0].deck, false,
-        Rules.pushNever, Rules.pickupOwner,
-        players[0], StackTypes.MAIN, false, Spread.NONE),
-      player0Discard : new Stack(new Deck(), false,
-        Rules.pushDiscard, Rules.pickupDiscard,
-        players[0], StackTypes.DISCARD, true, Spread.NONE),
-      player0Crapette : new Stack(new Deck(), true,
-        Rules.pushCrapette, Rules.pickupOwner,
-        players[0], StackTypes.CRAPETTE, true, Spread.NONE),
+      player0Main : new Stack(players[0].deck, false, Rules.pushNever, Rules.pickupOwner, players[0], StackTypes.MAIN, false, Spread.NONE),
+      player0Discard : new Stack(new Deck(), false, Rules.pushDiscard, Rules.pickupDiscard, players[0], StackTypes.DISCARD, true, Spread.NONE),
+      player0Crapette : new Stack(new Deck(), true, Rules.pushCrapette, Rules.pickupOwner, players[0], StackTypes.CRAPETTE, true, Spread.NONE),
 
-      player1Main : new Stack(players[1].deck, false,
-        Rules.pushNever, Rules.pickupOwner,
-        players[1], StackTypes.MAIN, false, Spread.NONE),
-      player1Discard : new Stack(new Deck(), false,
-        Rules.pushDiscard, Rules.pickupDiscard,
-        players[1], StackTypes.DISCARD, true, Spread.NONE),
-      player1Crapette : new Stack(new Deck(), true,
-        Rules.pushCrapette, Rules.pickupOwner,
-        players[1], StackTypes.CRAPETTE, true, Spread.NONE),
+      player1Main : new Stack(players[1].deck, false, Rules.pushNever, Rules.pickupOwner, players[1], StackTypes.MAIN, false, Spread.NONE),
+      player1Discard : new Stack(new Deck(), false, Rules.pushDiscard, Rules.pickupDiscard, players[1], StackTypes.DISCARD, true, Spread.NONE),
+      player1Crapette : new Stack(new Deck(), true, Rules.pushCrapette, Rules.pickupOwner, players[1], StackTypes.CRAPETTE, true, Spread.NONE),
 
       aces : [],
       streets : []
@@ -61,17 +49,13 @@ export class CrapetteService {
       for (let typeName in CardType) {
         if (CardType.hasOwnProperty(typeName)) {
           const type = CardType[typeName];
-          stacks.aces.push(new Stack(new Deck(), true,
-            Rules.pushAces, Rules.pickupNever,
-            null, StackTypes.ACE, true, Spread.NONE));
+          stacks.aces.push(new Stack(new Deck(), true, Rules.pushAces, Rules.pickupNever, null, StackTypes.ACE, true, Spread.NONE));
         }
       }
     }
 
     for (let s = 0; s < this.NUMBEROFSTREETS * players.length; s++) {
-      stacks.streets.push(new Stack(new Deck(), true,
-        Rules.pushStreets, Rules.pickupAlways,
-        null, StackTypes.STREET, true, s < this.NUMBEROFSTREETS ? Spread.LEFT : Spread.RIGHT));
+      stacks.streets.push(new Stack(new Deck(), true, Rules.pushStreets, Rules.pickupAlways, null, StackTypes.STREET, true, s < this.NUMBEROFSTREETS ? Spread.LEFT : Spread.RIGHT));
     }
 
     return stacks;

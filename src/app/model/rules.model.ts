@@ -49,18 +49,15 @@ const lastIsNotKing = (stack: Stack) => {
 
   // Pick up rules
 
-export const pickupAlways = (stack: Stack, card: Card, appState: AppState,
-  player: Player, stackFrom: Stack) => {
+export const pickupAlways = (stack: Stack, card: Card, appState: AppState, player: Player, stackFrom: Stack) => {
   return isOnTop(stack, card);
 };
 
-export const pickupNever = (stack: Stack, card: Card, appState: AppState,
-  player: Player, stackFrom: Stack) => {
+export const pickupNever = (stack: Stack, card: Card, appState: AppState, player: Player, stackFrom: Stack) => {
   return false;
 };
 
-export const pickupOwner = (stack: Stack, card: Card, appState: AppState,
-  player: Player, stackFrom: Stack) => {
+export const pickupOwner = (stack: Stack, card: Card, appState: AppState, player: Player, stackFrom: Stack) => {
   return isOnTop(stack, card)
      && isOwner(stack, player);
 };
@@ -74,18 +71,15 @@ export const pickupDiscard = (stack: Stack, card: Card, appState: AppState,
 
 // Push rules
 
-export const pushAlways = (stack: Stack, card: Card, appState: AppState,
-  player: Player, stackFrom: Stack) => {
+export const pushAlways = (stack: Stack, card: Card, appState: AppState, player: Player, stackFrom: Stack) => {
   return true;
 };
 
-export const pushNever = (stack: Stack, card: Card, appState: AppState,
-  player: Player, stackFrom: Stack) => {
+export const pushNever = (stack: Stack, card: Card, appState: AppState, player: Player, stackFrom: Stack) => {
   return false;
 };
 
-export const pushDiscard = (stack: Stack, card: Card, appState: AppState,
-  player: Player, stackFrom: Stack) => {
+export const pushDiscard = (stack: Stack, card: Card, appState: AppState, player: Player, stackFrom: Stack) => {
   if (isOwner(stack, player) && stackFrom.type === StackTypes.MAIN) {
     return true;
   }
@@ -98,8 +92,7 @@ export const pushDiscard = (stack: Stack, card: Card, appState: AppState,
     && valueIsNeighbour(stack, card);
 };
 
-export const pushCrapette = (stack: Stack, card: Card, appState: AppState,
-  player: Player, stackFrom: Stack) => {
+export const pushCrapette = (stack: Stack, card: Card, appState: AppState, player: Player, stackFrom: Stack) => {
   return stack.deck.cards.length !== 0
     && !isOwner(stack, player)
     && lastIsNotKing(stack)
@@ -107,8 +100,7 @@ export const pushCrapette = (stack: Stack, card: Card, appState: AppState,
     && valueIsNeighbour(stack, card);
 };
 
-export const pushAces = (stack: Stack, card: Card, appState: AppState,
-  player: Player, stackFrom: Stack) => {
+export const pushAces = (stack: Stack, card: Card, appState: AppState, player: Player, stackFrom: Stack) => {
   if (stack.deck.cards.length === 0) {
     if (card.value === 1) {
       return true;
@@ -120,8 +112,7 @@ export const pushAces = (stack: Stack, card: Card, appState: AppState,
     && suitIsSame(stack, card);
 };
 
-export const pushStreets = (stack: Stack, card: Card, appState: AppState,
-  player: Player, stackFrom: Stack) => {
+export const pushStreets = (stack: Stack, card: Card, appState: AppState, player: Player, stackFrom: Stack) => {
   return stack.deck.cards.length === 0
     || (colorIsDifferent(stack, card)
         && valueIsOneLess(stack, card));
