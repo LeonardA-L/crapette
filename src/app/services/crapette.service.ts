@@ -63,14 +63,14 @@ export class CrapetteService {
 
   public dealStacks(stacks, players) {
     for (let p of players) {
-      const main = stacks['player' + p.id + 'Main'];
-      const crapette = stacks['player' + p.id + 'Crapette'];
+      const main: Stack = stacks['player' + p.id + 'Main'];
+      const crapette: Stack = stacks['player' + p.id + 'Crapette'];
 
       for (let i = 0; i < this.CRAPETTEHIGH; i++) {
         const card = main.deck.pop();
         crapette.deck.addCard(card);
       }
-      crapette.deck.cards[crapette.deck.cards.length - 1].visible = true;
+      crapette.top.visible = true;
 
       for (let s = 0; s < this.NUMBEROFSTREETS; s++) {
         const card = main.deck.pop();
@@ -81,7 +81,7 @@ export class CrapetteService {
   }
 
   public pick(stackFrom: Stack) {
-    this.pickedCard = stackFrom.deck.cards[stackFrom.deck.cards.length - 1];
+    this.pickedCard = stackFrom.top;
     this.pickedCard.picked = true;
     this.pickedCard.visible = true;
     this.pickedStack = stackFrom;
@@ -100,7 +100,7 @@ export class CrapetteService {
     const currentPlayer = this.appState.get('currentPlayer');
     // uncover top card on the crapette
     const crapette = this.appState.get('stacks')['player' + currentPlayer.id + 'Crapette'];
-    const lastCard = crapette.deck.cards[crapette.deck.cards.length - 1];
+    const lastCard = crapette.top;
     if (lastCard) {
       lastCard.visible = true;
     }
@@ -154,7 +154,7 @@ export class CrapetteService {
 
       // GOOD OL' O(N*P)
       for (let stack of stacksToInspect) {
-        const card: Card = stack.deck.cards[stack.deck.cards.length - 1];
+        const card: Card = stack.top;
         if (card && card.visible
           && stack.popRule(stack, card, this.appState, player)) {
           for (let aceStack of stacks.aces) {

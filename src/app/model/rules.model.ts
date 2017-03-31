@@ -12,15 +12,15 @@ import { AppState } from './../app.service';
   // General rules
 
 const colorIsDifferent = (stack: Stack, card: Card) => {
-  return card.type.color !== stack.deck.cards[stack.deck.cards.length - 1].type.color;
+  return card.type.color !== stack.top.type.color;
 };
 
 const colorIsSame = (stack: Stack, card: Card) => {
-  return card.type.color === stack.deck.cards[stack.deck.cards.length - 1].type.color;
+  return card.type.color === stack.top.type.color;
 };
 
 const suitIsSame = (stack: Stack, card: Card) => {
-  return card.type.name === stack.deck.cards[stack.deck.cards.length - 1].type.name;
+  return card.type.name === stack.top.type.name;
 };
 
 const isOwner = (stack: Stack, player: Player) => {
@@ -28,23 +28,23 @@ const isOwner = (stack: Stack, player: Player) => {
 };
 
 const isOnTop = (stack: Stack, card: Card) => {
-  return card === stack.deck.cards[stack.deck.cards.length - 1];
+  return card === stack.top;
 };
 
 const valueIsNeighbour = (stack: Stack, card: Card) => {
-  return Math.abs(card.value - stack.deck.cards[stack.deck.cards.length - 1].value) === 1;
+  return Math.abs(card.value - stack.top.value) === 1;
 };
 
 const valueIsOneMore = (stack: Stack, card: Card) => {
-  return card.value - stack.deck.cards[stack.deck.cards.length - 1].value === 1;
+  return card.value - stack.top.value === 1;
 };
 
 const valueIsOneLess = (stack: Stack, card: Card) => {
-  return card.value - stack.deck.cards[stack.deck.cards.length - 1].value === -1;
+  return card.value - stack.top.value === -1;
 };
 
 const lastIsNotKing = (stack: Stack) => {
-  return stack.deck.cards[stack.deck.cards.length - 1].value !== 13;
+  return stack.top.value !== 13; // TODO
 };
 
   // Pick up rules

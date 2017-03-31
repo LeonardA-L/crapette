@@ -17,4 +17,8 @@ export class Deck {
   public pop() {
     return this.cards.pop();
   }
+
+  public get last(): Card {
+    return this.cards[this.cards.length - 1];
+  }
 }

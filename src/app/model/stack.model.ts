@@ -34,4 +34,8 @@ export class Stack {
     this.type = type;
     this.cancelable = cancelable;
   }
+
+  public get top(): Card {
+    return this.deck.last;
+  }
 }
