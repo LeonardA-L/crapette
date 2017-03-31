@@ -32,7 +32,7 @@ export class CardToolsService {
     return name;
   }
 
-  public getNumericFromChar(value: string): Number {
+  public getNumericFromChar(value: string): number {
     let numeric = parseInt(value, 10);
 
     switch (value) {
@@ -59,7 +59,7 @@ export class CardToolsService {
     deck.cards = this.shuffle(deck.cards);
   }
 
-  public createSet (player, cardMinHigh?, cardMaxHigh?) {
+  public createSet (player, cardMinHigh?, cardMaxHigh?): Card[] {
     let cards: Card[] = [];
     cardMinHigh = cardMinHigh || this.CARDMINHIGH;
     cardMaxHigh = cardMaxHigh || this.CARDMAXHIGH;

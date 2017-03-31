@@ -25,7 +25,7 @@ export class CrapetteService {
     public appState: AppState,
   ) {}
 
-  public initPlayers() {
+  public initPlayers(): Player[] {
     let player0 = this.initPlayer(0);
     let player1 = this.initPlayer(1);
     return [player0, player1];
@@ -61,7 +61,7 @@ export class CrapetteService {
     return stacks;
   }
 
-  public dealStacks(stacks, players) {
+  public dealStacks(stacks, players): void {
     for (let p of players) {
       const main: Stack = stacks['player' + p.id + 'Main'];
       const crapette: Stack = stacks['player' + p.id + 'Crapette'];
@@ -80,14 +80,14 @@ export class CrapetteService {
     }
   }
 
-  public pick(stackFrom: Stack) {
+  public pick(stackFrom: Stack): void {
     this.pickedCard = stackFrom.top;
     this.pickedCard.picked = true;
     this.pickedCard.visible = true;
     this.pickedStack = stackFrom;
   }
 
-  public push(stackTo: Stack) {
+  public push(stackTo: Stack): void {
     this.pickedStack.deck.pop();
     this.pickedCard.picked = false;
     stackTo.deck.addCard(this.pickedCard);
@@ -96,7 +96,7 @@ export class CrapetteService {
     this.pickedStack = null;
   }
 
-  public endTurn() {
+  public endTurn(): void {
     const currentPlayer = this.appState.get('currentPlayer');
     // uncover top card on the crapette
     const crapette = this.appState.get('stacks')['player' + currentPlayer.id + 'Crapette'];
@@ -130,7 +130,7 @@ export class CrapetteService {
     this.crapetteAvailable = false;
   }
 
-  public refillMain(player: Player) {
+  public refillMain(player: Player): void {
     const stacks = this.appState.get('stacks');
     const main = stacks['player' + player.id + 'Main'];
     const discard = stacks['player' + player.id + 'Discard'];
@@ -141,7 +141,7 @@ export class CrapetteService {
     main.deck.cards.forEach((c) => c.visible = false);
   }
 
-  public countAceOpportunity(player: Player) {
+  public countAceOpportunity(player: Player): Card[] {
       let stacksToInspect: Stack[] = [];
       const stacks = this.appState.get('stacks');
       stacksToInspect.push(stacks['player' + player.id + 'Main']);
@@ -168,7 +168,7 @@ export class CrapetteService {
       return opportunities;
   }
 
-  private initPlayer(id) {
+  private initPlayer(id): Player {
     let player = new Player(id);
     const set = this.cardToolsService.createSet(player);
 

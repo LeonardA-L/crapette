@@ -55,36 +55,19 @@ export class AppComponent implements OnInit {
 
   public push(event) {
     const player = this.appState.get('currentPlayer');
-    const aceOpportunities = this.crapetteService.countAceOpportunity(player);
+    const aceOpportunities: Card[] = this.crapetteService.countAceOpportunity(player);
 
     const stackFrom = event.stack;
     const stackTo = this.crapetteService.pickedStack;
     this.crapetteService.push(stackFrom);
 
-    const newAceOpportunities = this.crapetteService.countAceOpportunity(player);
+    const newAceOpportunities: Card[] = this.crapetteService.countAceOpportunity(player);
 
-    if (aceOpportunities.length > 0 && newAceOpportunities.length === aceOpportunities.length) {
-      // Need to check that every opportunity is the same because solving one may have created another
-      let same = true;
-      for (let i = 0; i < aceOpportunities.length; i++) {
-        const cardOld = aceOpportunities[i];
-        const cardNew = newAceOpportunities[i];
+    // Check for Crapette
+    this.checkCrapette(aceOpportunities, newAceOpportunities);
 
-        if (cardOld !== cardNew) {
-          same = false;
-          break;
-        }
-      }
-      this.crapetteService.crapetteAvailable = same;
-    } else {
-      this.crapetteService.crapetteAvailable = false;
-    }
-
-    if (stackFrom.type === StackTypes.DISCARD
-      && stackFrom !== stackTo
-      && stackFrom.owner && stackFrom.owner.id === this.appState.get('currentPlayer').id) {
-      this.crapetteService.endTurn();
-    }
+    // Check for end of turn
+    this.checkEndTurn(stackFrom, stackTo);
   }
 
   public crapette(playerId: number) {
@@ -102,6 +85,33 @@ export class AppComponent implements OnInit {
 
   public changePlayer() {
     this.crapetteService.endTurn();
+  }
+
+  private checkCrapette(aceOpportunities: Card[], newAceOpportunities: Card[]) {
+    if (aceOpportunities.length > 0 && newAceOpportunities.length === aceOpportunities.length) {
+      // Need to check that every opportunity is the same because solving one may have created another
+      let same = true;
+      for (let i = 0; i < aceOpportunities.length; i++) {
+        const cardOld = aceOpportunities[i];
+        const cardNew = newAceOpportunities[i];
+
+        if (cardOld !== cardNew) {
+          same = false;
+          break;
+        }
+      }
+      this.crapetteService.crapetteAvailable = same;
+    } else {
+      this.crapetteService.crapetteAvailable = false;
+    }
+  }
+
+  private checkEndTurn(stackFrom: Stack, stackTo: Stack) {
+    if (stackFrom.type === StackTypes.DISCARD
+      && stackFrom !== stackTo
+      && stackFrom.owner && stackFrom.owner.id === this.appState.get('currentPlayer').id) {
+      this.crapetteService.endTurn();
+    }
   }
 
 }

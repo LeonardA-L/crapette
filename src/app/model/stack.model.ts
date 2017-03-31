@@ -1,4 +1,5 @@
 import { Deck } from './deck.model';
+import { Card } from './card.model';
 
 export const Spread = {
   LEFT: -1,
