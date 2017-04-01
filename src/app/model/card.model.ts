@@ -25,6 +25,8 @@ export class Card {
   public picked: boolean;
   public stack;
 
+  public rotation: number;
+
   constructor(player, type, value) {
     if (player) {
       this.player = player;

@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [ngStyle]="{'-webkit-transform': card.visible ? 'rotate('+card.rotation+'deg)' : 'unset'}">
   <div class="card-content" [ngClass]="{
     'red':card.player.id === 1,
     'invisible':!card.visible,

@@ -13,6 +13,8 @@ import * as Rules from './../model/rules.model';
 
 import { AppState } from './../app.service';
 
+import { CONFIG } from '../environment';
+
 @Injectable()
 export class CrapetteService {
   public NUMBEROFSTREETS = 4;  // Per player
@@ -93,6 +95,9 @@ export class CrapetteService {
     this.pickedStack.deck.pop();
     this.pickedCard.picked = false;
     stackTo.deck.addCard(this.pickedCard);
+
+    this.pickedCard.rotation = Math.random() * 2 * CONFIG.cardRotationAmplitude - CONFIG.cardRotationAmplitude;
+    console.log(this.pickedCard);
 
     this.pickedCard = null;
     this.pickedStack = null;
