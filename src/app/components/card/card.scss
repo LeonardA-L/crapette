@@ -135,5 +135,9 @@
     -webkit-transform: scale($bigSuit-factor) rotate($d); /* Chrome, Safari, Opera */
     transform: scale($bigSuit-factor) rotate($d);
   }
+
+  .card-suit-ace {
+    transform: scale(1.3);
+  }
 }
 

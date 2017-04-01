@@ -39,7 +39,7 @@
       <div class="card-suit-big row-7 col-2" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[2, 3].includes(card.value)"></div>
       <div class="card-suit-big row-7 col-3" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[4,5,6,7,8,9,10].includes(card.value)"></div>
 
-
+      <div class="card-suit-big card-suit-ace row-4 col-2" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[1].includes(card.value)"></div>
     </div>
   </div>
 </div>
