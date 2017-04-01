@@ -1,6 +1,8 @@
 // Menu component
 import { Component, ViewEncapsulation } from '@angular/core';
 
+import { SettingsService } from '../../services/settings.service';
+
 @Component({
   selector: 'menu',
   templateUrl: './menu.html',
@@ -11,6 +13,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class MenuComponent {
   public out: boolean;
   public state: String;
+
+  constructor(
+    public settings: SettingsService,
+  ) {}
 
   public openMenu() {
     this.out = true;

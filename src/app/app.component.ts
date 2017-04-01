@@ -15,6 +15,7 @@ import { CardType, Card } from './model/card.model';
 
 import { CardToolsService } from './services/card-tools.service';
 import { CrapetteService } from './services/crapette.service';
+import { SettingsService } from './services/settings.service';
 
 /*
  * App Component
@@ -25,7 +26,7 @@ import { CrapetteService } from './services/crapette.service';
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'app.html',
   styleUrls: ['app.scss'],
-  providers: [CardToolsService, CrapetteService]
+  providers: [CardToolsService, CrapetteService, SettingsService]
 })
 export class AppComponent implements OnInit {
   public stacks;
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit {
     public appState: AppState,
     public cardToolsService: CardToolsService,
     public crapetteService: CrapetteService,
+    public settingsService: SettingsService,
   ) {}
 
   public ngOnInit() {

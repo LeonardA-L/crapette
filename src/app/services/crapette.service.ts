@@ -8,6 +8,7 @@ import { Stack, Spread, StackTypes } from './../model/stack.model';
 import { Player } from './../model/player.model';
 
 import { CardToolsService } from './card-tools.service';
+import { SettingsService } from './settings.service';
 import * as Rules from './../model/rules.model';
 
 import { AppState } from './../app.service';
@@ -23,6 +24,7 @@ export class CrapetteService {
   constructor(
     public cardToolsService: CardToolsService,
     public appState: AppState,
+    public settings: SettingsService,
   ) {}
 
   public initPlayers(): Player[] {
@@ -169,7 +171,7 @@ export class CrapetteService {
   }
 
   public get rotate() {
-    return this.appState.get('currentPlayer').id === 0;
+    return this.settings.rotateBoard && this.appState.get('currentPlayer').id === 0;
   }
 
   private initPlayer(id): Player {
