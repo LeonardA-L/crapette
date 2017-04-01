@@ -44,4 +44,33 @@
   &.no-spread {
     margin-left: 10px;
   }
+
+  .placeholder {
+    width: $cardWidth;
+    height: $cardHeight;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .placeholder-rotate {
+    $d: -90deg;
+    -ms-transform: rotate($d); /* IE 9 */
+    -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
+    transform: rotate($d);
+
+    width: $cardHeight;
+    height: $cardWidth;
+    position: absolute;
+    top: 24px;
+    left: -12px;
+  }
+
+  .placeholder-main {
+    color: $grey-noCardBorder;
+    font-weight: 600;
+    font-size: 0.7em;
+    position: relative;
+    top: 90px;
+  }
 }

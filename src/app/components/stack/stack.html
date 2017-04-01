@@ -1,7 +1,11 @@
 <div class="stack">
   <div class="stack-wrap" [ngClass]="{'horizontal': !stack.vertical}">
     <div *ngIf="stack.deck.cards.length === 0">
-      <div class="no-card" (click)="clickCard()" [ngClass]="{'no-spread': !stack.spread}"></div>
+      <div class="no-card" (click)="clickCard()" [ngClass]="{'no-spread': !stack.spread}">
+        <div class="placeholder" [ngClass]="{'placeholder-rotate': stack.type === stackTypes.MAIN}">
+          <span class="placeholder-main" *ngIf="stack.type === stackTypes.MAIN">Click to renew discard</span>
+        </div>
+      </div>
     </div>
     <div *ngIf="(stack.deck.cards.length > 0)">
       <card title="{{settings.stackLength ? stack.deck.cards.length : ''}}" *ngFor="let card of stack.deck.cards | slice:stack.spread?0:-4; let i = index" [ngStyle]="{'left': computeShift(card, stack, i)}" [card]="card" (click)="clickCard(card)"></card>

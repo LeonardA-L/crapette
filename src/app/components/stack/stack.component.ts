@@ -24,6 +24,8 @@ export class StackComponent {
   @Output()
   public push = new EventEmitter();
 
+  public stackTypes = StackTypes;
+
   constructor(
     public crapette: CrapetteService,
     public appState: AppState,
