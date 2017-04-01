@@ -35,15 +35,15 @@
     </div>
 
     <div class="row player-row player-row-bottom">
+      <div class="field alertField">
+        <button (click)="crapette(1)">Crapette !</button>
+      </div>
       <div class="field main-field">
-        <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Main"></stack>
         <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Discard"></stack>
+        <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Main"></stack>
       </div>
       <div class="field crappette-field">
         <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Crapette"></stack>
-      </div>
-      <div class="field alertField">
-        <button (click)="crapette(1)">Crapette !</button>
       </div>
     </div>
   </div>
