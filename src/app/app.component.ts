@@ -72,6 +72,9 @@ export class AppComponent implements OnInit {
     // Check for Crapette
     this.checkCrapette(aceOpportunities, newAceOpportunities);
 
+    // Check for end of game
+    this.checkVictory(player);
+
     // Check for end of turn
     this.checkEndTurn(stackFrom, stackTo);
   }
@@ -109,6 +112,16 @@ export class AppComponent implements OnInit {
       this.crapetteService.crapetteAvailable = same;
     } else {
       this.crapetteService.crapetteAvailable = false;
+    }
+  }
+
+  private checkVictory(player: Player) {
+    const crapette: Stack = this.stacks['player' + player.id + 'Crapette'];
+    const main: Stack = this.stacks['player' + player.id + 'Main'];
+    const discard: Stack = this.stacks['player' + player.id + 'Discard'];
+
+    if (crapette.isEmpty() && main.isEmpty() && discard.isEmpty()) {
+      console.log('Player', player.id, 'wins');
     }
   }
 

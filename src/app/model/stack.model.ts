@@ -39,4 +39,8 @@ export class Stack {
   public get top(): Card {
     return this.deck.last;
   }
+
+  public isEmpty(): boolean {
+    return this.deck.cards.length === 0;
+  }
 }
