@@ -168,6 +168,10 @@ export class CrapetteService {
       return opportunities;
   }
 
+  public get rotate() {
+    return this.appState.get('currentPlayer').id === 0;
+  }
+
   private initPlayer(id): Player {
     let player = new Player(id);
     const set = this.cardToolsService.createSet(player);

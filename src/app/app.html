@@ -1,50 +1,51 @@
 <div>
   <div>Player {{appState.get('currentPlayer').id}}</div>
   <button (click)="changePlayer()">change</button>
-  <div class="row player-row player-row-top">
-    <div class="field crappette-field">
-      <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Crapette"></stack>
-    </div>
-    <div class="field main-field">
-      <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Main"></stack>
-      <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Discard"></stack>
-    </div>
-    <div class="field alertField">
-      <button (click)="crapette(0)">Crapette !</button>
-    </div>
-  </div>
-
-  <div class="row mid-row">
-    <div class="field streets-field streets-left">
-      <div class="street" *ngFor="let street of stacks.streets | slice:0:crapetteService.NUMBEROFSTREETS;  let i=index">
-        <stack (pick)="pick($event)" (push)="push($event)" [stack]="street"></stack>
+  <div class="board" [ngClass]="{'rotate': crapetteService.rotate}">
+    <div class="row player-row player-row-top">
+      <div class="field crappette-field">
+        <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Crapette"></stack>
+      </div>
+      <div class="field main-field">
+        <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Main"></stack>
+        <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Discard"></stack>
+      </div>
+      <div class="field alertField">
+        <button (click)="crapette(0)">Crapette !</button>
       </div>
     </div>
 
-    <div class="field aces-field">
-      <stack (pick)="pick($event)" (push)="push($event)" *ngFor="let pile of stacks.aces" [stack]="pile"></stack>
+    <div class="row mid-row">
+      <div class="field streets-field streets-left">
+        <div class="street" *ngFor="let street of stacks.streets | slice:0:crapetteService.NUMBEROFSTREETS;  let i=index">
+          <stack (pick)="pick($event)" (push)="push($event)" [stack]="street"></stack>
+        </div>
+      </div>
+
+      <div class="field aces-field">
+        <stack (pick)="pick($event)" (push)="push($event)" *ngFor="let pile of stacks.aces" [stack]="pile"></stack>
+      </div>
+
+      <div class="field streets-field streets-right">
+        <div class="street" *ngFor="let street of stacks.streets | slice:crapetteService.NUMBEROFSTREETS:crapetteService.NUMBEROFSTREETS*2;  let i=index">
+          <stack (pick)="pick($event)" (push)="push($event)" [stack]="street"></stack>
+        </div>
+      </div>
+
     </div>
 
-    <div class="field streets-field streets-right">
-      <div class="street" *ngFor="let street of stacks.streets | slice:crapetteService.NUMBEROFSTREETS:crapetteService.NUMBEROFSTREETS*2;  let i=index">
-        <stack (pick)="pick($event)" (push)="push($event)" [stack]="street"></stack>
+    <div class="row player-row player-row-bottom">
+      <div class="field main-field">
+        <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Main"></stack>
+        <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Discard"></stack>
+      </div>
+      <div class="field crappette-field">
+        <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Crapette"></stack>
+      </div>
+      <div class="field alertField">
+        <button (click)="crapette(1)">Crapette !</button>
       </div>
     </div>
-
   </div>
-
-  <div class="row player-row player-row-bottom">
-    <div class="field main-field">
-      <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Main"></stack>
-      <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Discard"></stack>
-    </div>
-    <div class="field crappette-field">
-      <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Crapette"></stack>
-    </div>
-    <div class="field alertField">
-      <button (click)="crapette(1)">Crapette !</button>
-    </div>
-  </div>
-
   <menu></menu>
 </div>

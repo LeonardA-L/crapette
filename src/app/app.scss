@@ -64,3 +64,20 @@
   align-content: flex-end;
 }
 
+.board {
+  transition: transform 0.3s;
+
+  &.rotate {
+    $d: 180deg;
+    -ms-transform: rotate($d); /* IE 9 */
+    -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
+    transform: rotate($d);
+
+    button, stack {
+      $d: 180deg;
+      -ms-transform: rotate($d); /* IE 9 */
+      -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
+      transform: rotate($d);
+    }
+  }
+}
