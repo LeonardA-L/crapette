@@ -1,3 +1,4 @@
 export const config = {
-  rotateBoard: false
+  rotateBoard: false,
+  stackLength: true
 };

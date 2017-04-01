@@ -2,11 +2,9 @@
 @import '../../../styles/variables';
 
 .stack {
-  display: inline-flex;
+
   padding: $stackPadding;
 
-  width: $cardWidth;
-  height: $cardHeight;
 
   .horizontal {
     $d: 90deg;
@@ -20,6 +18,9 @@
 
   .stack-wrap {
     position: relative;
+    width: $cardWidth;
+    height: $cardHeight;
+    display: inline-flex;
   }
 
   card {

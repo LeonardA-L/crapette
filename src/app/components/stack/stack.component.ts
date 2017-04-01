@@ -5,6 +5,8 @@ import { Stack, StackTypes } from './../../model/stack.model';
 import { CrapetteService } from './../../services/crapette.service';
 import { AppState } from './../../app.service';
 
+import { SettingsService } from '../../services/settings.service';
+
 @Component({
   selector: 'stack',
   templateUrl: './stack.html',
@@ -25,6 +27,7 @@ export class StackComponent {
   constructor(
     public crapette: CrapetteService,
     public appState: AppState,
+    public settings: SettingsService,
   ) {}
 
   public clickCard(card) {

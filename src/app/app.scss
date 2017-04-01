@@ -42,9 +42,12 @@
 }
 
 .streets-left {
-  text-align: right;
-  stack {
-    text-align: left;
+  .stack {
+    text-align: right;
+
+    * {
+      text-align: left;
+    }
   }
 }
 

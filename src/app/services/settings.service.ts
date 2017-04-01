@@ -15,4 +15,12 @@ export class SettingsService {
     CONFIG.rotateBoard = newValue;
   }
 
+  public get stackLength() {
+    return CONFIG.stackLength;
+  }
+
+  public set stackLength(newValue) {
+    CONFIG.stackLength = newValue;
+  }
+
 }

@@ -4,7 +4,7 @@
       <div class="no-card" (click)="clickCard()" [ngClass]="{'no-spread': !stack.spread}"></div>
     </div>
     <div *ngIf="(stack.deck.cards.length > 0)">
-      <card *ngFor="let card of stack.deck.cards | slice:stack.spread?0:-4; let i = index" [ngStyle]="{'left': computeShift(card, stack, i)}" [card]="card" (click)="clickCard(card)"></card>
-    <div>
+      <card title="{{settings.stackLength ? stack.deck.cards.length : ''}}" *ngFor="let card of stack.deck.cards | slice:stack.spread?0:-4; let i = index" [ngStyle]="{'left': computeShift(card, stack, i)}" [card]="card" (click)="clickCard(card)"></card>
+    </div>
   </div>
 </div>
