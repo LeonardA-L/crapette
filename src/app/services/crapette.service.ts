@@ -97,7 +97,6 @@ export class CrapetteService {
     stackTo.deck.addCard(this.pickedCard);
 
     this.pickedCard.rotation = Math.random() * 2 * CONFIG.cardRotationAmplitude - CONFIG.cardRotationAmplitude;
-    console.log(this.pickedCard);
 
     this.pickedCard = null;
     this.pickedStack = null;

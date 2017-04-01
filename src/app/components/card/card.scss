@@ -23,6 +23,11 @@
   -ms-user-select: none;      /* IE 10+ */
   user-select: none;          /* Likely future */
 
+  transition: transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: -ms-transform 0.2s;
+
+
   .card-content {
     margin: $card-padding;
     border-radius: $card-radius;
@@ -138,6 +143,14 @@
 
   .card-suit-ace {
     transform: scale(1.3);
+  }
+
+  // Shadow effect on pick
+  $picked-shadow: 0 0 8px;
+  $picked-color: #000;
+  $picked-shadow-alpha: 0.4;
+  &.picked {
+     box-shadow: $picked-shadow rgba($picked-color, $picked-shadow-alpha);
   }
 }
 
