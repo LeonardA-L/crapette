@@ -73,5 +73,67 @@
   .icon-hearts15 {
     margin-top: 4px;
   }
+
+
+  $suit-h-pad: 19px;
+  $suit-v1-pad: 8px;
+  $bigSuit-factor: 0.80;
+  $bigSuit: 25px * $bigSuit-factor;
+  $mid-factor: 80px - $suit-v1-pad;
+
+  .symbols-container {
+    position:relative;
+  }
+
+  .card-suit-big {
+    transform: scale($bigSuit-factor);
+    position: absolute;
+  }
+  .row-1 {
+    top: $suit-v1-pad;
+  }
+
+  .row-2 {
+    top: $suit-v1-pad * 1 + $bigSuit + -5px;
+  }
+
+  .row-3 {
+    top: $bigSuit * 2 - 5px;
+  }
+
+  .row-4 {
+    top: $mid-factor - 14px;
+  }
+
+  .row-5 {
+    top: $mid-factor + $suit-v1-pad;
+  }
+
+  .row-6 {
+    top: $mid-factor + $suit-v1-pad * 1 + $bigSuit - 2px;
+  }
+
+  .row-7 {
+    top: $mid-factor + $suit-v1-pad + $bigSuit * 2 - 3px;
+  }
+
+  .col-1 {
+    left: $suit-h-pad;
+  }
+
+  .col-2 {
+    left: ($cardWidth - $bigSuit) / 2 - 6px;
+  }
+
+  .col-3 {
+    right: $suit-h-pad;
+  }
+
+  .row-5, .row-6, .row-7 {
+    $d: 180deg;
+    -ms-transform: scale($bigSuit-factor) rotate($d); /* IE 9 */
+    -webkit-transform: scale($bigSuit-factor) rotate($d); /* Chrome, Safari, Opera */
+    transform: scale($bigSuit-factor) rotate($d);
+  }
 }
 

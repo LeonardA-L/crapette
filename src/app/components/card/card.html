@@ -13,6 +13,33 @@
       <div class="card-value">{{cardToolsService.getCharFromNumeric(card.value)}}</div>
       <div class="card-suit" [ngClass]="'icon-'+card.type.name+'15'"></div>
     </div>
-    {{card.picked ? 'Picked':''}}
+    <span style="position:absolute;">{{card.picked ? 'Picked':''}}</span>
+
+    <div class="symbols-container" *ngIf="card.visible">
+      <div class="card-suit-big row-1 col-1" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[4,5,6,7,8,9,10].includes(card.value)"></div>
+      <div class="card-suit-big row-1 col-2" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[2, 3].includes(card.value)"></div>
+      <div class="card-suit-big row-1 col-3" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[4,5,6,7,8,9,10].includes(card.value)"></div>
+
+      <div class="card-suit-big row-2 col-2" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[10].includes(card.value)"></div>
+
+      <div class="card-suit-big row-3 col-1" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[9,10].includes(card.value)"></div>
+      <div class="card-suit-big row-3 col-2" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[7,8].includes(card.value)"></div>
+      <div class="card-suit-big row-3 col-3" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[9,10].includes(card.value)"></div>
+
+      <div class="card-suit-big row-4 col-1" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[6,7,8].includes(card.value)"></div>
+      <div class="card-suit-big row-4 col-2" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[3,9,5].includes(card.value)"></div>
+      <div class="card-suit-big row-4 col-3" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[6,7,8].includes(card.value)"></div>
+
+      <div class="card-suit-big row-5 col-1" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[9,10].includes(card.value)"></div>
+      <div class="card-suit-big row-5 col-3" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[9,10].includes(card.value)"></div>
+      
+      <div class="card-suit-big row-6 col-2" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[10,8].includes(card.value)"></div>
+
+      <div class="card-suit-big row-7 col-1" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[4,5,6,7,8,9,10].includes(card.value)"></div>
+      <div class="card-suit-big row-7 col-2" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[2, 3].includes(card.value)"></div>
+      <div class="card-suit-big row-7 col-3" [ngClass]="'icon-'+card.type.name+'25'" *ngIf="[4,5,6,7,8,9,10].includes(card.value)"></div>
+
+
+    </div>
   </div>
 </div>
