@@ -26,18 +26,25 @@
   }
 
   .buttons-container {
-    border: solid 1px;
     margin-left: -60px;
     position: absolute;
     top: 100px;
+
+    // buttons
+
+    .settings {
+      background-color: #F66;
+    }
+    .rules {
+      background-color: #66F;
+    }
   }
 
-  // buttons
+  .section {
+    padding: 15px;
 
-  .settings {
-    background-color: #F66;
-  }
-  .rules {
-    background-color: #66F;
+    &.rules {
+
+    }
   }
 }

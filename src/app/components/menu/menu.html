@@ -3,10 +3,18 @@
     <div class="button settings" (click)="clickButton('settings')">S</div>
     <div class="button rules" (click)="clickButton('rules')">R</div>
   </div>
-  <div>
-  
-  <markdown>
-      # Hello
-      What a *pleasure*
-  </markdown>
+
+  <div class="section rules" *ngIf="state === 'rules'">
+    <markdown>
+        # Rules
+        These are the rules
+    </markdown>
+  </div>
+
+  <div class="section settings" *ngIf="state === 'settings'">
+    <markdown>
+        # Settings
+        These are the settings
+    </markdown>
+  </div>
 </div>
