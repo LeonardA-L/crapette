@@ -27,6 +27,7 @@ import '../styles/styles.scss';
 
 import { CardComponent } from './components/card/card.component';
 import { StackComponent } from './components/stack/stack.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -48,6 +49,7 @@ type StoreType = {
     AppComponent,
     CardComponent,
     StackComponent,
+    MenuComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
