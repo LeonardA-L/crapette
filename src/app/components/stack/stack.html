@@ -1,5 +1,5 @@
-<div class="stack">
-  <div class="stack-wrap" [ngClass]="{'horizontal': !stack.vertical}">
+<div class="stack" [ngClass]="{'centered': !stack.vertical || stack.type === stackTypes.CRAPETTE}">
+  <div class="stack-wrap" [ngClass]="{'horizontal-wrap': !stack.vertical}">
     <div *ngIf="stack.deck.cards.length === 0">
       <div class="no-card" (click)="clickCard()" [ngClass]="{'no-spread': !stack.spread}">
         <div class="placeholder" [ngClass]="{'placeholder-rotate': stack.type === stackTypes.MAIN}">

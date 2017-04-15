@@ -1,16 +1,20 @@
 <div>
-  <div>Player {{appState.get('currentPlayer').id}}</div>
-  <button (click)="changePlayer()">change</button>
+  <div id="hacks" style="position:fixed; top:0; left: 0;">
+    <div>Player {{appState.get('currentPlayer').id}}</div>
+  </div>
   <div class="board" [ngClass]="{'rotate': crapetteService.rotate}">
     <div class="row player-row player-row-top">
+      <div class="field side-field"></div>
       <div class="field crappette-field">
         <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Crapette"></stack>
       </div>
       <div class="field main-field">
         <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Main"></stack>
+      </div>
+      <div class="field discard-field">
         <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player0Discard"></stack>
       </div>
-      <div class="field alertField">
+      <div class="field alert-field">
         <button (click)="crapette(0)">Crapette !</button>
       </div>
     </div>
@@ -34,17 +38,20 @@
 
     </div>
 
-    <div class="row player-row player-row-bottom">
-      <div class="field alertField">
+    <div class="row player-row player-row-top">
+      <div class="field alert-field">
         <button (click)="crapette(1)">Crapette !</button>
       </div>
-      <div class="field main-field">
+      <div class="field discard-field">
         <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Discard"></stack>
+      </div>
+      <div class="field main-field">
         <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Main"></stack>
       </div>
       <div class="field crappette-field">
         <stack (pick)="pick($event)" (push)="push($event)" [stack]="stacks.player1Crapette"></stack>
       </div>
+      <div class="field side-field"></div>
     </div>
   </div>
   <menu></menu>

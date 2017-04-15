@@ -5,8 +5,11 @@
 
   padding: $stackPadding;
 
+  &.centered {
+    text-align: center;
+  }
 
-  .horizontal {
+  .horizontal-wrap {
     $d: 90deg;
     -ms-transform: rotate($d); /* IE 9 */
     -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
