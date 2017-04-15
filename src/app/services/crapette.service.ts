@@ -127,7 +127,6 @@ export class CrapetteService {
     if (this.pickedStack) {
       this.pickedStack = null;
     }
-    
     this.resetPickedCard();
 
     // Reset crapette! state

@@ -2,7 +2,7 @@
 @import '../../../styles/variables';
 
 .stack {
-
+  cursor: default !important; // because of ng2-dnd
   padding: $stackPadding;
 
   &.centered {

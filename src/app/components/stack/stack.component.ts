@@ -55,7 +55,10 @@ export class StackComponent {
     return res + 'px';
   }
 
-  public handleDrop() {
+  public handleDrop(event) {
+    if (event.dragData !== this.crapette.pickedCard) {
+      return;
+    }
     const player = this.appState.get('currentPlayer');
     if (this.crapette.pickedCard
       && (this.stack.pushRule(this.stack, this.crapette.pickedCard, this.appState, player, this.crapette.pickedStack)
@@ -65,12 +68,12 @@ export class StackComponent {
   }
 
   public handleDrag(card) {
-    this.crapette.resetPickedCard();
     this.pickCard(card);
   }
 
   private pickCard(card) {
     if (this.stack.popRule(this.stack, card, this.appState, this.appState.get('currentPlayer'), this.crapette.pickedStack)) {
+      this.crapette.resetPickedCard();
       this.pick.next(this);
     }
   }
