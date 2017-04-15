@@ -1,5 +1,6 @@
 // Card css
 @import '../../../styles/variables';
+@import '../../../styles/utils';
 
 .card {
   border: solid 1px $grey-cardBorder;
@@ -18,10 +19,7 @@
 
   background: $white-card;
 
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-  user-select: none;          /* Likely future */
+  @include user-select(none);
 
   transition: transform 0.2s;
   transition: -webkit-transform 0.2s;
@@ -57,17 +55,14 @@
   }
 
   .bottom-right {
-    $d: 180deg;
-    -ms-transform: rotate($d); /* IE 9 */
-    -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
-    transform: rotate($d);
+    @include rotate(180deg);
 
     bottom: $shift * $card-radius;
     right: $shift * $card-radius;
   }
 
   .card-suit {
-    transform: scale(0.85);
+    @include scale(0.85);
     margin: 2px 0 2px -2px;
   }
 
@@ -91,7 +86,7 @@
   }
 
   .card-suit-big {
-    transform: scale($bigSuit-factor);
+    @include scale($bigSuit-factor);
     position: absolute;
   }
   .row-1 {
@@ -135,14 +130,11 @@
   }
 
   .row-5, .row-6, .row-7 {
-    $d: 180deg;
-    -ms-transform: scale($bigSuit-factor) rotate($d); /* IE 9 */
-    -webkit-transform: scale($bigSuit-factor) rotate($d); /* Chrome, Safari, Opera */
-    transform: scale($bigSuit-factor) rotate($d);
+    @include transform(180deg, $bigSuit-factor);
   }
 
   .card-suit-ace {
-    transform: scale(1.3);
+    @include scale(1.3);
   }
 
   // Shadow effect on pick

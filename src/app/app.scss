@@ -1,13 +1,11 @@
 // Layout
 @import '../styles/variables';
+@import '../styles/utils';
 
 $streetShift: -16px;
 
 .row {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
+  @include display-flex();
 }
 
 .player-row {
@@ -28,10 +26,7 @@ $streetShift: -16px;
 }
 
 .streets-field {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
+  @include display-flex(column);
 
   .street {
     flex: 1;
@@ -59,8 +54,7 @@ $streetShift: -16px;
   width: 2 * ($cardWidth + 2 * $stackPadding) + 20px;
   flex: unset;
 
-  display: -webkit-flex;
-  display: flex;
+  @include display-flex();
   -webkit-align-items: center;
   align-items: center;
   -webkit-justify-content: center;
@@ -75,20 +69,14 @@ $streetShift: -16px;
   transition: transform 0.3s;
 
   &.rotate {
-    $d: 180deg;
-    -ms-transform: rotate($d); /* IE 9 */
-    -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
-    transform: rotate($d);
+    @include rotate(180deg);
 
     .player-row stack {
       display: block;
     }
 
     button, stack {
-      $d: 180deg;
-      -ms-transform: rotate($d); /* IE 9 */
-      -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
-      transform: rotate($d);
+      @include rotate(180deg);
     }
 
     .streets-left {

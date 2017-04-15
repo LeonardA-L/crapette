@@ -1,5 +1,6 @@
 // Stack css
 @import '../../../styles/variables';
+@import '../../../styles/utils';
 
 .stack {
   cursor: default !important; // because of ng2-dnd
@@ -10,10 +11,7 @@
   }
 
   .horizontal-wrap {
-    $d: 90deg;
-    -ms-transform: rotate($d); /* IE 9 */
-    -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
-    transform: rotate($d);
+    @include rotate(90deg);
 
     height: $cardWidth;
     width: $cardHeight;
@@ -57,10 +55,7 @@
   }
 
   .placeholder-rotate {
-    $d: -90deg;
-    -ms-transform: rotate($d); /* IE 9 */
-    -webkit-transform: rotate($d); /* Chrome, Safari, Opera */
-    transform: rotate($d);
+    @include rotate(-90deg);
 
     width: $cardHeight;
     height: $cardWidth;
