@@ -127,13 +127,18 @@ export class CrapetteService {
     if (this.pickedStack) {
       this.pickedStack = null;
     }
+    
+    this.resetPickedCard();
+
+    // Reset crapette! state
+    this.crapetteAvailable = false;
+  }
+
+  public resetPickedCard() {
     if (this.pickedCard) {
       this.pickedCard.picked = false;
       this.pickedCard = null;
     }
-
-    // Reset crapette! state
-    this.crapetteAvailable = false;
   }
 
   public refillMain(player: Player): void {

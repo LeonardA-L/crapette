@@ -30,6 +30,7 @@ import { StackComponent } from './components/stack/stack.component';
 import { MenuComponent } from './components/menu/menu.component';
 
 import { MarkdownModule } from 'angular2-markdown';
+import { DndModule } from 'ng2-dnd';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -58,6 +59,7 @@ type StoreType = {
     FormsModule,
     HttpModule,
     MarkdownModule.forRoot(),
+    DndModule.forRoot(),
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
