@@ -137,6 +137,10 @@ export class CrapetteService {
   }
 
   public refillMain(player: Player): void {
+    if (this.pickedCard) {
+      return;
+    }
+
     const stacks = this.appState.get('stacks');
     const main = stacks['player' + player.id + 'Main'];
     const discard = stacks['player' + player.id + 'Discard'];
