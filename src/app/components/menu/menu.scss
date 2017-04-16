@@ -41,7 +41,10 @@
   }
 
   .section {
-    padding: 100px;
+    $padding: 50px;
+    padding: $padding;
+    overflow-y: auto;
+    height: calc(100vh - 2 * #{$padding});
 
     &.rules {
 
