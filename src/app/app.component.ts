@@ -8,6 +8,8 @@ import {
 } from '@angular/core';
 import { AppState } from './app.service';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { Player } from './model/player.model';
 import { Deck } from './model/deck.model';
 import { Stack, StackTypes } from './model/stack.model';
@@ -36,10 +38,15 @@ export class AppComponent implements OnInit {
     public cardToolsService: CardToolsService,
     public crapetteService: CrapetteService,
     public settingsService: SettingsService,
+    public translate: TranslateService,
   ) {}
 
   public ngOnInit() {
     console.log('Initial App State', this.appState.state);
+
+    this.translate.setDefaultLang('en');
+    const useLocale = navigator.language === 'fr' ? 'fr' : 'en';
+    this.translate.use(useLocale);
 
     let players = this.crapetteService.initPlayers();
 

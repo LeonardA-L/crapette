@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import {
   NgModule,
   ApplicationRef
@@ -31,6 +31,12 @@ import { MenuComponent } from './components/menu/menu.component';
 
 import { MarkdownModule } from 'angular2-markdown';
 import { DndModule } from 'ng2-dnd';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: Http) {
+    return new TranslateHttpLoader(http);
+}
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -60,6 +66,13 @@ type StoreType = {
     HttpModule,
     MarkdownModule.forRoot(),
     DndModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [Http]
+      }
+    }),
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

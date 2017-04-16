@@ -1,6 +1,6 @@
 <div>
   <div id="hacks" style="position:fixed; top:0; left: 0;">
-    <div>Player {{appState.get('currentPlayer').id}}</div>
+    <div><span>{{'player' | translate}}</span> {{appState.get('currentPlayer').id}}</div>
   </div>
   <div class="board" [ngClass]="{'rotate': crapetteService.rotate}">
     <div class="row player-row player-row-top">
