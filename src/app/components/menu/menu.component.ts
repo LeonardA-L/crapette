@@ -1,6 +1,8 @@
 // Menu component
 import { Component, ViewEncapsulation } from '@angular/core';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { SettingsService } from '../../services/settings.service';
 
 @Component({
@@ -16,6 +18,7 @@ export class MenuComponent {
 
   constructor(
     public settings: SettingsService,
+    public translate: TranslateService,
   ) {}
 
   public openMenu() {
@@ -34,5 +37,9 @@ export class MenuComponent {
 
     this.state = name;
     this.openMenu();
+  }
+
+  public changeLocale(newLocale) {
+    this.translate.use(newLocale);
   }
 }

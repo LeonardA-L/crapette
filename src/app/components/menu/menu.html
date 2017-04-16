@@ -1,7 +1,7 @@
 <div id="menu" [ngClass]="{'out': out}">
   <div class="buttons-container">
-    <div class="button settings" (click)="clickButton('settings')">S</div>
     <div class="button rules" (click)="clickButton('rules')">R</div>
+    <div class="button settings" (click)="clickButton('settings')">S</div>
   </div>
 
   <div class="section rules" *ngIf="state === 'rules'">
@@ -21,5 +21,6 @@
     </markdown>
     <p><label><input type="checkbox" [(ngModel)]="settings.rotateBoard"> Rotate the board depending on player</label></p>
     <p><label><input type="checkbox" [(ngModel)]="settings.stackLength"> Show how many cards are in a stack on hover</label></p>
+    <p><span (click)="changeLocale('en')">EN</span> | <span (click)="changeLocale('fr')">FR</span></p>
   </div>
 </div>
