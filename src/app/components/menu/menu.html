@@ -5,10 +5,8 @@
   </div>
 
   <div class="section rules" *ngIf="state === 'rules'">
-    <markdown>
-        # Rules
-        These are the rules
-    </markdown>
+    <markdown>{{'rules.intro' | translate}}</markdown>
+    <markdown>{{'rules.layout' | translate}}</markdown>
   </div>
 
   <div class="section settings" *ngIf="state === 'settings'">
