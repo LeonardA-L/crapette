@@ -2,10 +2,12 @@
 @import '../../../styles/variables';
 
 #menu {
+  $padding: 25px;
   position: fixed;
   top: 0;
-  right: -$menuWidth;
+  right: calc(-#{$menuWidth} - #{$padding * 2} - 5px);
   width: $menuWidth;
+  min-width: $menuMinWidth;
   z-index: 100;
 
   transition: right 0.2s;
@@ -41,13 +43,16 @@
   }
 
   .section {
-    $padding: 50px;
-    padding: $padding;
+    padding: $padding $padding 0 ($padding * 2);
     overflow-y: auto;
     height: calc(100vh - 2 * #{$padding});
 
-    &.rules {
+    ul {
+      padding: 0 16px;
+    }
 
+    &.rules {
+      text-align: justify;
     }
   }
 }

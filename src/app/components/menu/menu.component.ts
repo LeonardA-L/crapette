@@ -12,7 +12,7 @@ import { SettingsService } from '../../services/settings.service';
 
 export class MenuComponent {
   public out: boolean;
-  public state: String;
+  public state: String = 'settings';
 
   constructor(
     public settings: SettingsService,
