@@ -81,6 +81,8 @@ export const pushNever = (stack: Stack, card: Card, appState: AppState, player: 
 export const pushDiscard = (stack: Stack, card: Card, appState: AppState, player: Player, stackFrom: Stack): boolean => {
   if (isOwner(stack, player) && stackFrom.type === StackTypes.MAIN) {
     return true;
+  } else if (isOwner(stack, player)) {
+    return false;
   }
   if (stack.deck.cards.length === 0) {
     return false;
