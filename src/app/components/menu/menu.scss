@@ -5,8 +5,8 @@
   $padding: 25px;
   position: fixed;
   top: 0;
-  right: calc(-#{$menuWidth} - #{$padding * 2} - 5px);
-  width: $menuWidth;
+  right: -$menuMinWidth;
+  width: $menuMinWidth;
   min-width: $menuMinWidth;
   z-index: 100;
 
