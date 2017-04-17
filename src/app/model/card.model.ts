@@ -19,7 +19,7 @@ export const CardType = {
 
 export class Card {
   public player;
-  public type: CardType;
+  public type;
   public value: number;
   public visible: boolean;
   public picked: boolean;

@@ -22,7 +22,7 @@ export class Stack {
   public pushRule: Function;
   public popRule: Function;
   public owner;
-  public type: StackTypes;
+  public type;
   public cancelable: boolean;
 
   constructor(deck, vertical, pushRule, popRule, owner, type, cancelable, spread?) {
