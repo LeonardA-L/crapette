@@ -28,6 +28,7 @@ import '../styles/styles.scss';
 import { CardComponent } from './components/card/card.component';
 import { StackComponent } from './components/stack/stack.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { GameComponent } from './components/game/game.component';
 
 import { routing, appRoutingProviders } from './app.routes';
 
@@ -61,6 +62,7 @@ type StoreType = {
     CardComponent,
     StackComponent,
     MenuComponent,
+    GameComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -75,6 +77,7 @@ type StoreType = {
         deps: [Http]
       }
     }),
+    routing,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
