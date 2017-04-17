@@ -29,6 +29,8 @@ import { CardComponent } from './components/card/card.component';
 import { StackComponent } from './components/stack/stack.component';
 import { MenuComponent } from './components/menu/menu.component';
 
+import { routing, appRoutingProviders } from './app.routes';
+
 import { MarkdownModule } from 'angular2-markdown';
 import { DndModule } from 'ng2-dnd';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -76,7 +78,8 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    appRoutingProviders,
   ]
 })
 export class AppModule {
