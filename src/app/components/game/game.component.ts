@@ -6,6 +6,8 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { AppState } from '../../app.service';
 
 import { Player } from '../../model/player.model';
@@ -38,9 +40,15 @@ export class GameComponent implements OnInit {
     public crapetteService: CrapetteService,
     public settingsService: SettingsService,
     public together: TogetherService,
+    private route: ActivatedRoute,
   ) {}
 
   public ngOnInit() {
+    const routeParams = this.route.snapshot.params;
+    if (routeParams.seed && routeParams.player) {
+      this.together.init(routeParams);
+    }
+
     let players = this.crapetteService.initPlayers();
 
     this.stacks = this.crapetteService.initStacks(players);
@@ -56,7 +64,6 @@ export class GameComponent implements OnInit {
 
     this.appState.set('currentPlayer', players[firstPlayerId]);
 
-    this.together.init();
   }
 
   public pick(event) {

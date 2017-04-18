@@ -29,6 +29,7 @@ import { CardComponent } from './components/card/card.component';
 import { StackComponent } from './components/stack/stack.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { GameComponent } from './components/game/game.component';
+import { HubComponent } from './components/hub/hub.component';
 
 import { routing, appRoutingProviders } from './app.routes';
 
@@ -63,6 +64,7 @@ type StoreType = {
     StackComponent,
     MenuComponent,
     GameComponent,
+    HubComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,

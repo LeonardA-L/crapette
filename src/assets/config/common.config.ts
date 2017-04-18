@@ -3,4 +3,7 @@ export const config = {
   stackLength: true,
 
   cardRotationAmplitude: 5,
+
+  baseUrl: 'http://localhost:3000',
+  enableOnline: false
 };

@@ -1,0 +1,58 @@
+// menu css
+@import '../../../styles/variables';
+
+#menu {
+  $padding: 25px;
+  position: fixed;
+  top: 0;
+  right: -$menuMinWidth;
+  width: $menuMinWidth;
+  min-width: $menuMinWidth;
+  z-index: 100;
+
+  transition: right 0.2s;
+
+  height: 100vh;
+
+  background: #FFF;
+
+  &.out {
+    right: 0;
+  }
+
+  .button {
+    display: block;
+    width: 100px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+
+  .buttons-container {
+    margin-left: -60px;
+    position: absolute;
+    top: 100px;
+
+    // buttons
+
+    .settings {
+      background-color: #F66;
+    }
+    .rules {
+      background-color: #66F;
+    }
+  }
+
+  .section {
+    padding: $padding $padding 0 ($padding * 2);
+    overflow-y: auto;
+    height: calc(100vh - 2 * #{$padding});
+
+    ul {
+      padding: 0 16px;
+    }
+
+    &.rules {
+      text-align: justify;
+    }
+  }
+}
