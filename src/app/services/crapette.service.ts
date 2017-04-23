@@ -9,6 +9,8 @@ import { Player } from './../model/player.model';
 
 import { CardToolsService } from './card-tools.service';
 import { SettingsService } from './settings.service';
+import { Broadcaster } from './broadcast.service';
+
 import * as Rules from './../model/rules.model';
 
 import { AppState } from './../app.service';
@@ -27,6 +29,7 @@ export class CrapetteService {
     public cardToolsService: CardToolsService,
     public appState: AppState,
     public settings: SettingsService,
+    private broadcaster: Broadcaster,
   ) {}
 
   public initPlayers(): Player[] {
@@ -100,6 +103,8 @@ export class CrapetteService {
 
     this.pickedCard = null;
     this.pickedStack = null;
+
+    this.broadcaster.broadcast('postCardPush', {stack: stackTo});
   }
 
   public endTurn(): void {

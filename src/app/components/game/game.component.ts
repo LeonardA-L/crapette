@@ -19,6 +19,7 @@ import { CardToolsService } from '../../services/card-tools.service';
 import { CrapetteService } from '../../services/crapette.service';
 import { SettingsService } from '../../services/settings.service';
 import { TogetherService } from '../../services/together.service';
+import { AnimationService } from '../../services/animation.service';
 
 /*
  * App Component
@@ -29,7 +30,7 @@ import { TogetherService } from '../../services/together.service';
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'game.html',
   styleUrls: ['game.scss'],
-  providers: [CardToolsService, CrapetteService, SettingsService, TogetherService],
+  providers: [CardToolsService, CrapetteService, SettingsService, TogetherService, AnimationService],
 })
 export class GameComponent implements OnInit {
   public stacks;
@@ -39,6 +40,7 @@ export class GameComponent implements OnInit {
     public cardToolsService: CardToolsService,
     public crapetteService: CrapetteService,
     public settingsService: SettingsService,
+    public animationService: AnimationService,
     public together: TogetherService,
     private route: ActivatedRoute,
   ) {}
@@ -48,6 +50,8 @@ export class GameComponent implements OnInit {
     if (routeParams.seed && routeParams.player) {
       this.together.init(routeParams);
     }
+
+    this.animationService.init();
 
     let players = this.crapetteService.initPlayers();
 
