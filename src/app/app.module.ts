@@ -38,6 +38,8 @@ import { DndModule } from 'ng2-dnd';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { Broadcaster } from './services/broadcast.service';
+
 export function HttpLoaderFactory(http: Http) {
     return new TranslateHttpLoader(http);
 }
@@ -85,6 +87,7 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     appRoutingProviders,
+    Broadcaster,
   ]
 })
 export class AppModule {
