@@ -1,0 +1,12 @@
+{
+  "vendor": {
+    "js": "/crapette/vendor.42fa9050f6a89bd571dc.bundle.js"
+  },
+  "main": {
+    "js": "/crapette/main.eec4c224d3b5863f61a5.bundle.js",
+    "css": "/crapette/main.387fbe677d42bba872c2714d16aadb12.css"
+  },
+  "polyfills": {
+    "js": "/crapette/polyfills.241c50390a580a840d9e.bundle.js"
+  }
+}

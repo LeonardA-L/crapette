@@ -1,0 +1,80 @@
+$icon-hearts15: 0px 0px 15px 14px;
+$icon-clubs15: 0px -14px 15px 15px;
+$icon-spades15: 0px -29px 15px 17px;
+$icon-diamonds15: 0px -46px 15px 18px;
+$icon-hearts25: 0px -64px 25px 24px;
+$icon-clubs25: 0px -88px 25px 26px;
+$icon-spades25: 0px -114px 25px 29px;
+$icon-diamonds25: 0px -143px 25px 30px;
+
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 3);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 4);
+}
+
+@function sprite-width($sprite) {
+  @return nth($sprite, 3);
+}
+
+@function sprite-height($sprite) {
+  @return nth($sprite, 4);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 1);
+  $sprite-offset-y: nth($sprite, 2);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite($sprite) {
+  @include sprite-position($sprite);
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+.icon-hearts15 {
+  @include sprite($icon-hearts15);
+  background-image: url('../sprites/sprite-suits.png');
+}
+
+.icon-clubs15 {
+  @include sprite($icon-clubs15);
+  background-image: url('../sprites/sprite-suits.png');
+}
+
+.icon-spades15 {
+  @include sprite($icon-spades15);
+  background-image: url('../sprites/sprite-suits.png');
+}
+
+.icon-diamonds15 {
+  @include sprite($icon-diamonds15);
+  background-image: url('../sprites/sprite-suits.png');
+}
+
+.icon-hearts25 {
+  @include sprite($icon-hearts25);
+  background-image: url('../sprites/sprite-suits.png');
+}
+
+.icon-clubs25 {
+  @include sprite($icon-clubs25);
+  background-image: url('../sprites/sprite-suits.png');
+}
+
+.icon-spades25 {
+  @include sprite($icon-spades25);
+  background-image: url('../sprites/sprite-suits.png');
+}
+
+.icon-diamonds25 {
+  @include sprite($icon-diamonds25);
+  background-image: url('../sprites/sprite-suits.png');
+}
+
