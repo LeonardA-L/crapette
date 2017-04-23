@@ -6,6 +6,8 @@ import { CardToolsService } from './card-tools.service';
 
 import { StackTypes } from './../model/stack.model';
 
+import { CONFIG } from '../environment';
+
 @Injectable()
 export class AnimationService {
 
@@ -15,13 +17,28 @@ export class AnimationService {
   ) {}
 
   public init() {
-    this.broadcaster.on<string>('postCardPush').subscribe(this.onPostCardPush);
+    const service = this;
+    this.broadcaster.on<string>('postCardPush').subscribe((event) => service.onPostCardPush(event));
   }
 
   private onPostCardPush(event) {
     const stack = event.stack;
-    if (stack.type === StackTypes.ACE && stack.deck.cards.length === cardTools.CARDMAXHIGH) {
-      console.log('OKKKK', stack.deck.cards.length)
+    if (stack.type === StackTypes.ACE && stack.deck.cards.length === this.cardTools.CARDMAXHIGH) {
+      this.aceStackAnimation(stack, stack.deck.cards.length - 1);
     }
+  }
+
+  private aceStackAnimation(stack, idx) {
+    const service = this;
+    setTimeout(() => {
+      if (idx >= 0) {
+        stack.deck.cards[idx].rotation = 0;
+        service.aceStackAnimation(stack, idx - 1);
+      } else {
+        for (let c of stack.deck.cards) {
+          c.visible = false;
+        }
+      }
+    }, CONFIG.animations.fast);
   }
 }
