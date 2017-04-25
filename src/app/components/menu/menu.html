@@ -1,8 +1,6 @@
+<div class="tab rules" [ngClass]="{'out': out, 'state-under': state === 'settings'}" (click)="clickButton('rules')"></div>
+<div class="tab settings" [ngClass]="{'out': out, 'state-under': state === 'rules'}" (click)="clickButton('settings')"></div>
 <div id="menu" [ngClass]="{'out': out}">
-  <div class="buttons-container">
-    <div class="button rules" (click)="clickButton('rules')">R</div>
-    <div class="button settings" (click)="clickButton('settings')">S</div>
-  </div>
 
   <div class="section rules" *ngIf="state === 'rules'">
     <markdown>{{'rules.intro' | translate}}</markdown>

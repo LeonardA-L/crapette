@@ -8,9 +8,9 @@
   right: -$menuMinWidth;
   width: $menuMinWidth;
   min-width: $menuMinWidth;
-  z-index: 100;
+  z-index: $menuZ;
 
-  transition: right 0.2s;
+  transition: right $fast;
 
   height: 100vh;
 
@@ -18,28 +18,6 @@
 
   &.out {
     right: 0;
-  }
-
-  .button {
-    display: block;
-    width: 100px;
-    height: $menuTabHeight;
-    margin-bottom: 10px;
-  }
-
-  .buttons-container {
-    margin-left: -60px;
-    position: absolute;
-    top: $menuTabsTop;
-
-    // buttons
-
-    .settings {
-      background-color: #F66;
-    }
-    .rules {
-      background-color: #66F;
-    }
   }
 
   .section {
@@ -54,5 +32,37 @@
     &.rules {
       text-align: justify;
     }
+  }
+}
+
+.tab {
+  display: block;
+  width: $menuTabWidth;
+  height: $menuTabHeight;
+  position: absolute;
+  top: $menuTabsTop;
+  right: -40px;
+  border: 0;
+  border-radius: $menuTabRadius;
+  transition: right $fast;
+  cursor: pointer;
+
+
+  z-index: $menuZ + 1;
+
+  &.state-under {
+    z-index: $menuZ - 1;
+  }
+
+  &.settings {
+    background-color: $red-player;
+    top: $menuTabsTop + $menuTabHeight + $smallMargin;
+  }
+  &.rules {
+    background-color: $blue-player;
+  }
+
+  &.out {
+    right: $menuMinWidth - 40px;
   }
 }
