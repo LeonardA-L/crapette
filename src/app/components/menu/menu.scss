@@ -1,26 +1,32 @@
 // menu css
 @import '../../../styles/variables';
+@import '../../../styles/utils';
 
+$rot: -2.5deg;
 #menu {
   $padding: 25px;
+  $fac: 2;
   position: fixed;
-  top: 0;
-  right: -$menuMinWidth;
-  width: $menuMinWidth;
+  top: -10vh;
+  padding-top: 10vh;
+  right: -$menuMinWidth * $fac;
+  width: $menuMinWidth * $fac;
   min-width: $menuMinWidth;
   z-index: $menuZ;
 
-  transition: right $fast;
+  transition: right $fast, transform $fast;
 
-  height: 100vh;
+  height: 120vh;
 
   background: #FFF;
 
   &.out {
-    right: 0;
+    right: calc( -#{$menuMinWidth} + 0.07 /*(sin(3deg))*/ * 100vh);
+    @include rotate($rot);
   }
 
   .section {
+    width: $menuMinWidth;
     padding: $padding $padding 0 ($padding * 2);
     overflow-y: auto;
     height: calc(100vh - 2 * #{$padding});
@@ -39,7 +45,7 @@
   display: block;
   width: $menuTabWidth;
   height: $menuTabHeight;
-  position: absolute;
+  position: fixed;
   top: $menuTabsTop;
   right: -40px;
   border: 0;
@@ -63,6 +69,7 @@
   }
 
   &.out {
-    right: $menuMinWidth - 40px;
+    right: $menuMinWidth - 40px + 85px;
+    @include rotate($rot);
   }
 }
