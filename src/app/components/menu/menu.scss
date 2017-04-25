@@ -23,14 +23,14 @@
   .button {
     display: block;
     width: 100px;
-    height: 50px;
+    height: $menuTabHeight;
     margin-bottom: 10px;
   }
 
   .buttons-container {
     margin-left: -60px;
     position: absolute;
-    top: 100px;
+    top: $menuTabsTop;
 
     // buttons
 

@@ -102,4 +102,30 @@ $streetShift: -16px;
     @include blur(4px);
     opacity: 0.5;
   }
+
+  .player-status {
+    $p: 7px;
+    position: fixed;
+    top: $menuTabsTop;
+    left: -$menuTabRadius;
+    text-align: right;
+    width: 90px;
+    font-size: 1.2em;
+    height: $menuTabHeight - $p;
+    border: 0;
+    border-radius: $menuTabRadius;
+    background-color: $blue-player;
+    padding: $p;
+    transition: background-color $fast;
+
+    span {
+      text-transform: capitalize;
+      color: #FF0;
+      text-shadow: 2px 2px 2px #f90;
+    }
+
+    &.red {
+      background-color: $red-player;
+    }
+  }
 }
