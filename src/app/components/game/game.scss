@@ -4,92 +4,102 @@
 
 $streetShift: -16px;
 
-.row {
-  @include display-flex();
-}
+#game {
 
-.player-row {
-  max-width: 1100px;
-  margin: 0 auto;
-}
+  transition: filter $fast, opacity $fast;
 
-.field {
-  flex: $mainColumnSize;
-}
-
-.streets-field {
-  flex: $streetColumnSize;
-}
-
-.alert-field, .side-field {
-  flex: $sideColumnSize;
-}
-
-.streets-field {
-  @include display-flex(column);
-
-  .street {
-    flex: 1;
+  .row {
+    @include display-flex();
   }
-}
 
-.streets-left {
-  margin-right: $streetShift;
-  .stack {
-    text-align: right;
-
-    * {
-      text-align: left;
-    }
+  .player-row {
+    max-width: 1100px;
+    margin: 0 auto;
   }
-}
 
-.mid-row {
-  .stack {
-    padding: ($stackPadding / 2) $stackPadding;
+  .field {
+    flex: $mainColumnSize;
   }
-}
 
-.aces-field {
-  width: 2 * ($cardWidth + 2 * $stackPadding) + 20px;
-  flex: unset;
+  .streets-field {
+    flex: $streetColumnSize;
+  }
 
-  @include display-flex();
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-align-content: flex-end;
-  align-content: flex-end;
-}
+  .alert-field, .side-field {
+    flex: $sideColumnSize;
+  }
 
-.board {
-  transition: transform 0.3s;
+  .streets-field {
+    @include display-flex(column);
 
-  &.rotate {
-    @include rotate(180deg);
-
-    .player-row stack {
-      display: block;
-    }
-
-    button, stack {
-      @include rotate(180deg);
-    }
-
-    .streets-left {
-      margin-right: 0;
-    }
-    .streets-right {
-      margin-left: $streetShift;
-    }
-    .streets-left, .streets-right {
-      margin-top: 5px;
-    }
     .street {
-      margin-top: 4px;
+      flex: 1;
     }
+  }
+
+  .streets-left {
+    margin-right: $streetShift;
+    .stack {
+      text-align: right;
+
+      * {
+        text-align: left;
+      }
+    }
+  }
+
+  .mid-row {
+    .stack {
+      padding: ($stackPadding / 2) $stackPadding;
+    }
+  }
+
+  .aces-field {
+    width: 2 * ($cardWidth + 2 * $stackPadding) + 20px;
+    flex: unset;
+
+    @include display-flex();
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-align-content: flex-end;
+    align-content: flex-end;
+  }
+
+  .board {
+    transition: transform 0.3s;
+
+    &.rotate {
+      @include rotate(180deg);
+
+      .player-row stack {
+        display: block;
+      }
+
+      button, stack {
+        @include rotate(180deg);
+      }
+
+      .streets-left {
+        margin-right: 0;
+      }
+      .streets-right {
+        margin-left: $streetShift;
+      }
+      .streets-left, .streets-right {
+        margin-top: 5px;
+      }
+      .street {
+        margin-top: 4px;
+      }
+    }
+  }
+
+  &.blurry {
+    @include blur(4px);
+    opacity: 0.5;
   }
 }

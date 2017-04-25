@@ -34,3 +34,8 @@
 	-webkit-flex-direction: $direction;
 	flex-direction: $direction;
 }
+
+@mixin blur($size) {
+	-webkit-filter: blur($size); /* Safari */
+	filter: blur($size);
+}
