@@ -70,6 +70,10 @@ $streetShift: -16px;
     align-content: flex-end;
   }
 
+  button {
+    margin-top: $buttonHeight;
+  }
+
   .board {
     transition: transform 0.3s;
 
@@ -95,6 +99,10 @@ $streetShift: -16px;
       }
       .street {
         margin-top: 4px;
+      }
+
+      button {
+        margin-top: 100px;
       }
     }
   }

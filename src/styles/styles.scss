@@ -11,7 +11,7 @@ body {
 
 button {
   width: 120px;
-  height: 42px;
+  height: $buttonHeight;
   background: $blue-button;
   border-radius: $card-radius / 2;
   border: 0;
