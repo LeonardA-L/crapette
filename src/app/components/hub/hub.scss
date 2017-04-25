@@ -9,6 +9,7 @@ hub {
   height: $hubHeight;
   top: calc(50vh - #{$hubHeight} / 2 );
   left: (100vw - $hubWidth) / 2;
+  text-align: center;
 
   button {
     margin-bottom: 15px;

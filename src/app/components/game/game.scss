@@ -7,6 +7,7 @@ $streetShift: -16px;
 #game {
 
   transition: filter $moderate, opacity $moderate;
+  overflow-x: hidden;
 
   .row {
     @include display-flex();
