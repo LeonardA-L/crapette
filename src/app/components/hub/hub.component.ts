@@ -1,5 +1,5 @@
 // Menu component
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CONFIG } from '../../environment';
@@ -17,11 +17,14 @@ export class HubComponent {
   public baseUrl = CONFIG.baseUrl;
   public enableOnline = CONFIG.enableOnline;
 
+  @Output()
+  public local = new EventEmitter();
+
   constructor(public router: Router) {
   }
 
   public startLocal() {
-    this.router.navigateByUrl('/local');
+    this.local.next();
   }
 
   public startOnline() {

@@ -6,7 +6,7 @@ $streetShift: -16px;
 
 #game {
 
-  transition: filter $fast, opacity $fast;
+  transition: filter $moderate, opacity $moderate;
 
   .row {
     @include display-flex();
@@ -99,7 +99,7 @@ $streetShift: -16px;
   }
 
   &.blurry {
-    @include blur(4px);
+    @include bodyBlur();
     opacity: 0.5;
   }
 
@@ -117,6 +117,7 @@ $streetShift: -16px;
     background-color: $blue-player;
     padding: $p;
     transition: background-color $fast;
+    @include user-select(none);
 
     span {
       text-transform: capitalize;

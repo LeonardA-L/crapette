@@ -34,6 +34,7 @@ import { AnimationService } from '../../services/animation.service';
 })
 export class GameComponent implements OnInit {
   public stacks;
+  public hub = true;
 
   constructor(
     public appState: AppState,
@@ -49,6 +50,7 @@ export class GameComponent implements OnInit {
     const routeParams = this.route.snapshot.params;
     if (routeParams.seed && routeParams.player) {
       this.together.init(routeParams);
+      this.hub = false;
     }
 
     this.animationService.init();
@@ -109,6 +111,10 @@ export class GameComponent implements OnInit {
 
   public changePlayer() {
     this.crapetteService.endTurn();
+  }
+
+  public startLocalGame() {
+    this.hub = false;
   }
 
   private checkCrapette(aceOpportunities: Card[], newAceOpportunities: Card[]) {

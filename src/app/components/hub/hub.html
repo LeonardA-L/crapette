@@ -1,5 +1,4 @@
 <div id="hub">
-  HUB<br>
   <button class="large" (click)="startLocal()">Start a local Game</button><br>
   <button class="large" *ngIf="enableOnline && !showMulti" (click)="startOnline()">Start an online Game</button>
   <div *ngIf="enableOnline && showMulti">

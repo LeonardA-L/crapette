@@ -35,7 +35,9 @@
 	flex-direction: $direction;
 }
 
-@mixin blur($size) {
-	-webkit-filter: blur($size); /* Safari */
-	filter: blur($size);
+@mixin bodyBlur() {
+	$g: 40%;
+	$size: 3px;
+	-webkit-filter: blur($size) grayscale($g); /* Safari */
+	filter: blur($size) grayscale($g);
 }
