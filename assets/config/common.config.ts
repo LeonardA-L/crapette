@@ -5,5 +5,9 @@ export const config = {
   cardRotationAmplitude: 5,
 
   baseUrl: 'http://localhost:3000',
-  enableOnline: true
+  enableOnline: false,
+
+  animations: {
+    fast: 80
+  }
 };
