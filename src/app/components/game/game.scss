@@ -99,6 +99,9 @@ $streetShift: -16px;
       }
       .street {
         margin-top: 4px;
+        .card-suit-ace {
+          @include transform(180deg, 1.3);
+        }
       }
 
       button {
