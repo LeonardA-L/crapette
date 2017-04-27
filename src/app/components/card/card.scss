@@ -57,7 +57,7 @@
   .bottom-right {
     @include rotate(180deg);
 
-    bottom: $shift * $card-radius;
+    bottom: $shift * $card-radius + 3px;
     right: $shift * $card-radius;
   }
 
