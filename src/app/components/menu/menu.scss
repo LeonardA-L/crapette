@@ -14,11 +14,13 @@ $rot: -2.5deg;
   min-width: $menuMinWidth;
   z-index: $menuZ;
 
+  background-color: #FFF;
+  background-image: url('/assets/img/menu_bg.jpg');
+
   transition: right $fast, transform $fast;
 
   height: 120vh;
 
-  background: #FFF;
 
   &.out {
     right: calc( -#{$menuMinWidth} + 0.07 /*(sin(3deg))*/ * 100vh);

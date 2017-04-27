@@ -31,7 +31,7 @@ export class AnimationService {
   private aceStackAnimation(stack, idx) {
     const service = this;
     setTimeout(() => {
-      if (idx >= 0) {
+      if (idx >= this.cardTools.CARDMAXHIGH - 6) {
         stack.deck.cards[idx].rotation = 0;
         service.aceStackAnimation(stack, idx - 1);
       } else {
