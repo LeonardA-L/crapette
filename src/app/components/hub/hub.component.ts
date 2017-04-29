@@ -1,6 +1,7 @@
 // Menu component
 import { Component, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { CONFIG } from '../../environment';
 
@@ -20,7 +21,10 @@ export class HubComponent {
   @Output()
   public local = new EventEmitter();
 
-  constructor(public router: Router) {
+  constructor(
+    public router: Router,
+    public translate: TranslateService,
+  ) {
   }
 
   public startLocal() {

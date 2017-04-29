@@ -14,5 +14,10 @@
 		"intro":"# Paramètres\n",
 		"rotateBoard":"Tourner le plateau en fonction du joueur",
 		"stackHeight":"Montrer le nombre de cartes au survol de la pile"
+	},
+	"hub": {
+		"local":"Jouer en local",
+		"online":"Jouer en ligne",
+		"go":"go"
 	}
 }

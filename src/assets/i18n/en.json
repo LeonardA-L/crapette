@@ -14,5 +14,10 @@
 		"intro":"# Settings\n",
 		"rotateBoard":"Rotate the board depending on player",
 		"stackHeight":"Show how many cards are in a stack on hover"
+	},
+	"hub": {
+		"local":"Start a local game",
+		"online":"Start an online game",
+		"go":"go"
 	}
 }

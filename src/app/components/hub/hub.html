@@ -1,8 +1,8 @@
 <div id="hub">
-  <button class="large" (click)="startLocal()">Start a local Game</button><br>
-  <button class="large" *ngIf="enableOnline && !showMulti" (click)="startOnline()">Start an online Game</button>
+  <button class="large" (click)="startLocal()">{{ 'hub.local' | translate}}</button><br>
+  <button class="large" *ngIf="enableOnline && !showMulti" (click)="startOnline()">{{ 'hub.online' | translate}}</button>
   <div *ngIf="enableOnline && showMulti">
-    <p><span>{{baseUrl + '/p1/' + hash}}</span> | <a target="_blank" href="{{baseUrl + '/p1/' + hash}}">Go</a></p>
-    <p><span>{{baseUrl + '/p2/' + hash}}</span> | <a target="_blank" href="{{baseUrl + '/p2/' + hash}}">Go</a></p>
+    <p><span>{{baseUrl + '/p1/' + hash}}</span> | <a target="_blank" href="{{baseUrl + '/p1/' + hash}}">{{ 'hub.go' | translate}}</a></p>
+    <p><span>{{baseUrl + '/p2/' + hash}}</span> | <a target="_blank" href="{{baseUrl + '/p2/' + hash}}">{{ 'hub.go' | translate}}</a></p>
   </div>
 </div>
