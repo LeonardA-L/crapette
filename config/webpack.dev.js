@@ -10,6 +10,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const sprite = require('sprite-webpack-plugin');
 
 /**
  * Webpack Constants
@@ -212,6 +213,14 @@ module.exports = function (options) {
         options: {
 
         }
+      }),
+
+      new sprite({
+        'source': './src/assets/img/',
+        'imgPath': './src/assets/sprites/',
+        'cssPath': './src/assets/css/',
+        'processor': 'scss',
+        'bundleMode': 'multiple'
       }),
 
     ],

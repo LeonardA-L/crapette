@@ -16,7 +16,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ngcWebpack = require('ngc-webpack');
-const sprite = require('sprite-webpack-plugin');
 
 /*
  * Webpack Constants
@@ -353,15 +352,8 @@ module.exports = function (options) {
         disabled: !AOT,
         tsConfig: helpers.root('tsconfig.webpack.json'),
         resourceOverride: helpers.root('config/resource-override.js')
-      }),
-
-      new sprite({
-        'source': './src/assets/img/',
-        'imgPath': './src/assets/sprites/',
-        'cssPath': './src/assets/css/',
-        'processor': 'scss',
-        'bundleMode': 'multiple'
       })
+
 
     ],
 
