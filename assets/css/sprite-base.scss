@@ -1,0 +1,38 @@
+$icon-menu_bg: 0px 0px 93px 92px;
+
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 3);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 4);
+}
+
+@function sprite-width($sprite) {
+  @return nth($sprite, 3);
+}
+
+@function sprite-height($sprite) {
+  @return nth($sprite, 4);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 1);
+  $sprite-offset-y: nth($sprite, 2);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite($sprite) {
+  @include sprite-position($sprite);
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+.icon-menu_bg {
+  @include sprite($icon-menu_bg);
+  background-image: url('../sprites/sprite-base.png');
+}
+
