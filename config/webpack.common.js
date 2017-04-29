@@ -360,11 +360,11 @@ module.exports = function (options) {
       }),
 
       new sprite({
-        'source': './src/assets/img/suits/',
+        'source': './src/assets/img/',
         'imgPath': './src/assets/sprites/',
         'cssPath': './src/assets/css/',
-        'baseName': 'suits',
-        'processor': 'scss'
+        'processor': 'scss',
+        'bundleMode': 'multiple'
       })
 
     ],

@@ -8,7 +8,7 @@ import { SettingsService } from '../../services/settings.service';
 @Component({
   selector: 'menu',
   templateUrl: './menu.html',
-  styleUrls: ['./menu.scss'],
+  styleUrls: ['./menu.scss', '../../../assets/css/sprite-src-assets-img-icons.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 

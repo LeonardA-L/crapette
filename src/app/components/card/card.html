@@ -10,12 +10,12 @@
     'red-card': card.type.color === 1
   }">
     <div class="top-left" *ngIf="card.visible">
-      <div class="card-value">{{cardToolsService.getCharFromNumeric(card.value)}}</div>
+      <div class="card-value {{'card-value-'+cardToolsService.getCharFromNumeric(card.value)}}">{{cardToolsService.getCharFromNumeric(card.value)}}</div>
       <div class="card-suit" [ngClass]="'icon-'+card.type.name+'S'"></div>
     </div>
 
     <div class="bottom-right" *ngIf="card.visible">
-      <div class="card-value">{{cardToolsService.getCharFromNumeric(card.value)}}</div>
+      <div class="card-value {{'card-value-'+cardToolsService.getCharFromNumeric(card.value)}}">{{cardToolsService.getCharFromNumeric(card.value)}}</div>
       <div class="card-suit" [ngClass]="'icon-'+card.type.name+'S'"></div>
     </div>
 

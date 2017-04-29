@@ -6,7 +6,7 @@ import { CardToolsService } from './../../services/card-tools.service';  // Get 
 @Component({
   selector: 'card',
   templateUrl: './card.html',
-  styleUrls: ['./card.scss', '../../../assets/css/sprite-suits.scss'],
+  styleUrls: ['./card.scss', '../../../assets/css/sprite-src-assets-img-suits.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 

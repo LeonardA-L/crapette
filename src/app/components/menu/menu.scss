@@ -41,6 +41,11 @@ $rot: -2.5deg;
       text-align: justify;
     }
   }
+
+  .icon-flag {
+    transform: scale(1.7);
+    margin-right: $smallMargin;
+  }
 }
 
 .tab {
@@ -73,5 +78,10 @@ $rot: -2.5deg;
   &.out {
     right: $menuMinWidth - 40px + 85px;
     @include rotate($rot);
+  }
+
+  .icon-rules, .icon-cog {
+    margin-left: 19px;
+    margin-top: 11px;
   }
 }
