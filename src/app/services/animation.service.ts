@@ -40,7 +40,6 @@ export class AnimationService {
     let right;
 
     this.crapette = true;
-    this.appRef.tick();
 
     const bottom = '101vh';
     const top = '-102vh';
