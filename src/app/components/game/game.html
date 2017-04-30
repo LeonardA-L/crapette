@@ -1,5 +1,5 @@
-<hub *ngIf="hub || animationService.crapette" (local)="startLocalGame()"></hub>
-<div id="game" [ngClass]="{'blurry': hub}">
+<hub *ngIf="hub || animationService.crapette || crapetteService.winner" [winner]="crapetteService.winner" (local)="startLocalGame()"></hub>
+<div id="game" [ngClass]="{'blurry': hub || crapetteService.winner}">
   <div id="hacks" style="position:fixed; top:0; left: 0;">
   </div>
   <div class="player-status" [ngClass]="{'red': appState.get('currentPlayer').id}"><span>{{'player' | translate}}</span><br /><span>{{appState.get('currentPlayer').id + 1}}</span></div>

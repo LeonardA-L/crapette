@@ -24,6 +24,7 @@ export class CrapetteService {
   public pickedCard: Card;
   public pickedStack: Stack;
   public crapetteAvailable = false;
+  public winner: Player;
 
   constructor(
     public cardToolsService: CardToolsService,

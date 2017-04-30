@@ -4,7 +4,7 @@
 import {
   Component,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -147,6 +147,7 @@ export class GameComponent implements OnInit {
 
     if (crapette.isEmpty() && main.isEmpty() && discard.isEmpty()) {
       console.log('Player', player.id, 'wins');
+      this.crapetteService.winner = player;
     }
   }
 
