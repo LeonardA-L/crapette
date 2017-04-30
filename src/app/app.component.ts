@@ -28,8 +28,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   public ngOnInit() {
-    console.log('Initial App State', this.appState.state);
-
     const useLocale = navigator.language === 'fr' ? 'fr' : 'en';
     this.translate.setDefaultLang(useLocale);
   }

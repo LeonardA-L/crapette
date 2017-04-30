@@ -76,6 +76,7 @@ $streetShift: -16px;
 
   .board {
     transition: transform 0.3s;
+    min-width: 715px;
 
     &.rotate {
       @include rotate(180deg);
