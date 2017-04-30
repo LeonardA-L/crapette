@@ -22,4 +22,9 @@ hub {
       flex: 1;
     }
   }
+
+  #hub {
+    z-index: 10;
+    position: relative;
+  }
 }
