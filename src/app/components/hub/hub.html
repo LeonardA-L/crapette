@@ -1,4 +1,8 @@
 <div id="hub">
+  <div class="splash-wrap">
+  	<img src="/assets/img/splash/splash_cra.png" class="splash left" />
+  	<img src="/assets/img/splash/splash_ette.png" class="splash right" />
+  </div>
   <button class="large" (click)="startLocal()">{{ 'hub.local' | translate}}</button><br>
   <button class="large" *ngIf="enableOnline && !showMulti" (click)="startOnline()">{{ 'hub.online' | translate}}</button>
   <div *ngIf="enableOnline && showMulti">

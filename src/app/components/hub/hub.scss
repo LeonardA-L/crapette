@@ -1,17 +1,25 @@
 // menu css
 @import '../../../styles/variables';
+@import '../../../styles/utils';
 
 hub {
   position: fixed;
-
   z-index: 20;
   width: $hubWidth;
-  height: $hubHeight;
-  top: calc(50vh - #{$hubHeight} / 2 );
-  left: (100vw - $hubWidth) / 2;
+  top: 16vh;
+  left: (100vw - $hubWidth ) / 2;
   text-align: center;
 
   button {
     margin-bottom: $smallMargin;
+  }
+
+  .splash-wrap {
+    @include display-flex();
+    background: url('/assets/img/splash/splash_bg.png') center center;
+    background-size: cover;
+    img {
+      flex: 1;
+    }
   }
 }
