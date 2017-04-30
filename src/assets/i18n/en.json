@@ -1,6 +1,7 @@
 {
 	"player":"player",
 	"crapette":"crapette!",
+	"no": "No",
 	"rules": {
 		"intro":"# Rules\nCrapette is a traditional French thinking game for two players. Each player gets a deck of `52` cards. You need to get rid of your cards. The game consists in a series of piles, each of these piles having their own conditions to take/place cards. The first player to dispatch all of their cards on the board wins.",
 		"layout": "## Layout\nThe game board consists in a blue zone, a red zone, and a neutral zone in the center. In their own field, each player has three piles, their *main* pile, laid horizontaly in front of them, a *discard* pile (empty at the beginning of the game) and a last pile called *crapette*, on the right. The crapette is built using `13` cards drawn from the main stack. These three piles together make the player's side. In order to win, a player needs to empty all of these three piles.\n\nThen, `4` cards are drawn from the main pile and laid out in a column, visible, vertically above the crapette pile. These piles are named *streets*. The opponent doing the same prep phase, there are `8` streets in total, `4` on each side of the board. In the space between these streets, we define `8` empty piles, called *bases*, which will be used to stack cards from a same suit.\n\nTogether, streets and bases make the neutral zone.",

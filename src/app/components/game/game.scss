@@ -72,6 +72,8 @@ $streetShift: -16px;
 
   button {
     margin-top: $buttonHeight;
+    position: relative;
+    z-index: 10;
   }
 
   .board {
@@ -141,5 +143,12 @@ $streetShift: -16px;
     &.red {
       background-color: $red-player;
     }
+  }
+  .no {
+    text-shadow: 2px 2px 1px #AAA;
+    display: block;
+    margin-top: -18px;
+    transition: margin-top $no, opacity $fast;
+    opacity: 0;
   }
 }

@@ -110,6 +110,8 @@ export class GameComponent implements OnInit {
       setTimeout(() => {
         this.crapetteService.endTurn();
       }, 1700);
+    } else {
+      this.broadcaster.broadcast('noCrapette', {playerId});
     }
   }
 

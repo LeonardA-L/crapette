@@ -25,6 +25,7 @@ export class AnimationService {
     const service = this;
     this.broadcaster.on<string>('postCardPush').subscribe((event) => service.onPostCardPush(event));
     this.broadcaster.on<string>('crapette').subscribe((event) => service.onCrapette(event));
+    this.broadcaster.on<string>('noCrapette').subscribe((event) => service.onNoCrapette(event));
   }
 
   private onPostCardPush(event) {
@@ -32,6 +33,18 @@ export class AnimationService {
     if (stack.type === StackTypes.ACE && stack.deck.cards.length === this.cardTools.CARDMAXHIGH) {
       this.aceStackAnimation(stack, stack.deck.cards.length - 1);
     }
+  }
+
+  private onNoCrapette(event) {
+    const playerId = event.playerId;
+    const noElement = document.querySelectorAll('.no-p' + playerId)[0];
+    noElement['style']['margin-top'] = '0';
+    noElement['style']['opacity'] = '1';
+
+    setTimeout(() => {
+      noElement['style']['margin-top'] = '-18px';
+      noElement['style']['opacity'] = '0';
+    }, 900);
   }
 
   private onCrapette(event) {
