@@ -16,7 +16,7 @@ hub {
 
   .splash-wrap {
     @include display-flex();
-    background: url('/assets/img/splash/splash_bg.png') center center;
+    background: url('../../../assets/img/splash/splash_bg.png') center center;
     background-size: cover;
     img {
       flex: 1;
