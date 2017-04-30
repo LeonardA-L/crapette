@@ -18,6 +18,7 @@
 	"hub": {
 		"local":"Start a local game",
 		"online":"Start an online game",
-		"go":"go"
+		"go":"go",
+		"winner": "Player {{id}} wins!"
 	}
 }

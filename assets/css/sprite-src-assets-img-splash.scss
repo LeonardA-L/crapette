@@ -1,6 +1,6 @@
-$icon-splash_bg: 0px 0px 1787px 705px;
-$icon-splash_cra: 0px -705px 951px 705px;
-$icon-splash_ette: 0px -1410px 836px 705px;
+$icon-splash_bg: 0px 0px 1000px 395px;
+$icon-splash_cra: 0px -395px 529px 395px;
+$icon-splash_ette: 0px -790px 472px 395px;
 
 @mixin sprite-width($sprite) {
   width: nth($sprite, 3);

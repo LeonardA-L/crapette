@@ -18,6 +18,7 @@
 	"hub": {
 		"local":"Jouer en local",
 		"online":"Jouer en ligne",
-		"go":"go"
+		"go":"go",
+		"winner": "Joueur {{id}} gagne !"
 	}
 }
