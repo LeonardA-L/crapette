@@ -1,0 +1,50 @@
+$icon-splash_bg: 0px 0px 1787px 705px;
+$icon-splash_cra: 0px -705px 951px 705px;
+$icon-splash_ette: 0px -1410px 836px 705px;
+
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 3);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 4);
+}
+
+@function sprite-width($sprite) {
+  @return nth($sprite, 3);
+}
+
+@function sprite-height($sprite) {
+  @return nth($sprite, 4);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 1);
+  $sprite-offset-y: nth($sprite, 2);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite($sprite) {
+  @include sprite-position($sprite);
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+.icon-splash_bg {
+  @include sprite($icon-splash_bg);
+  background-image: url('../sprites/sprite-src-assets-img-splash.png');
+}
+
+.icon-splash_cra {
+  @include sprite($icon-splash_cra);
+  background-image: url('../sprites/sprite-src-assets-img-splash.png');
+}
+
+.icon-splash_ette {
+  @include sprite($icon-splash_ette);
+  background-image: url('../sprites/sprite-src-assets-img-splash.png');
+}
+

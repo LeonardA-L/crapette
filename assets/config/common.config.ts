@@ -9,7 +9,7 @@ export const config = {
     github: 'https://LeonardA-L.github.io/crapette'
   },
 
-  enableOnline: true,
+  enableOnline: false,
 
   animations: {
     fast: 80
