@@ -3,10 +3,10 @@
     "js": "/crapette/vendor.c40592d7079b48b1391b.bundle.js"
   },
   "main": {
-    "js": "/crapette/main.e9446d9e7ae8dfb47e46.bundle.js",
+    "js": "/crapette/main.73621b2d58b1fe184301.bundle.js",
     "css": "/crapette/main.e9a6f41df68063bde46d47ef079a4b79.css"
   },
   "polyfills": {
-    "js": "/crapette/polyfills.c963da9d2e172ace0cd9.bundle.js"
+    "js": "/crapette/polyfills.3ebf11b8eec7824315fe.bundle.js"
   }
 }
