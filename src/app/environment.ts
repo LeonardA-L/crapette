@@ -19,6 +19,17 @@ let ENV_CONFIG = {};
 // https://github.com/angular/angular/blob/86405345b781a9dc2438c0fbe3e9409245647019/TOOLS_JS.md
 let _decorateModuleRef = <T>(value: T): T => { return value; };
 
+const GITHUB = process.env.GITHUB;
+
+// Set absolute addresses based on environment
+
+ENV_CONFIG['baseUrl'] = config.baseUrl.local;
+ENV_CONFIG['root'] = config.root.default;
+if (GITHUB) {
+  ENV_CONFIG['baseUrl'] = config.baseUrl.github;
+  ENV_CONFIG['root'] = config.root.github;
+}
+
 if ('production' === process.env.ENV) {
   enableProdMode();
 

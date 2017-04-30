@@ -40,8 +40,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { Broadcaster } from './services/broadcast.service';
 
+import { CONFIG } from './environment';
+
+console.log(CONFIG);
+
 export function HttpLoaderFactory(http: Http) {
-    return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(http, CONFIG.baseUrl + '/assets/i18n/', '.json');
 }
 
 // Application wide providers

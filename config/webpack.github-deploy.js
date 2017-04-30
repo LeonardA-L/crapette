@@ -2,7 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const helpers = require('./helpers');
 const ghDeploy = require('./github-deploy');
+const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
+const DefinePlugin = require('webpack/lib/DefinePlugin');
 
 /**
  * Webpack Constants
@@ -17,6 +19,7 @@ module.exports = function (options) {
 
   // replace the instance of HtmlWebpackPlugin with an updated one.
   ghDeploy.replaceHtmlWebpackPlugin(webpackConfig.plugins, GH_REPO_NAME);
+  ghDeploy.replaceDefineWebpackPlugin(webpackConfig.plugins);
 
   return webpackMerge(webpackConfig, {
    output: {

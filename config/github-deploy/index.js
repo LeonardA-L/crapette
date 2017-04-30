@@ -2,6 +2,7 @@ const execSync = require('child_process').execSync;
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const helpers = require('../helpers');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
 
 const REPO_NAME_RE = /((git@github\.com:)|(https:\/\/github\.com\/)).+\/(.+)\.git/;
 
@@ -82,7 +83,21 @@ function replaceHtmlWebpackPlugin(plugins, ghRepoName) {
     }
   }
 }
+
+function replaceDefineWebpackPlugin(plugins) {
+  for (var i=0; i<plugins.length; i++) {
+    if (plugins[i] instanceof DefinePlugin) {
+      const definePlug = plugins.splice(i, 1)[0];
+      definePlug.definitions['process.env'].GITHUB = true;
+
+      plugins.splice(i, 0, definePlug);
+      return;
+    }
+  }
+}
+
 exports.getWebpackConfigModule = getWebpackConfigModule;
 exports.getRepoName = getRepoName;
 exports.safeUrl = safeUrl;
 exports.replaceHtmlWebpackPlugin = replaceHtmlWebpackPlugin;
+exports.replaceDefineWebpackPlugin = replaceDefineWebpackPlugin;
