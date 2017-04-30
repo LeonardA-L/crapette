@@ -1,4 +1,4 @@
-<hub *ngIf="hub" (local)="startLocalGame()"></hub>
+<hub *ngIf="hub || animationService.crapette" (local)="startLocalGame()"></hub>
 <div id="game" [ngClass]="{'blurry': hub}">
   <div id="hacks" style="position:fixed; top:0; left: 0;">
   </div>

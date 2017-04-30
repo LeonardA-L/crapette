@@ -20,6 +20,8 @@ hub {
     background-size: cover;
     img {
       flex: 1;
+      transition: top $crapette;
+      transition-timing-function: cubic-bezier(0, 0.8, 1, 0.08);
     }
   }
 

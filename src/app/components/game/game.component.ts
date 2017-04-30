@@ -20,6 +20,7 @@ import { CrapetteService } from '../../services/crapette.service';
 import { SettingsService } from '../../services/settings.service';
 import { TogetherService } from '../../services/together.service';
 import { AnimationService } from '../../services/animation.service';
+import { Broadcaster } from '../../services/broadcast.service';
 
 /*
  * App Component
@@ -44,6 +45,7 @@ export class GameComponent implements OnInit {
     public animationService: AnimationService,
     public together: TogetherService,
     private route: ActivatedRoute,
+    private broadcaster: Broadcaster,
   ) {}
 
   public ngOnInit() {
@@ -104,8 +106,10 @@ export class GameComponent implements OnInit {
     }
 
     if (this.crapetteService.crapetteAvailable) {
-      console.log('CRAPETTE');
-      this.crapetteService.endTurn();
+      this.broadcaster.broadcast('crapette');
+      setTimeout(() => {
+        this.crapetteService.endTurn();
+      }, 1700);
     }
   }
 
