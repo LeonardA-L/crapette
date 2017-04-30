@@ -1,0 +1,86 @@
+// menu css
+@import '../../../styles/variables';
+@import '../../../styles/utils';
+
+$rot: -2.5deg;
+#menu {
+  $padding: 25px;
+  $fac: 2;
+  position: fixed;
+  top: -10vh;
+  padding-top: 10vh;
+  right: -$menuMinWidth * $fac;
+  width: $menuMinWidth * $fac;
+  min-width: $menuMinWidth;
+  z-index: $menuZ;
+
+  background-color: #FFF;
+  background-image: url('../../../assets/img/menu_bg.jpg');
+
+  transition: right $fast, transform $fast;
+
+  height: 120vh;
+
+
+  &.out {
+    right: calc( -#{$menuMinWidth} + 0.07 /*(sin(3deg))*/ * 100vh);
+    @include rotate($rot);
+  }
+
+  .section {
+    width: $menuMinWidth;
+    padding: $padding $padding 0 ($padding * 2);
+    overflow-y: auto;
+    height: calc(100vh - 2 * #{$padding});
+
+    ul {
+      padding: 0 16px;
+    }
+
+    &.rules {
+      text-align: justify;
+    }
+  }
+
+  .icon-flag {
+    margin-right: $smallMargin;
+  }
+}
+
+.tab {
+  display: block;
+  width: $menuTabWidth;
+  height: $menuTabHeight;
+  position: fixed;
+  top: $menuTabsTop;
+  right: -40px;
+  border: 0;
+  border-radius: $menuTabRadius;
+  transition: right $fast;
+  cursor: pointer;
+
+
+  z-index: $menuZ + 1;
+
+  &.state-under {
+    z-index: $menuZ - 1;
+  }
+
+  &.settings {
+    background-color: $red-player;
+    top: $menuTabsTop + $menuTabHeight + $smallMargin;
+  }
+  &.rules {
+    background-color: $blue-player;
+  }
+
+  &.out {
+    right: $menuMinWidth - 40px + 85px;
+    @include rotate($rot);
+  }
+
+  .icon-rules, .icon-cog {
+    margin-left: 19px;
+    margin-top: 11px;
+  }
+}

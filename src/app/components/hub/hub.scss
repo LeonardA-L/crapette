@@ -1,0 +1,52 @@
+// menu css
+@import '../../../styles/variables';
+@import '../../../styles/utils';
+
+hub {
+  position: fixed;
+  z-index: 20;
+  width: $hubWidth;
+  top: 16vh;
+  left: (100vw - $hubWidth ) / 2;
+  text-align: center;
+
+  button {
+    margin-bottom: $smallMargin;
+  }
+
+  .splash-wrap {
+    @include display-flex();
+    background: url('../../../assets/img/splash/splash_bg.png') center center;
+    background-size: cover;
+    img {
+      flex: 1;
+      transition: top $crapette;
+      transition-timing-function: cubic-bezier(0, 0.8, 1, 0.08);
+    }
+  }
+
+  #hub {
+    z-index: 10;
+    position: relative;
+  }
+
+  .winner {
+    $shadow: 3px 3px 8px;
+    $shadow-alpha: 0.90;
+    $dark: 30%;
+    h1 {
+      font-size: 2.5em;
+      text-transform: uppercase;
+
+      $color: $blue-player;
+      color: darken($color, $dark);
+      text-shadow: $shadow rgba(darken($color, $dark), $shadow-alpha);
+
+      &.red {
+        $color: $red-player;
+        color: darken($color, $dark);
+        text-shadow: $shadow rgba(darken($color, $dark), $shadow-alpha);
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+// Card css
+@import '../../../styles/variables';
+@import '../../../styles/utils';
+
+.card {
+  border: solid 1px $grey-cardBorder;
+  border-radius: $card-radius;
+
+  display: inline-block;
+
+  width: $cardWidth;
+  height: $cardHeight;
+
+  color: $black-card;
+  font-size: 0.9em;
+  font-weight: 600;
+
+  $shift: 1.5;
+
+  background: $white-card;
+
+  @include user-select(none);
+
+  transition: transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: -ms-transform 0.2s;
+
+
+  .card-content {
+    margin: $card-padding;
+    border-radius: $card-radius;
+
+    height: calc(100% - 2 * #{$card-padding});
+  }
+
+  .invisible {
+    background-color: $blue-player;
+  }
+
+  .red.invisible {
+    background-color: $red-player;
+  }
+
+  .red-card {
+    color: $red-card;
+  }
+
+  .top-left, .bottom-right {
+    position: absolute;
+  }
+
+  .top-left {
+    top: $shift * $card-radius;
+    left: $shift * $card-radius;
+  }
+
+  .bottom-right {
+    @include rotate(180deg);
+
+    bottom: $shift * $card-radius + 3px;
+    right: $shift * $card-radius;
+  }
+
+  .card-suit {
+    margin: 2px 0 2px -2px;
+  }
+
+  .card-value {
+    padding-left: 0;
+  }
+
+  .icon-hearts15 {
+    margin-top: 4px;
+  }
+
+
+  $suit-h-pad: 19px;
+  $suit-v1-pad: 8px;
+  $bigSuit-factor: 0.80;
+  $bigSuit: 25px * $bigSuit-factor;
+  $mid-factor: 80px - $suit-v1-pad;
+
+  .symbols-container {
+    position:relative;
+  }
+
+  .card-suit-big {
+    position: absolute;
+
+  }
+  .row-1 {
+    top: $suit-v1-pad;
+  }
+
+  .row-2 {
+    top: $suit-v1-pad * 1 + $bigSuit + -5px;
+  }
+
+  .row-3 {
+    top: $bigSuit * 2 - 5px;
+  }
+
+  .row-4 {
+    top: $mid-factor - 14px;
+  }
+
+  .row-5 {
+    top: $mid-factor + $suit-v1-pad;
+  }
+
+  .row-6 {
+    top: $mid-factor + $suit-v1-pad * 1 + $bigSuit - 2px;
+  }
+
+  .row-7 {
+    top: $mid-factor + $suit-v1-pad + $bigSuit * 2 - 3px;
+  }
+
+  .col-1 {
+    left: $suit-h-pad;
+  }
+
+  .col-2 {
+    left: ($cardWidth - $bigSuit) / 2 - 3px;
+  }
+
+  .col-3 {
+    right: $suit-h-pad;
+  }
+
+  .row-5, .row-6, .row-7 {
+    @include rotate(180deg);
+  }
+
+  .card-suit-ace {
+    top: 56px;
+    left: 37px;
+  }
+
+  .card-value-10 {
+    margin-left: -3px;
+  }
+
+  // Shadow effect on pick
+  $picked-shadow: 0 0 8px;
+  $picked-color: #000;
+  $picked-shadow-alpha: 0.4;
+  &.picked {
+     box-shadow: $picked-shadow rgba($picked-color, $picked-shadow-alpha);
+  }
+}
+

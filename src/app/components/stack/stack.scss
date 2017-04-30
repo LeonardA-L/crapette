@@ -1,0 +1,74 @@
+// Stack css
+@import '../../../styles/variables';
+@import '../../../styles/utils';
+
+.stack {
+  cursor: default !important; // because of ng2-dnd
+  padding: $stackPadding;
+
+  &.centered {
+    text-align: center;
+  }
+
+  .horizontal-wrap {
+    @include rotate(90deg);
+
+    height: $cardWidth;
+    width: $cardHeight;
+  }
+
+  .stack-wrap {
+    position: relative;
+    width: $cardWidth;
+    height: $cardHeight;
+    display: inline-flex;
+  }
+
+  card {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.no-card {
+  border: dashed 1px $grey-noCardBorder;
+  display: inline-block;
+
+  width: $cardWidth;
+  height: $cardHeight;
+
+  background: $noCardBG;
+
+  border-radius: $card-radius;
+
+  &.no-spread {
+    margin-left: 10px;
+  }
+
+  .placeholder {
+    width: $cardWidth;
+    height: $cardHeight;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .placeholder-rotate {
+    @include rotate(-90deg);
+
+    width: $cardHeight;
+    height: $cardWidth;
+    position: absolute;
+    top: 24px;
+    left: -12px;
+  }
+
+  .placeholder-main {
+    color: $grey-noCardBorder;
+    font-weight: 600;
+    font-size: 0.7em;
+    position: relative;
+    top: 90px;
+  }
+}

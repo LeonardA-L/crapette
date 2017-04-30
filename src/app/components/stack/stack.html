@@ -1,0 +1,17 @@
+<div class="stack" [ngClass]="{'centered': !stack.vertical || stack.type === stackTypes.CRAPETTE}"
+  dnd-droppable (onDropSuccess)="handleDrop($event)">
+  <div class="stack-wrap" [ngClass]="{'horizontal-wrap': !stack.vertical}">
+    <div *ngIf="stack.deck.cards.length === 0">
+      <div class="no-card" (click)="clickCard()" [ngClass]="{'no-spread': !stack.spread}">
+        <div class="placeholder" [ngClass]="{'placeholder-rotate': stack.type === stackTypes.MAIN}">
+          <span class="placeholder-main" *ngIf="stack.type === stackTypes.MAIN">Click to renew discard</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="(stack.deck.cards.length > 0)">
+      <card title="{{settings.stackLength ? stack.deck.cards.length : ''}}" *ngFor="let card of stack.deck.cards | slice:stack.spread?0:-4; let i = index" [ngStyle]="{'left': computeShift(card, stack, i)}" [card]="card" (click)="clickCard(card)"
+      dnd-draggable [dragData]="card" (onDragStart)="handleDrag(card)"
+      [dragEnabled]="card === stack.top && (!crapette.pickedStack || crapette.pickedStack.cancelable || crapette.pickedStack === stack)"></card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+// Mixins
+
+@mixin user-select($value) {
+	-webkit-user-select: $value;  /* Chrome all / Safari all */
+	-moz-user-select: $value;     /* Firefox all */
+	-ms-user-select: $value;      /* IE 10+ */
+	user-select: $value;          /* Likely future */
+}
+
+// Do Combine
+@mixin transform($rotate:0deg, $scale:1) {
+	-ms-transform: rotate($rotate) scale($scale); /* IE 9 */
+	-webkit-transform: rotate($rotate) scale($scale); /* Chrome, Safari, Opera */
+	transform: rotate($rotate) scale($scale);
+}
+
+// Warning, to not combine
+@mixin rotate($d) {
+	-ms-transform: rotate($d); /* IE 9 */
+	-webkit-transform: rotate($d); /* Chrome, Safari, Opera */
+	transform: rotate($d);
+}
+
+// Warning, to not combine
+@mixin scale($d) {
+	-ms-transform: scale($d); /* IE 9 */
+	-webkit-transform: scale($d); /* Chrome, Safari, Opera */
+	transform: scale($d);
+}
+
+@mixin display-flex($direction: row) {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: $direction;
+	flex-direction: $direction;
+}
+
+@mixin bodyBlur() {
+	$g: 40%;
+	$size: 3px;
+	-webkit-filter: blur($size) grayscale($g); /* Safari */
+	filter: blur($size) grayscale($g);
+}

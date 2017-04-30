@@ -1,0 +1,154 @@
+// Layout
+@import '../../../styles/variables';
+@import '../../../styles/utils';
+
+$streetShift: -16px;
+
+#game {
+
+  transition: filter $moderate, opacity $moderate;
+  overflow-x: hidden;
+
+  .row {
+    @include display-flex();
+  }
+
+  .player-row {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .field {
+    flex: $mainColumnSize;
+  }
+
+  .streets-field {
+    flex: $streetColumnSize;
+  }
+
+  .alert-field, .side-field {
+    flex: $sideColumnSize;
+  }
+
+  .streets-field {
+    @include display-flex(column);
+
+    .street {
+      flex: 1;
+    }
+  }
+
+  .streets-left {
+    margin-right: $streetShift;
+    .stack {
+      text-align: right;
+
+      * {
+        text-align: left;
+      }
+    }
+  }
+
+  .mid-row {
+    .stack {
+      padding: ($stackPadding / 2) $stackPadding;
+    }
+  }
+
+  .aces-field {
+    width: 2 * ($cardWidth + 2 * $stackPadding) + 20px;
+    flex: unset;
+
+    @include display-flex();
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-align-content: flex-end;
+    align-content: flex-end;
+  }
+
+  button {
+    margin-top: $buttonHeight;
+    position: relative;
+    z-index: 10;
+  }
+
+  .board {
+    transition: transform 0.3s;
+    min-width: 715px;
+
+    &.rotate {
+      @include rotate(180deg);
+
+      .player-row stack {
+        display: block;
+      }
+
+      button, stack {
+        @include rotate(180deg);
+      }
+
+      .streets-left {
+        margin-right: 0;
+      }
+      .streets-right {
+        margin-left: $streetShift;
+      }
+      .streets-left, .streets-right {
+        margin-top: 5px;
+      }
+      .street {
+        margin-top: 4px;
+        .card-suit-ace {
+          @include transform(180deg, 1.3);
+        }
+      }
+
+      button {
+        margin-top: 100px;
+      }
+    }
+  }
+
+  &.blurry {
+    @include bodyBlur();
+    opacity: 0.5;
+  }
+
+  .player-status {
+    $p: 7px;
+    position: fixed;
+    top: $menuTabsTop;
+    left: -$menuTabRadius;
+    text-align: right;
+    width: 85px;
+    font-size: 1.2em;
+    height: $menuTabHeight - $p;
+    border: 0;
+    border-radius: $menuTabRadius;
+    background-color: $blue-player;
+    padding: $p;
+    transition: background-color $fast;
+    @include user-select(none);
+
+    span {
+      text-transform: capitalize;
+      color: #FF0;
+      text-shadow: 2px 2px 2px #f90;
+    }
+
+    &.red {
+      background-color: $red-player;
+    }
+  }
+  .no {
+    text-shadow: 2px 2px 1px #AAA;
+    display: block;
+    margin-top: -18px;
+    transition: margin-top $no, opacity $fast;
+    opacity: 0;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="tab rules" [ngClass]="{'out': out, 'state-under': state === 'settings'}" (click)="clickButton('rules')"><div class="icon-rules"></div></div>
+<div class="tab settings" [ngClass]="{'out': out, 'state-under': state === 'rules'}" (click)="clickButton('settings')"><div class="icon-cog"></div></div>
+<div id="menu" [ngClass]="{'out': out}">
+
+  <div class="section rules" *ngIf="out && state === 'rules'">
+    <markdown>{{'rules.intro' | translate}}</markdown>
+    <markdown>{{'rules.layout' | translate}}</markdown>
+    <markdown>{{'rules.stacks' | translate}}</markdown>
+    <markdown>{{'rules.turn' | translate}}</markdown>
+    <markdown>{{'rules.steal' | translate}}</markdown>
+    <markdown>{{'rules.special' | translate}}</markdown>
+    <markdown>{{'rules.addendum' | translate}}</markdown>
+  </div>
+
+  <div class="section settings" *ngIf="out && state === 'settings'">
+    <markdown>{{'settings.intro' | translate}}</markdown>
+    <p><label><input type="checkbox" [(ngModel)]="settings.rotateBoard"> {{'settings.rotateBoard' | translate}}</label></p>
+    <p><label><input type="checkbox" [(ngModel)]="settings.stackLength"> {{'settings.stackHeight' | translate}}</label></p>
+    <p><span class="icon-flag icon-flag-uk" (click)="changeLocale('en')"></span> <span class="icon-flag icon-flag-fr" (click)="changeLocale('fr')"></span></p>
+  </div>
+</div>
