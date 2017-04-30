@@ -1,12 +1,12 @@
 {
   "vendor": {
-    "js": "/crapette/vendor.c9190f9451279b02025b.bundle.js"
+    "js": "/crapette/vendor.c40592d7079b48b1391b.bundle.js"
   },
   "main": {
-    "js": "/crapette/main.9c6523eb49988b53ec4b.bundle.js",
+    "js": "/crapette/main.7e98cee2b387a8db85d4.bundle.js",
     "css": "/crapette/main.a6b5cb6479a99394c44f2e356133c663.css"
   },
   "polyfills": {
-    "js": "/crapette/polyfills.73466a07a7ec9f165a31.bundle.js"
+    "js": "/crapette/polyfills.346a8d3f966625375075.bundle.js"
   }
 }

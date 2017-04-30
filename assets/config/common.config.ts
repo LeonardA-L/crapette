@@ -4,10 +4,20 @@ export const config = {
 
   cardRotationAmplitude: 5,
 
-  baseUrl: 'http://localhost:3000',
-  enableOnline: false,
+  baseUrl: {
+    local: 'http://localhost:3000',
+    github: 'https://LeonardA-L.github.io/crapette'
+  },
+
+  enableOnline: true,
 
   animations: {
     fast: 80
-  }
+  },
+
+  root: {
+    github: '/crapette',
+    default: ''
+  },
+
 };
