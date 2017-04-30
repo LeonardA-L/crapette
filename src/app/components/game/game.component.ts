@@ -7,6 +7,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 import { AppState } from '../../app.service';
 
@@ -32,6 +33,24 @@ import { Broadcaster } from '../../services/broadcast.service';
   templateUrl: 'game.html',
   styleUrls: ['game.scss'],
   providers: [CardToolsService, CrapetteService, SettingsService, TogetherService, AnimationService],
+  animations: [
+    trigger(
+      'hubFade',
+      [
+        transition(
+        ':enter', [
+          style({opacity: 0}),
+          animate('300ms', style({opacity: 1}))
+        ]
+      ),
+      transition(
+        ':leave', [
+          style({opacity: 1}),
+          animate('300ms', style({opacity: 0}))
+        ]
+      )]
+    )
+  ],
 })
 export class GameComponent implements OnInit {
   public stacks;
