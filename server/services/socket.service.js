@@ -1,16 +1,17 @@
 // SocketIO related stuff
 var io;
 var store = require('./store.service');
+var game = require('./game.service');
 
 function disconnect() {
   console.log('user disconnected');
 }
 
 function gameStart(socket, params){
-  console.log('New socket', params.hash);
   if (params.hash) {
     socketHash = params.hash;
     store.registerSocket(params.hash, socket);
+    game.newPlayer(params.hash);
   }
 }
 
@@ -34,6 +35,19 @@ function init(http) {
   io.on('connection', setup);
 }
 
+function send(hash, event, msg) {
+  var sockets = store.getParticipants(hash);
+
+  if (!sockets) {
+    return;
+  }
+
+  for (s of sockets) {
+    s.emit(event, msg);
+  }
+}
+
 module.exports = {
-  init: init
+  init: init,
+  send: send
 }

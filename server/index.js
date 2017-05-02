@@ -12,7 +12,7 @@ var gameService = require('./services/game.service');
 
 socketService.init(http);
 storeService.init();
-gameService.init();
+gameService.init(socketService);
 
 app.get('/', function(req, res){
   res.send('<h1>Hello world</h1>');
