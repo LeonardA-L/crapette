@@ -22,6 +22,7 @@ import { SettingsService } from '../../services/settings.service';
 import { TogetherService } from '../../services/together.service';
 import { AnimationService } from '../../services/animation.service';
 import { Broadcaster } from '../../services/broadcast.service';
+import { SocketService } from '../../services/socket.service';
 
 /*
  * App Component
@@ -32,7 +33,7 @@ import { Broadcaster } from '../../services/broadcast.service';
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'game.html',
   styleUrls: ['game.scss'],
-  providers: [CardToolsService, CrapetteService, SettingsService, TogetherService, AnimationService],
+  providers: [CardToolsService, CrapetteService, SettingsService, TogetherService, AnimationService, SocketService],
   animations: [
     trigger(
       'hubFade',
@@ -65,6 +66,7 @@ export class GameComponent implements OnInit {
     public together: TogetherService,
     private route: ActivatedRoute,
     private broadcaster: Broadcaster,
+    private socketService: SocketService,
   ) {}
 
   public ngOnInit() {
@@ -72,6 +74,7 @@ export class GameComponent implements OnInit {
     if (routeParams.seed && routeParams.player) {
       this.together.init(routeParams);
       this.hub = false;
+      this.socketService.init(routeParams.player, routeParams.seed);
     }
 
     this.animationService.init();
