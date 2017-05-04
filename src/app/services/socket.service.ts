@@ -22,7 +22,7 @@ export class SocketService {
 
   public init(playerId, hash) {
     console.log('Init Socket Service', playerId, hash);
-    this.playerId = parseInt(playerId.match(/\d/)[0], 10);
+    this.playerId = parseInt(playerId.match(/\d/)[0], 10) - 1;
     this.gameHash = hash;
 
     const socketUrl = 'http://localhost:3535'; // TODO config

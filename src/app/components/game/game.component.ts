@@ -75,6 +75,7 @@ export class GameComponent implements OnInit {
       this.together.init(routeParams);
       this.hub = false;
       this.socketService.init(routeParams.player, routeParams.seed);
+      this.crapetteService.lockRotate = this.socketService.playerId === 0;
     } else {
       let players = this.crapetteService.initPlayers();
 
@@ -104,11 +105,18 @@ export class GameComponent implements OnInit {
   }
 
   public pick(event) {
+    const player = this.appState.get('currentPlayer');
+    if (this.socketService.playerId >= 0 && this.socketService.playerId !== player.id) {
+      return;
+    }
     this.crapetteService.pick(event.stack);
   }
 
   public push(event) {
     const player = this.appState.get('currentPlayer');
+    if (this.socketService.playerId >= 0 && this.socketService.playerId !== player.id) {
+      return;
+    }
     const aceOpportunities: Card[] = this.crapetteService.countAceOpportunity(player);
 
     const stackFrom = event.stack;

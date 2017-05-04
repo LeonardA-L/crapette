@@ -4,6 +4,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { SettingsService } from '../../services/settings.service';
+import { CrapetteService } from '../../services/crapette.service';
 
 @Component({
   selector: 'menu',
@@ -18,6 +19,7 @@ export class MenuComponent {
 
   constructor(
     public settings: SettingsService,
+    public crapette: CrapetteService,
     public translate: TranslateService,
   ) {}
 

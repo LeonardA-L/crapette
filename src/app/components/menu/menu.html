@@ -14,7 +14,7 @@
 
   <div class="section settings" *ngIf="out && state === 'settings'">
     <markdown>{{'settings.intro' | translate}}</markdown>
-    <p><label><input type="checkbox" [(ngModel)]="settings.rotateBoard"> {{'settings.rotateBoard' | translate}}</label></p>
+    <p><label><input type="checkbox" [(ngModel)]="settings.rotateBoard" disabled="{{crapette.lockRotate !== undefined}}"> {{'settings.rotateBoard' | translate}}</label></p>
     <p><label><input type="checkbox" [(ngModel)]="settings.stackLength"> {{'settings.stackHeight' | translate}}</label></p>
     <p><span class="icon-flag icon-flag-uk" (click)="changeLocale('en')"></span> <span class="icon-flag icon-flag-fr" (click)="changeLocale('fr')"></span></p>
   </div>

@@ -25,6 +25,7 @@ export class CrapetteService {
   public pickedStack: Stack;
   public crapetteAvailable = false;
   public winner: Player;
+  public lockRotate;
 
   constructor(
     public cardToolsService: CardToolsService,
@@ -189,7 +190,7 @@ export class CrapetteService {
   }
 
   public get rotate() {
-    return this.settings.rotateBoard && this.appState.get('currentPlayer').id === 0;
+    return (this.settings.rotateBoard && this.appState.get('currentPlayer').id === 0) || this.lockRotate;
   }
 
   private initPlayer(id): Player {
