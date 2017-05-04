@@ -75,15 +75,23 @@ export class GameComponent implements OnInit {
       this.together.init(routeParams);
       this.hub = false;
       this.socketService.init(routeParams.player, routeParams.seed);
+    } else {
+      let players = this.crapetteService.initPlayers();
+
+      const stacks = this.crapetteService.initStacks(players);
+      this.crapetteService.dealStacks(stacks, players);
+      this.startGame(stacks, players);
     }
 
     this.animationService.init();
 
-    let players = this.crapetteService.initPlayers();
+    const service = this;
+    this.broadcaster.on<any>('newGame').subscribe((event) => service.startGame(event.stacks, event.players));
 
-    this.stacks = this.crapetteService.initStacks(players);
-    this.crapetteService.dealStacks(this.stacks, players);
+  }
 
+  public startGame(stacks, players) {
+    this.stacks = stacks;
     this.appState.set('stacks', this.stacks);
     this.appState.set('players', players);
 
@@ -93,7 +101,6 @@ export class GameComponent implements OnInit {
     let firstPlayerId = player1CrapetteCard.value > player0CrapetteCard.value ? 1 : 0;
 
     this.appState.set('currentPlayer', players[firstPlayerId]);
-
   }
 
   public pick(event) {

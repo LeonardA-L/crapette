@@ -1,6 +1,10 @@
 // Socket service
 
 import { Injectable } from '@angular/core';
+import { CrapetteService } from './crapette.service';
+import { Broadcaster } from './broadcast.service';
+
+import { Card, CardType } from '../model/card.model';
 
 import * as io from 'socket.io-client';
 
@@ -10,6 +14,11 @@ export class SocketService {
   public gameHash;
   private socket;
   private firstConnection = false;
+
+  constructor(
+    private crapette: CrapetteService,
+    private broadcaster: Broadcaster,
+  ) {}
 
   public init(playerId, hash) {
     console.log('Init Socket Service', playerId, hash);
@@ -37,7 +46,42 @@ export class SocketService {
     this.firstConnection = true;
   };
 
+  private dealStack(from, to, players) {
+    for (let c of from) {
+      to.deck.addCard(new Card(players[c.player], CardType[c.type], c.value, c.visible));
+    }
+  }
+
+  private dealStackByName(name, stacks, serializedGame, players) {
+    const from = serializedGame[name];
+    const to = stacks[name];
+
+    this.dealStack(from, to, players);
+  }
+
   private incomingGame(game) {
-    console.log(game);
+    const players = this.crapette.initPlayers();
+    const stacks = this.crapette.initStacks(players);
+
+    this.dealStackByName('player' + 0 + 'Crapette', stacks, game, players);
+    this.dealStackByName('player' + 0 + 'Main', stacks, game, players);
+    this.dealStackByName('player' + 0 + 'Discard', stacks, game, players);
+
+    this.dealStackByName('player' + 1 + 'Crapette', stacks, game, players);
+    this.dealStackByName('player' + 1 + 'Main', stacks, game, players);
+    this.dealStackByName('player' + 1 + 'Discard', stacks, game, players);
+
+    for (let i = 0; i < game.aces.length; i++) {
+      this.dealStack(game.aces[i], stacks.aces[i], players);
+    }
+
+    for (let i = 0; i < game.streets.length; i++) {
+      this.dealStack(game.streets[i], stacks.streets[i], players);
+    }
+
+    this.broadcaster.broadcast('newGame', {
+      stacks,
+      players
+    });
   }
 }

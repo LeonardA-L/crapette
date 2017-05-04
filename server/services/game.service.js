@@ -9,13 +9,13 @@ function init(socket) {
   socketService = socket;
 }
 
-function initStacks(set0, set1) {
+function initStacks() {
   var stacks = {
-    player0Main : set0,
+    player0Main : [],
     player0Discard : [],
     player0Crapette : [],
 
-    player1Main : set1,
+    player1Main : [],
     player1Discard : [],
     player1Crapette : [],
 
@@ -37,31 +37,31 @@ function initStacks(set0, set1) {
   return stacks;
 }
 
-function dealStacks(stacks) {
-  for (var p of [0,1]) {
-    var main = stacks['player' + p + 'Main'];
-    var crapette = stacks['player' + p + 'Crapette'];
-
+function dealStacks(stacks, set0, set1) {
+  var sets = [set0, set1];
+  for (var p in sets) {
     for (var i = 0; i < cardTools.CRAPETTEHIGH; i++) {
-      var card = main.pop();
-      crapette.push(card);
+      var card = sets[p].pop();
+      stacks['player' + p + 'Crapette'].push(card);
     }
-    crapette[crapette.length - 1].visible = true;
+    stacks['player' + p + 'Crapette'][stacks['player' + p + 'Crapette'].length - 1].visible = true;
 
     for (var s = 0; s < cardTools.NUMBEROFSTREETS; s++) {
-      var card = main.pop();
+      var card = sets[p].pop();
       card.visible = true;
       stacks.streets[p * cardTools.NUMBEROFSTREETS + s].push(card);
     }
   }
+  stacks.player0Main = set0;
+  stacks.player1Main = set1;
 }
 
 function createGame() {
   const set0 = cardTools.createSet(0);
   const set1 = cardTools.createSet(1);
 
-  var stacks = initStacks(set0, set1);
-  dealStacks(stacks);
+  var stacks = initStacks();
+  dealStacks(stacks, set0, set1);
 
   return stacks;
 }
