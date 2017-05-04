@@ -8,7 +8,7 @@ import * as io from 'socket.io-client';
 export class SocketService {
   public playerId: Number;
   public gameHash;
-  socket: SocketIOClient.Socket;
+  private socket;
   private firstConnection = false;
 
   public init(playerId, hash) {
@@ -16,12 +16,13 @@ export class SocketService {
     this.playerId = parseInt(playerId.match(/\d/)[0], 10);
     this.gameHash = hash;
 
-    this.socket = io.connect('http://localhost:3535');  // TODO config
-    this.socket.on("connect", () => this.connect());
+    const socketUrl = 'http://localhost:3535'; // TODO config
+    this.socket = io.connect(socketUrl);
+    this.socket.on('connect', () => this.connect());
     this.socket.on('game', (msg) => this.incomingGame(msg));
-    // this.socket.on("disconnect", () => this.disconnect());  // TODO
-    this.socket.on("error", (error: string) => {
-        console.log(`ERROR: "${error}" (${socketUrl})`);
+    // this.socket.on('disconnect', () => this.disconnect());  // TODO
+    this.socket.on('error', (error: string) => {
+        console.log('ERROR', error, socketUrl);
     });
   }
 
