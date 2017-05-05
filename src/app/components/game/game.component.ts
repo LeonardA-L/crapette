@@ -81,27 +81,28 @@ export class GameComponent implements OnInit {
 
       const stacks = this.crapetteService.initStacks(players);
       this.crapetteService.dealStacks(stacks, players);
-      this.startGame(stacks, players);
+
+      const player0CrapetteCard: Card = stacks.player0Crapette.top;
+      const player1CrapetteCard: Card = stacks.player1Crapette.top;
+
+      let firstPlayerId = player1CrapetteCard.value > player0CrapetteCard.value ? 1 : 0;
+      const starter = players[firstPlayerId];
+
+      this.startGame(stacks, players, starter);
     }
 
     this.animationService.init();
 
     const service = this;
-    this.broadcaster.on<any>('newGame').subscribe((event) => service.startGame(event.stacks, event.players));
+    this.broadcaster.on<any>('newGame').subscribe((event) => service.startGame(event.stacks, event.players, event.starter));
 
   }
 
-  public startGame(stacks, players) {
+  public startGame(stacks, players, starter) {
     this.stacks = stacks;
     this.appState.set('stacks', this.stacks);
     this.appState.set('players', players);
-
-    const player0CrapetteCard: Card = this.stacks.player0Crapette.top;
-    const player1CrapetteCard: Card = this.stacks.player1Crapette.top;
-
-    let firstPlayerId = player1CrapetteCard.value > player0CrapetteCard.value ? 1 : 0;
-
-    this.appState.set('currentPlayer', players[firstPlayerId]);
+    this.appState.set('currentPlayer', starter);
   }
 
   public pick(event) {

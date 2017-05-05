@@ -40,19 +40,28 @@ export class CrapetteService {
     return [player0, player1];
   }
 
+  public initPlayersWithoutCards(): Player[] {
+    let player0 = this.initPlayerWithoutCards(0);
+    let player1 = this.initPlayerWithoutCards(1);
+    return [player0, player1];
+  }
+
   public initStacks(players) {
     let stacks = {
-      player0Main : new Stack(players[0].deck, false, Rules.pushNever, Rules.pickupOwner, players[0], StackTypes.MAIN, false, Spread.NONE),
+      player0Main : new Stack(new Deck(), false, Rules.pushNever, Rules.pickupOwner, players[0], StackTypes.MAIN, false, Spread.NONE),
       player0Discard : new Stack(new Deck(), false, Rules.pushDiscard, Rules.pickupDiscard, players[0], StackTypes.DISCARD, true, Spread.NONE),
       player0Crapette : new Stack(new Deck(), true, Rules.pushCrapette, Rules.pickupOwner, players[0], StackTypes.CRAPETTE, true, Spread.NONE),
 
-      player1Main : new Stack(players[1].deck, false, Rules.pushNever, Rules.pickupOwner, players[1], StackTypes.MAIN, false, Spread.NONE),
+      player1Main : new Stack(new Deck(), false, Rules.pushNever, Rules.pickupOwner, players[1], StackTypes.MAIN, false, Spread.NONE),
       player1Discard : new Stack(new Deck(), false, Rules.pushDiscard, Rules.pickupDiscard, players[1], StackTypes.DISCARD, true, Spread.NONE),
       player1Crapette : new Stack(new Deck(), true, Rules.pushCrapette, Rules.pickupOwner, players[1], StackTypes.CRAPETTE, true, Spread.NONE),
 
       aces : [],
       streets : []
     };
+
+    stacks.player0Main.deck.cards.push(...players[0].deck.cards);
+    stacks.player1Main.deck.cards.push(...players[1].deck.cards);
 
     for (let p of players) {
       for (let typeName in CardType) {
@@ -200,6 +209,12 @@ export class CrapetteService {
     player.deck.cards = set;
 
     this.cardToolsService.shuffleDeck(player.deck);
+
+    return player;
+  }
+
+  private initPlayerWithoutCards(id): Player {
+    let player = new Player(id);
 
     return player;
   }

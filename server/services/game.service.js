@@ -63,6 +63,13 @@ function createGame() {
   var stacks = initStacks();
   dealStacks(stacks, set0, set1);
 
+  const player0CrapetteCard = stacks.player0Crapette[stacks.player0Crapette.length - 1];
+  const player1CrapetteCard = stacks.player1Crapette[stacks.player1Crapette.length - 1];
+
+  var firstPlayerId = player1CrapetteCard.value > player0CrapetteCard.value ? 1 : 0;
+
+  stacks.starter = firstPlayerId;
+
   return stacks;
 }
 
@@ -71,7 +78,8 @@ function getGame(hash) {
 
   if (!game) {
     game = _.extend(createGame(), {
-      hash
+      hash,
+      starter: 1
     });
 
     store.setGame(hash, game);

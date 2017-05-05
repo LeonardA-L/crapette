@@ -60,7 +60,8 @@ export class SocketService {
   }
 
   private incomingGame(game) {
-    const players = this.crapette.initPlayers();
+    console.log(game);
+    const players = this.crapette.initPlayersWithoutCards();
     const stacks = this.crapette.initStacks(players);
 
     this.dealStackByName('player' + 0 + 'Crapette', stacks, game, players);
@@ -81,7 +82,8 @@ export class SocketService {
 
     this.broadcaster.broadcast('newGame', {
       stacks,
-      players
+      players,
+      starter: players[game.starter]
     });
   }
 }
