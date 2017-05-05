@@ -91,11 +91,36 @@ function getGame(hash) {
 function pick(hash, message) {
   console.log('Pick card', hash, message)
   socketService.send(hash, 'game:pick', message);
+
+  // Persist
+  var game = store.getGame(hash);
+  var stackFrom = findStackInGame(game, message.stack);
+  var card = stackFrom[stackFrom.length - 1];
+  card.visible = true;
 }
 
 function push(hash, message) {
-  console.log('Pick card', hash, message)
+  console.log('Push card', hash, message)
   socketService.send(hash, 'game:push', message);
+
+  // Persist
+  var game = store.getGame(hash);
+  var stackFrom = findStackInGame(game, message.stackFrom);
+  var stackTo = findStackInGame(game, message.stackTo);
+  var card = stackFrom.pop();
+  card.visible = true;
+  stackTo.push(card);
+}
+
+function findStackInGame(game, stackName) {
+  if (stackName.includes('ace') || stackName.includes('street')) {
+    var spl = stackName.split('-');
+    var type = spl[0]+'s';
+    var idx = parseInt(spl[1]);
+    return game[type][idx];
+  } else {
+    return game[stackName];
+  }
 }
 
 function newPlayer(hash) {
