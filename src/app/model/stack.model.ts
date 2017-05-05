@@ -24,6 +24,7 @@ export class Stack {
   public owner;
   public type;
   public cancelable: boolean;
+  public name;
 
   constructor(deck, vertical, pushRule, popRule, owner, type, cancelable, spread?) {
     this.deck = deck;

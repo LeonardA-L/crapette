@@ -1,6 +1,6 @@
 // Crapette game service
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 
 import { Card, CardType } from './../model/card.model';
 import { Deck } from './../model/deck.model';
@@ -9,6 +9,7 @@ import { Player } from './../model/player.model';
 
 import { CardToolsService } from './card-tools.service';
 import { SettingsService } from './settings.service';
+import { SocketService } from './socket.service';
 import { Broadcaster } from './broadcast.service';
 
 import * as Rules from './../model/rules.model';
@@ -31,6 +32,7 @@ export class CrapetteService {
     public cardToolsService: CardToolsService,
     public appState: AppState,
     public settings: SettingsService,
+    public socket: SocketService,
     private broadcaster: Broadcaster,
   ) {}
 
@@ -99,10 +101,16 @@ export class CrapetteService {
   }
 
   public pick(stackFrom: Stack): void {
+    this.resetPickedCard();
     this.pickedCard = stackFrom.top;
     this.pickedCard.picked = true;
     this.pickedCard.visible = true;
     this.pickedStack = stackFrom;
+
+    const currentPlayer = this.appState.get('currentPlayer');
+    if (this.socket.isMultiGame && this.socket.playerId === currentPlayer.id) {
+      this.socket.syncPick(stackFrom);
+    }
   }
 
   public push(stackTo: Stack): void {

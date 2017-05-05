@@ -88,6 +88,11 @@ function getGame(hash) {
   return game;
 }
 
+function pick(hash, message) {
+  console.log('Pick card', hash, message)
+  socketService.send(hash, 'game:pick', message);
+}
+
 function newPlayer(hash) {
   console.log('New player in', hash);
   var game = getGame(hash);
@@ -97,5 +102,6 @@ function newPlayer(hash) {
 module.exports = {
   init: init,
   getGame: getGame,
-  newPlayer: newPlayer
+  newPlayer: newPlayer,
+  pick: pick
 }

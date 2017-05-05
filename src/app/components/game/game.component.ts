@@ -74,7 +74,7 @@ export class GameComponent implements OnInit {
     if (routeParams.seed && routeParams.player) {
       this.together.init(routeParams);
       this.hub = false;
-      this.socketService.init(routeParams.player, routeParams.seed);
+      this.socketService.init(routeParams.player, routeParams.seed, this.crapetteService);
       this.crapetteService.lockRotate = this.socketService.playerId === 0;
     } else {
       let players = this.crapetteService.initPlayers();
@@ -94,15 +94,16 @@ export class GameComponent implements OnInit {
     this.animationService.init();
 
     const service = this;
-    this.broadcaster.on<any>('newGame').subscribe((event) => service.startGame(event.stacks, event.players, event.starter));
+    this.broadcaster.on<any>('newGame').subscribe((event) => service.startGame(event.stacks, event.players, event.starter, event.stacksByName));
 
   }
 
-  public startGame(stacks, players, starter) {
+  public startGame(stacks, players, starter, stacksByName?) {
     this.stacks = stacks;
     this.appState.set('stacks', this.stacks);
     this.appState.set('players', players);
     this.appState.set('currentPlayer', starter);
+    this.appState.set('stacksByName', stacksByName);
   }
 
   public pick(event) {

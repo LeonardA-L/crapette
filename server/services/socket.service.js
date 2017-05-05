@@ -9,9 +9,14 @@ function disconnect() {
 
 function gameStart(socket, params){
   if (params.hash) {
-    socketHash = params.hash;
     store.registerSocket(params.hash, socket);
     game.newPlayer(params.hash);
+  }
+}
+
+function gamePick(socket, params){
+  if (params.hash) {
+    game.pick(params.hash, params);
   }
 }
 
@@ -26,6 +31,7 @@ function setup(socket) {
 
   registerEvent('disconnect', socket, disconnect);
   registerEvent('game:start', socket, gameStart);
+  registerEvent('game:pick', socket, gamePick);
 }
 
 function init(http) {
@@ -41,7 +47,6 @@ function send(hash, event, msg) {
   if (!sockets) {
     return;
   }
-
   for (s of sockets) {
     s.emit(event, msg);
   }
