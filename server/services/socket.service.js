@@ -20,6 +20,12 @@ function gamePick(socket, params){
   }
 }
 
+function gamePush(socket, params){
+  if (params.hash) {
+    game.push(params.hash, params);
+  }
+}
+
 function registerEvent(event, socket, fn) {
   socket.on(event, function(msg) {
     fn(socket, msg);
@@ -32,6 +38,7 @@ function setup(socket) {
   registerEvent('disconnect', socket, disconnect);
   registerEvent('game:start', socket, gameStart);
   registerEvent('game:pick', socket, gamePick);
+  registerEvent('game:push', socket, gamePush);
 }
 
 function init(http) {

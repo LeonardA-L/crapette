@@ -114,6 +114,7 @@ export class CrapetteService {
   }
 
   public push(stackTo: Stack): void {
+    const stackFrom = this.pickedStack;
     this.pickedStack.deck.pop();
     this.pickedCard.picked = false;
     stackTo.deck.addCard(this.pickedCard);
@@ -124,6 +125,11 @@ export class CrapetteService {
     this.pickedStack = null;
 
     this.broadcaster.broadcast('postCardPush', {stack: stackTo});
+
+    const currentPlayer = this.appState.get('currentPlayer');
+    if (this.socket.isMultiGame && this.socket.playerId === currentPlayer.id) {
+      this.socket.syncPush(stackFrom, stackTo);
+    }
   }
 
   public endTurn(): void {
