@@ -114,6 +114,9 @@ export class CrapetteService {
   }
 
   public push(stackTo: Stack): void {
+    const player = this.appState.get('currentPlayer');
+    const aceOpportunities: Card[] = this.countAceOpportunity(player);
+
     const stackFrom = this.pickedStack;
     this.pickedStack.deck.pop();
     this.pickedCard.picked = false;
@@ -124,12 +127,24 @@ export class CrapetteService {
     this.pickedCard = null;
     this.pickedStack = null;
 
-    this.broadcaster.broadcast('postCardPush', {stack: stackTo});
-
     const currentPlayer = this.appState.get('currentPlayer');
     if (this.socket.isMultiGame && this.socket.playerId === currentPlayer.id) {
       this.socket.syncPush(stackFrom, stackTo);
     }
+
+    const newAceOpportunities: Card[] = this.countAceOpportunity(player);
+
+    // Check for Crapette
+    this.checkCrapette(aceOpportunities, newAceOpportunities);
+
+    // Check for end of game
+    this.checkVictory(player);
+
+    // Check for end of turn
+    this.checkEndTurn(stackFrom, stackTo);
+
+    this.broadcaster.broadcast('postCardPush', {stack: stackTo});
+
   }
 
   public endTurn(): void {
@@ -161,6 +176,9 @@ export class CrapetteService {
 
     // Reset crapette! state
     this.crapetteAvailable = false;
+    if (this.socket.isMultiGame) {
+      this.socket.syncTurn(nextPlayer);
+    }
   }
 
   public resetPickedCard() {
@@ -231,5 +249,44 @@ export class CrapetteService {
     let player = new Player(id);
 
     return player;
+  }
+
+  private checkCrapette(aceOpportunities: Card[], newAceOpportunities: Card[]) {
+    if (aceOpportunities.length > 0 && newAceOpportunities.length === aceOpportunities.length) {
+      // Need to check that every opportunity is the same because solving one may have created another
+      let same = true;
+      for (let i = 0; i < aceOpportunities.length; i++) {
+        const cardOld = aceOpportunities[i];
+        const cardNew = newAceOpportunities[i];
+
+        if (cardOld !== cardNew) {
+          same = false;
+          break;
+        }
+      }
+      this.crapetteAvailable = same;
+    } else {
+      this.crapetteAvailable = false;
+    }
+  }
+
+  private checkVictory(player: Player) {
+    const stacks = this.appState.get('stacks');
+    const crapette: Stack = stacks['player' + player.id + 'Crapette'];
+    const main: Stack = stacks['player' + player.id + 'Main'];
+    const discard: Stack = stacks['player' + player.id + 'Discard'];
+
+    if (crapette.isEmpty() && main.isEmpty() && discard.isEmpty()) {
+      console.log('Player', player.id, 'wins');
+      this.winner = player;
+    }
+  }
+
+  private checkEndTurn(stackFrom: Stack, stackTo: Stack) {
+    if (stackTo.type === StackTypes.DISCARD
+      && stackTo !== stackFrom
+      && stackTo.owner && stackTo.owner.id === this.appState.get('currentPlayer').id) {
+      this.endTurn();
+    }
   }
 }

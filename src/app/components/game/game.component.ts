@@ -119,22 +119,9 @@ export class GameComponent implements OnInit {
     if (this.socketService.playerId >= 0 && this.socketService.playerId !== player.id) {
       return;
     }
-    const aceOpportunities: Card[] = this.crapetteService.countAceOpportunity(player);
 
-    const stackFrom = event.stack;
-    const stackTo = this.crapetteService.pickedStack;
-    this.crapetteService.push(stackFrom);
-
-    const newAceOpportunities: Card[] = this.crapetteService.countAceOpportunity(player);
-
-    // Check for Crapette
-    this.checkCrapette(aceOpportunities, newAceOpportunities);
-
-    // Check for end of game
-    this.checkVictory(player);
-
-    // Check for end of turn
-    this.checkEndTurn(stackFrom, stackTo);
+    const stackTo = event.stack;
+    this.crapetteService.push(stackTo);
   }
 
   public crapette(playerId: number) {
@@ -160,44 +147,6 @@ export class GameComponent implements OnInit {
 
   public startLocalGame() {
     this.hub = false;
-  }
-
-  private checkCrapette(aceOpportunities: Card[], newAceOpportunities: Card[]) {
-    if (aceOpportunities.length > 0 && newAceOpportunities.length === aceOpportunities.length) {
-      // Need to check that every opportunity is the same because solving one may have created another
-      let same = true;
-      for (let i = 0; i < aceOpportunities.length; i++) {
-        const cardOld = aceOpportunities[i];
-        const cardNew = newAceOpportunities[i];
-
-        if (cardOld !== cardNew) {
-          same = false;
-          break;
-        }
-      }
-      this.crapetteService.crapetteAvailable = same;
-    } else {
-      this.crapetteService.crapetteAvailable = false;
-    }
-  }
-
-  private checkVictory(player: Player) {
-    const crapette: Stack = this.stacks['player' + player.id + 'Crapette'];
-    const main: Stack = this.stacks['player' + player.id + 'Main'];
-    const discard: Stack = this.stacks['player' + player.id + 'Discard'];
-
-    if (crapette.isEmpty() && main.isEmpty() && discard.isEmpty()) {
-      console.log('Player', player.id, 'wins');
-      this.crapetteService.winner = player;
-    }
-  }
-
-  private checkEndTurn(stackFrom: Stack, stackTo: Stack) {
-    if (stackFrom.type === StackTypes.DISCARD
-      && stackFrom !== stackTo
-      && stackFrom.owner && stackFrom.owner.id === this.appState.get('currentPlayer').id) {
-      this.crapetteService.endTurn();
-    }
   }
 
 }

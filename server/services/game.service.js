@@ -112,6 +112,14 @@ function push(hash, message) {
   stackTo.push(card);
 }
 
+function turn(hash, message) {
+  console.log('Turn change', hash, message)
+
+  // Persist
+  var game = store.getGame(hash);
+  game.starter = message.player;
+}
+
 function findStackInGame(game, stackName) {
   if (stackName.includes('ace') || stackName.includes('street')) {
     var spl = stackName.split('-');
@@ -134,5 +142,6 @@ module.exports = {
   getGame: getGame,
   newPlayer: newPlayer,
   pick: pick,
-  push: push
+  push: push,
+  turn: turn
 }

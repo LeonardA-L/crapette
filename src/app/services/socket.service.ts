@@ -56,6 +56,12 @@ export class SocketService {
     });
   }
 
+  public syncTurn(player) {
+    this.sendMessage('game:turn', {
+      player: player.id
+    });
+  }
+
   private connect() {
     const service = this;
     if (!this.firstConnection) {
