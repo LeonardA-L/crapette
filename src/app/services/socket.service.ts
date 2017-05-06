@@ -122,6 +122,11 @@ export class SocketService {
       stacksByName['street-' + i] = this.dealStack(game.streets[i], stacks.streets[i], players, 'street-' + i);
     }
 
+    if (game.winner >= 0) {
+      const winner = players[game.winner];
+      this.crapette.winner = winner;
+    }
+
     this.broadcaster.broadcast('newGame', {
       stacks,
       players,

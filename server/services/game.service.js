@@ -172,5 +172,6 @@ module.exports = {
   pick: pick,
   push: push,
   turn: turn,
-  refillMain: refillMain
+  refillMain: refillMain,
+  winner: winner
 }
