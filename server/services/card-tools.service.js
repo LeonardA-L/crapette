@@ -1,7 +1,7 @@
 var CARDMINHIGH = 1;    // Ace
 var CARDMAXHIGH = 13; // King
 var NUMBEROFSTREETS = 4;
-var CRAPETTEHIGH = 13;
+var CRAPETTEHIGH = 46;
 
 var CardType = [
   'CLUBS',

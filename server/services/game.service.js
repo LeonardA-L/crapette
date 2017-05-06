@@ -96,6 +96,9 @@ function pick(hash, message) {
   var game = store.getGame(hash);
   var stackFrom = findStackInGame(game, message.stack);
   var card = stackFrom[stackFrom.length - 1];
+  if (!card) {
+    return;
+  }
   card.visible = true;
 }
 
@@ -108,6 +111,9 @@ function push(hash, message) {
   var stackFrom = findStackInGame(game, message.stackFrom);
   var stackTo = findStackInGame(game, message.stackTo);
   var card = stackFrom.pop();
+  if (!card) {
+    return;
+  }
   card.visible = true;
   stackTo.push(card);
 }
@@ -118,6 +124,28 @@ function turn(hash, message) {
   // Persist
   var game = store.getGame(hash);
   game.starter = message.player;
+}
+
+function winner(hash, message) {
+  console.log('Winner', hash, message)
+
+  // Persist
+  var game = store.getGame(hash);
+  game.winner = message.player;
+}
+
+function refillMain(hash, message) {
+  console.log('Refill Main', hash, message)
+  socketService.send(hash, 'game:refillMain', message);
+
+  // Persist
+  var game = store.getGame(hash);
+  game['player' + message.player + 'Main'] = game['player' + message.player + 'Discard'].reverse();
+  game['player' + message.player + 'Discard'] = [];
+
+  for (var c of game['player' + message.player + 'Main']) {
+    c.visible = false;
+  }
 }
 
 function findStackInGame(game, stackName) {
@@ -143,5 +171,6 @@ module.exports = {
   newPlayer: newPlayer,
   pick: pick,
   push: push,
-  turn: turn
+  turn: turn,
+  refillMain: refillMain
 }

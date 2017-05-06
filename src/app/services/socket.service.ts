@@ -37,6 +37,7 @@ export class SocketService {
     this.socket.on('game', (msg) => this.incomingGame(msg));
     this.socket.on('game:pick', (msg) => this.incomingPick(msg));
     this.socket.on('game:push', (msg) => this.incomingPush(msg));
+    this.socket.on('game:refillMain', (msg) => this.incomingRefill(msg));
     // this.socket.on('disconnect', () => this.disconnect());  // TODO
     this.socket.on('error', (error: string) => {
         console.log('ERROR', error, socketUrl);
@@ -58,6 +59,18 @@ export class SocketService {
 
   public syncTurn(player) {
     this.sendMessage('game:turn', {
+      player: player.id
+    });
+  }
+
+  public syncWinner(player) {
+    this.sendMessage('game:winner', {
+      player: player.id
+    });
+  }
+
+  public syncRefillMain(player) {
+    this.sendMessage('game:refillMain', {
       player: player.id
     });
   }
@@ -131,6 +144,14 @@ export class SocketService {
     }
     const stacks = this.appState.get('stacksByName');
     this.crapette.push(stacks[message.stackTo]);
+  }
+
+  private incomingRefill(message) {
+    if (message.player === this.playerId) {
+      return;
+    }
+    const players = this.appState.get('players');
+    this.crapette.refillMain(players[message.player]);
   }
 
   private sendMessage(event, msg) {

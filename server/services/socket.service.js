@@ -32,6 +32,18 @@ function gameTurn(socket, params){
   }
 }
 
+function gameWinner(socket, params){
+  if (params.hash) {
+    game.winner(params.hash, params);
+  }
+}
+
+function gameRefillMain(socket, params){
+  if (params.hash) {
+    game.refillMain(params.hash, params);
+  }
+}
+
 function registerEvent(event, socket, fn) {
   socket.on(event, function(msg) {
     fn(socket, msg);
@@ -46,6 +58,8 @@ function setup(socket) {
   registerEvent('game:pick', socket, gamePick);
   registerEvent('game:push', socket, gamePush);
   registerEvent('game:turn', socket, gameTurn);
+  registerEvent('game:winner', socket, gameWinner);
+  registerEvent('game:refillMain', socket, gameRefillMain);
 }
 
 function init(http) {

@@ -201,6 +201,11 @@ export class CrapetteService {
     discard.deck.cards = [];
 
     main.deck.cards.forEach((c) => c.visible = false);
+
+    const currentPlayer = this.appState.get('currentPlayer');
+    if (this.socket.isMultiGame && this.socket.playerId === currentPlayer.id) {
+      this.socket.syncRefillMain(currentPlayer);
+    }
   }
 
   public countAceOpportunity(player: Player): Card[] {
@@ -279,6 +284,10 @@ export class CrapetteService {
     if (crapette.isEmpty() && main.isEmpty() && discard.isEmpty()) {
       console.log('Player', player.id, 'wins');
       this.winner = player;
+
+      if (this.socket.isMultiGame) {
+        this.socket.syncWinner(player);
+      }
     }
   }
 
