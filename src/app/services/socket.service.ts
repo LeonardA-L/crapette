@@ -18,8 +18,8 @@ export class SocketService {
   public gameHash;
   public isMultiGame = false;
   public protocol;
+  public firstConnection = false;
   private socket;
-  private firstConnection = false;
   private crapette;
 
   constructor(
