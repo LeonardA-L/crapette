@@ -5,8 +5,8 @@ export const config = {
   cardRotationAmplitude: 5,
 
   baseUrl: {
-    local: 'http://localhost:3000/#!',
-    github: 'https://LeonardA-L.github.io/crapette/#!'
+    local: 'http://localhost:3000/#/!',
+    github: 'http://LeonardA-L.github.io/crapette/#/!'
   },
 
   multiServerUrl: {
