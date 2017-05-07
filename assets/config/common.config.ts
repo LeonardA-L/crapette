@@ -9,7 +9,12 @@ export const config = {
     github: 'https://LeonardA-L.github.io/crapette'
   },
 
-  enableOnline: false,
+  multiServerUrl: {
+    local: 'http://92.222.89.148:3535',
+    github: 'https://LeonardA-L.github.io/crapette'
+  },
+
+  enableOnline: true,
 
   animations: {
     fast: 80
