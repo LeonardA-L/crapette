@@ -27,6 +27,7 @@ function getGame(hash) {
 }
 
 function setGame(hash, game) {
+  game.lastActivity = new Date();
   _gameStore[hash] = game;
 }
 
@@ -34,8 +35,18 @@ function getParticipants(hash) {
   return _socketStore[hash];
 }
 
+function getGameStore() {
+  return _gameStore;
+}
+
+function deleteGame(hash) {
+  delete _gameStore[hash];
+}
+
 module.exports = {
+  deleteGame: deleteGame,
   getGame: getGame,
+  getGameStore: getGameStore,
   getParticipants: getParticipants,
   info: info,
   init: init,
