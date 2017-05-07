@@ -1,6 +1,6 @@
 # Crapette
 
-The traditional French card game playable as a web app. [Play Crapette now](https://leonarda-l.github.io/crapette/)
+The traditional French card game playable as a web app. [Play Crapette now](http://leonarda-l.github.io/crapette/)
 
 ----------------------
 
