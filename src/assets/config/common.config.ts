@@ -10,7 +10,7 @@ export const config = {
   },
 
   multiServerUrl: {
-    local: 'http://localhost:3535',
+    local: 'http://92.222.89.148:3535',
     github: 'https://LeonardA-L.github.io/crapette'
   },
 
