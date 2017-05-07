@@ -17,6 +17,7 @@ export class SocketService {
   public playerId: Number;
   public gameHash;
   public isMultiGame = false;
+  public protocol;
   private socket;
   private firstConnection = false;
   private crapette;
@@ -45,6 +46,7 @@ export class SocketService {
     this.socket.on('error', (error: string) => {
         console.log('ERROR', error, socketUrl);
     });
+    this.protocol = window.location.protocol;
   }
 
   public syncPick(stack) {

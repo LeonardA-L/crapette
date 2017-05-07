@@ -64,9 +64,9 @@ export class GameComponent implements OnInit {
     public settingsService: SettingsService,
     public animationService: AnimationService,
     public together: TogetherService,
+    public socketService: SocketService,
     private route: ActivatedRoute,
     private broadcaster: Broadcaster,
-    private socketService: SocketService,
   ) {}
 
   public ngOnInit() {
