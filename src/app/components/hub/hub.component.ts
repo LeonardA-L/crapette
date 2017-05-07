@@ -44,7 +44,7 @@ export class HubComponent {
   }
 
   public startOnline() {
-    const hash = Math.floor(Math.random() * 100000);
+    const hash = Math.floor(Math.pow(16, 6) * Math.random()).toString(16);
     this.showMulti = true;
     this.hash = hash;
   }
