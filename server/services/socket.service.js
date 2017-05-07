@@ -3,9 +3,7 @@ var io;
 var store = require('./store.service');
 var game = require('./game.service');
 
-function disconnect() {
-  console.log('user disconnected');
-}
+function disconnect() {}
 
 function gameStart(socket, params){
   if (params.hash) {
@@ -57,8 +55,6 @@ function registerEvent(event, socket, fn) {
 }
 
 function setup(socket) {
-  console.log('a user connected');
-
   registerEvent('disconnect', socket, disconnect);
   registerEvent('game:start', socket, gameStart);
   registerEvent('game:pick', socket, gamePick);

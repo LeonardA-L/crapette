@@ -76,6 +76,7 @@ function getGame(hash) {
   var game = store.getGame(hash);
 
   if (!game) {
+    console.log('New game', hash)
     game = _.extend(createGame(), {
       hash
     });
@@ -87,7 +88,6 @@ function getGame(hash) {
 }
 
 function pick(hash, message) {
-  console.log('Pick card', hash, message)
   socketService.send(hash, 'game:pick', message);
 
   // Persist
@@ -101,7 +101,6 @@ function pick(hash, message) {
 }
 
 function push(hash, message) {
-  console.log('Push card', hash, message)
   socketService.send(hash, 'game:push', message);
 
   // Persist
@@ -117,28 +116,22 @@ function push(hash, message) {
 }
 
 function crapette(hash, message) {
-  console.log('Crapette', hash, message)
   socketService.send(hash, 'game:crapette', message);
 }
 
 function turn(hash, message) {
-  console.log('Turn change', hash, message)
-
   // Persist
   var game = store.getGame(hash);
   game.starter = message.player;
 }
 
 function winner(hash, message) {
-  console.log('Winner', hash, message)
-
   // Persist
   var game = store.getGame(hash);
   game.winner = message.player;
 }
 
 function refillMain(hash, message) {
-  console.log('Refill Main', hash, message)
   socketService.send(hash, 'game:refillMain', message);
 
   // Persist
@@ -163,7 +156,6 @@ function findStackInGame(game, stackName) {
 }
 
 function newPlayer(hash) {
-  console.log('New player in', hash);
   var game = getGame(hash);
   socketService.send(hash, 'game', game);
 }

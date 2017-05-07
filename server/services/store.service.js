@@ -3,7 +3,7 @@ var _socketStore;
 var _gameStore;
 
 function info() {
-  console.log(Object.keys(_socketStore));
+  return Object.keys(_socketStore).length;
 }
 
 function init() {
