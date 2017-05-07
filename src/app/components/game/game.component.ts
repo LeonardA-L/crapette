@@ -71,6 +71,7 @@ export class GameComponent implements OnInit {
 
   public ngOnInit() {
     const routeParams = this.route.snapshot.params;
+    console.log(routeParams)
     if (routeParams.seed && routeParams.player) {
       this.together.init(routeParams);
       this.hub = false;
