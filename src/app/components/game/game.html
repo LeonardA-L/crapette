@@ -63,4 +63,4 @@
   </div>
   <menu></menu>
 </div>
-<div *ngIf="socketService.isMultiGame && socketService.protocol === 'https:'">Please disable https to play online :/</div>
+<div *ngIf="socketService.isMultiGame && socketService.protocol === 'https:' && !socketService.firstConnection">Please disable https to play online :/</div>
