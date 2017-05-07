@@ -30,6 +30,24 @@ hub {
     position: relative;
   }
 
+  .splash.right {
+    margin-left: -1px;
+  }
+
+  .multi-link {
+    display: inline-block;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 10px;
+    background: rgba(#BBF, 0.8);
+
+    height: $buttonHeight;
+    border-radius: $card-radius / 2;
+    border: 0;
+    margin-right: 6px;
+  }
+
   .winner {
     $shadow: 3px 3px 8px;
     $shadow-alpha: 0.90;

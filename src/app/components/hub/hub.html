@@ -8,8 +8,8 @@
     <button class="large" (click)="startLocal()">{{ 'hub.local' | translate}}</button><br>
     <button class="large" *ngIf="enableOnline && !showMulti" (click)="startOnline()">{{ 'hub.online' | translate}}</button>
     <div *ngIf="enableOnline && showMulti">
-      <p><span>{{baseUrl + '/p1/' + hash}}</span> | <a target="_blank" href="{{baseUrl + '/p1/' + hash}}">{{ 'hub.go' | translate}}</a></p>
-      <p><span>{{baseUrl + '/p2/' + hash}}</span> | <a target="_blank" href="{{baseUrl + '/p2/' + hash}}">{{ 'hub.go' | translate}}</a></p>
+      <p><span class="multi-link">{{baseUrl + '/p1/' + hash}}</span><a class="button link" target="_blank" href="{{baseUrl + '/p1/' + hash}}">{{ 'hub.go' | translate}}</a></p>
+      <p><span class="multi-link">{{baseUrl + '/p2/' + hash}}</span><a class="button link" target="_blank" href="{{baseUrl + '/p2/' + hash}}">{{ 'hub.go' | translate}}</a></p>
     </div>
   </div>
   <div *ngIf="winner" class="winner">
