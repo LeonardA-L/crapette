@@ -10,8 +10,8 @@ export const config = {
   },
 
   multiServerUrl: {
-    local: 'http://92.222.89.148:3535',
-    github: 'https://LeonardA-L.github.io/crapette'
+    local: 'http://localhost:3535',
+    github: 'http://92.222.89.148:3535'
   },
 
   enableOnline: true,
