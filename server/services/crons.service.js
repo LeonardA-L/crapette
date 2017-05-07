@@ -13,10 +13,12 @@ function purgeGames() {
 
       // Check if the game is finished and has expired
       if (game.winner !== undefined && diff > config.expiration.finishedGame) {
+        console.log('Purge finished', hash);
         store.deleteGame(hash);
       }
       // Check if the game has expired
       else if (diff > config.expiration.unfinishedGame) {
+        console.log('Purge unfinished', hash);
         store.deleteGame(hash);
       }
     }

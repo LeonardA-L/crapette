@@ -27,11 +27,15 @@ cronsService.init();
 app.use(allowCrossDomain);
 
 app.get('/', function(req, res){
-  res.send('<h1>Crapette</h1><p><b>'+storeService.info()+'</b> active games.<br /><a href="https://LeonardA-L.github.io/crapette">Click to play</a></p>');
+  res.send('<h1>Crapette</h1><p><b>'+storeService.info().active+'</b> active games.<br /><a href="https://LeonardA-L.github.io/crapette">Click to play</a></p>');
 });
 
 app.get('/status', function(req, res){
   res.send({status: 'ok'});
+});
+
+app.get('/games', function(req, res){
+  res.send(storeService.info());
 });
 
 http.listen(PORT, function(){

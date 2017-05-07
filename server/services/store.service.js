@@ -1,9 +1,18 @@
 // Store
+var _ = require('lodash');
 var _socketStore;
 var _gameStore;
 
 function info() {
-  return Object.keys(_socketStore).length;
+  var games = Object.keys(_gameStore).map((k) => _gameStore[k]);
+  var sockets = []
+  Object.keys(_socketStore).map((s) => _socketStore[s].map(a => 1)).forEach((a) => sockets.push(...a));
+  return {
+    active: games.length,
+    finished: games.filter((g) => g.winner).length,
+    unfinished: games.filter((g) => !g.winner).length,
+    sockets: sockets.length
+  };
 }
 
 function init() {
@@ -41,6 +50,7 @@ function getGameStore() {
 
 function deleteGame(hash) {
   delete _gameStore[hash];
+  delete _socketStore[hash];
 }
 
 function getSocketStore() {
