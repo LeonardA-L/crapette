@@ -1,7 +1,7 @@
 module.exports = {
   repeat: {
     timePurgeGames: 60 * 60,  // 1 hour
-    timePurgeSockets: 20
+    timePurgeSockets: 60
   },
   expiration: {
     finishedGame: 60 * 60 * 3,  // 3 hours
