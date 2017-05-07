@@ -65,7 +65,6 @@ function createGame() {
 
   const player0CrapetteCard = stacks.player0Crapette[stacks.player0Crapette.length - 1];
   const player1CrapetteCard = stacks.player1Crapette[stacks.player1Crapette.length - 1];
-
   var firstPlayerId = player1CrapetteCard.value > player0CrapetteCard.value ? 1 : 0;
 
   stacks.starter = firstPlayerId;
@@ -78,8 +77,7 @@ function getGame(hash) {
 
   if (!game) {
     game = _.extend(createGame(), {
-      hash,
-      starter: 1
+      hash
     });
 
     store.setGame(hash, game);
@@ -96,7 +94,7 @@ function pick(hash, message) {
   var game = store.getGame(hash);
   var stackFrom = findStackInGame(game, message.stack);
   var card = stackFrom[stackFrom.length - 1];
-  if (!card) {
+  if (!card || message.stack.includes('Main')) {
     return;
   }
   card.visible = true;

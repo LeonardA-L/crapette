@@ -133,6 +133,7 @@ export class SocketService {
       const winner = players[game.winner];
       this.crapette.winner = winner;
     }
+    console.log(game.starter, players[game.starter]);
 
     this.broadcaster.broadcast('newGame', {
       stacks,
