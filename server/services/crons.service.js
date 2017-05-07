@@ -17,6 +17,11 @@ function purgeGames() {
         console.log('Purging', hash);
         store.deleteGame(hash);
       }
+      // Check if the game has expired
+      else if (diff > config.expiration.unfinishedGame) {
+        console.log('Purging', hash);
+        store.deleteGame(hash);
+      }
     }
   }
 }
