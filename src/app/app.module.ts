@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
+import { HttpModule, Http, JsonpModule } from '@angular/http';
 import {
   NgModule,
   ApplicationRef
@@ -39,7 +39,7 @@ import { Broadcaster } from './services/broadcast.service';
 import { CONFIG } from './environment';
 
 export function HttpLoaderFactory(http: Http) {
-    return new TranslateHttpLoader(http, CONFIG.baseUrl + '/assets/i18n/', '.json');
+    return new TranslateHttpLoader(http, CONFIG.baseUrlStripped + '/assets/i18n/', '.json');
 }
 
 // Application wide providers
@@ -70,6 +70,7 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
+    JsonpModule,
     MarkdownModule.forRoot(),
     DndModule.forRoot(),
     TranslateModule.forRoot({

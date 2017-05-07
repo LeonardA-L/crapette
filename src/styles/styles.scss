@@ -9,7 +9,7 @@ body {
   padding: 0;
 }
 
-button {
+button, .button {
   width: 120px;
   height: $buttonHeight;
   background: $blue-button;
@@ -25,9 +25,20 @@ button {
   &.large {
     width: 250px;
   }
+
+  &.link {
+    display: inline-block;
+    text-decoration: none;
+    vertical-align: middle;
+    width: auto;
+    padding: 0 6px;
+
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
-button:hover {
+button:hover, .button:hover {
   opacity: 0.9;
 }
 

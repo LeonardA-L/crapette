@@ -22,6 +22,7 @@ import { SettingsService } from '../../services/settings.service';
 import { TogetherService } from '../../services/together.service';
 import { AnimationService } from '../../services/animation.service';
 import { Broadcaster } from '../../services/broadcast.service';
+import { SocketService } from '../../services/socket.service';
 
 /*
  * App Component
@@ -32,7 +33,7 @@ import { Broadcaster } from '../../services/broadcast.service';
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'game.html',
   styleUrls: ['game.scss'],
-  providers: [CardToolsService, CrapetteService, SettingsService, TogetherService, AnimationService],
+  providers: [CardToolsService, CrapetteService, SettingsService, TogetherService, AnimationService, SocketService],
   animations: [
     trigger(
       'hubFade',
@@ -65,6 +66,7 @@ export class GameComponent implements OnInit {
     public together: TogetherService,
     private route: ActivatedRoute,
     private broadcaster: Broadcaster,
+    private socketService: SocketService,
   ) {}
 
   public ngOnInit() {
@@ -72,49 +74,54 @@ export class GameComponent implements OnInit {
     if (routeParams.seed && routeParams.player) {
       this.together.init(routeParams);
       this.hub = false;
+      this.socketService.init(routeParams.player, routeParams.seed, this.crapetteService);
+      this.crapetteService.lockRotate = this.socketService.playerId === 0;
+    } else {
+      let players = this.crapetteService.initPlayers();
+
+      const stacks = this.crapetteService.initStacks(players);
+      this.crapetteService.dealStacks(stacks, players);
+
+      const player0CrapetteCard: Card = stacks.player0Crapette.top;
+      const player1CrapetteCard: Card = stacks.player1Crapette.top;
+
+      let firstPlayerId = player1CrapetteCard.value > player0CrapetteCard.value ? 1 : 0;
+      const starter = players[firstPlayerId];
+
+      this.startGame(stacks, players, starter);
     }
 
     this.animationService.init();
 
-    let players = this.crapetteService.initPlayers();
+    const service = this;
+    this.broadcaster.on<any>('newGame').subscribe((event) => service.startGame(event.stacks, event.players, event.starter, event.stacksByName));
+    this.broadcaster.on<any>('clickCrapette').subscribe((event) => service.crapette(event.player));
+  }
 
-    this.stacks = this.crapetteService.initStacks(players);
-    this.crapetteService.dealStacks(this.stacks, players);
-
+  public startGame(stacks, players, starter, stacksByName?) {
+    this.stacks = stacks;
     this.appState.set('stacks', this.stacks);
     this.appState.set('players', players);
-
-    const player0CrapetteCard: Card = this.stacks.player0Crapette.top;
-    const player1CrapetteCard: Card = this.stacks.player1Crapette.top;
-
-    let firstPlayerId = player1CrapetteCard.value > player0CrapetteCard.value ? 1 : 0;
-
-    this.appState.set('currentPlayer', players[firstPlayerId]);
-
+    this.appState.set('currentPlayer', starter);
+    this.appState.set('stacksByName', stacksByName);
   }
 
   public pick(event) {
+    const player = this.appState.get('currentPlayer');
+    if (this.socketService.playerId >= 0 && this.socketService.playerId !== player.id) {
+      return;
+    }
     this.crapetteService.pick(event.stack);
   }
 
   public push(event) {
     const player = this.appState.get('currentPlayer');
-    const aceOpportunities: Card[] = this.crapetteService.countAceOpportunity(player);
+    if (this.socketService.playerId >= 0 && this.socketService.playerId !== player.id) {
+      return;
+    }
 
-    const stackFrom = event.stack;
-    const stackTo = this.crapetteService.pickedStack;
-    this.crapetteService.push(stackFrom);
-
-    const newAceOpportunities: Card[] = this.crapetteService.countAceOpportunity(player);
-
-    // Check for Crapette
-    this.checkCrapette(aceOpportunities, newAceOpportunities);
-
-    // Check for end of game
-    this.checkVictory(player);
-
-    // Check for end of turn
-    this.checkEndTurn(stackFrom, stackTo);
+    const stackTo = event.stack;
+    this.crapetteService.push(stackTo);
   }
 
   public crapette(playerId: number) {
@@ -126,9 +133,14 @@ export class GameComponent implements OnInit {
 
     if (this.crapetteService.crapetteAvailable) {
       this.broadcaster.broadcast('crapette');
+      let delay = 1700;
+      if (this.socketService.isMultiGame && this.socketService.playerId === playerId) {
+        this.socketService.syncCrapette(playerId);
+        delay += 200;
+      }
       setTimeout(() => {
         this.crapetteService.endTurn();
-      }, 1700);
+      }, delay);
     } else {
       this.broadcaster.broadcast('noCrapette', {playerId});
     }
@@ -140,44 +152,6 @@ export class GameComponent implements OnInit {
 
   public startLocalGame() {
     this.hub = false;
-  }
-
-  private checkCrapette(aceOpportunities: Card[], newAceOpportunities: Card[]) {
-    if (aceOpportunities.length > 0 && newAceOpportunities.length === aceOpportunities.length) {
-      // Need to check that every opportunity is the same because solving one may have created another
-      let same = true;
-      for (let i = 0; i < aceOpportunities.length; i++) {
-        const cardOld = aceOpportunities[i];
-        const cardNew = newAceOpportunities[i];
-
-        if (cardOld !== cardNew) {
-          same = false;
-          break;
-        }
-      }
-      this.crapetteService.crapetteAvailable = same;
-    } else {
-      this.crapetteService.crapetteAvailable = false;
-    }
-  }
-
-  private checkVictory(player: Player) {
-    const crapette: Stack = this.stacks['player' + player.id + 'Crapette'];
-    const main: Stack = this.stacks['player' + player.id + 'Main'];
-    const discard: Stack = this.stacks['player' + player.id + 'Discard'];
-
-    if (crapette.isEmpty() && main.isEmpty() && discard.isEmpty()) {
-      console.log('Player', player.id, 'wins');
-      this.crapetteService.winner = player;
-    }
-  }
-
-  private checkEndTurn(stackFrom: Stack, stackTo: Stack) {
-    if (stackFrom.type === StackTypes.DISCARD
-      && stackFrom !== stackTo
-      && stackFrom.owner && stackFrom.owner.id === this.appState.get('currentPlayer').id) {
-      this.crapetteService.endTurn();
-    }
   }
 
 }

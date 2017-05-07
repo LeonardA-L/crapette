@@ -1,6 +1,6 @@
 // Crapette game service
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 
 import { Card, CardType } from './../model/card.model';
 import { Deck } from './../model/deck.model';
@@ -9,6 +9,7 @@ import { Player } from './../model/player.model';
 
 import { CardToolsService } from './card-tools.service';
 import { SettingsService } from './settings.service';
+import { SocketService } from './socket.service';
 import { Broadcaster } from './broadcast.service';
 
 import * as Rules from './../model/rules.model';
@@ -25,11 +26,13 @@ export class CrapetteService {
   public pickedStack: Stack;
   public crapetteAvailable = false;
   public winner: Player;
+  public lockRotate;
 
   constructor(
     public cardToolsService: CardToolsService,
     public appState: AppState,
     public settings: SettingsService,
+    public socket: SocketService,
     private broadcaster: Broadcaster,
   ) {}
 
@@ -39,19 +42,28 @@ export class CrapetteService {
     return [player0, player1];
   }
 
+  public initPlayersWithoutCards(): Player[] {
+    let player0 = this.initPlayerWithoutCards(0);
+    let player1 = this.initPlayerWithoutCards(1);
+    return [player0, player1];
+  }
+
   public initStacks(players) {
     let stacks = {
-      player0Main : new Stack(players[0].deck, false, Rules.pushNever, Rules.pickupOwner, players[0], StackTypes.MAIN, false, Spread.NONE),
+      player0Main : new Stack(new Deck(), false, Rules.pushNever, Rules.pickupOwner, players[0], StackTypes.MAIN, false, Spread.NONE),
       player0Discard : new Stack(new Deck(), false, Rules.pushDiscard, Rules.pickupDiscard, players[0], StackTypes.DISCARD, true, Spread.NONE),
       player0Crapette : new Stack(new Deck(), true, Rules.pushCrapette, Rules.pickupOwner, players[0], StackTypes.CRAPETTE, true, Spread.NONE),
 
-      player1Main : new Stack(players[1].deck, false, Rules.pushNever, Rules.pickupOwner, players[1], StackTypes.MAIN, false, Spread.NONE),
+      player1Main : new Stack(new Deck(), false, Rules.pushNever, Rules.pickupOwner, players[1], StackTypes.MAIN, false, Spread.NONE),
       player1Discard : new Stack(new Deck(), false, Rules.pushDiscard, Rules.pickupDiscard, players[1], StackTypes.DISCARD, true, Spread.NONE),
       player1Crapette : new Stack(new Deck(), true, Rules.pushCrapette, Rules.pickupOwner, players[1], StackTypes.CRAPETTE, true, Spread.NONE),
 
       aces : [],
       streets : []
     };
+
+    stacks.player0Main.deck.cards.push(...players[0].deck.cards);
+    stacks.player1Main.deck.cards.push(...players[1].deck.cards);
 
     for (let p of players) {
       for (let typeName in CardType) {
@@ -89,13 +101,23 @@ export class CrapetteService {
   }
 
   public pick(stackFrom: Stack): void {
+    this.resetPickedCard();
     this.pickedCard = stackFrom.top;
     this.pickedCard.picked = true;
     this.pickedCard.visible = true;
     this.pickedStack = stackFrom;
+
+    const currentPlayer = this.appState.get('currentPlayer');
+    if (this.socket.isMultiGame && this.socket.playerId === currentPlayer.id) {
+      this.socket.syncPick(stackFrom);
+    }
   }
 
   public push(stackTo: Stack): void {
+    const player = this.appState.get('currentPlayer');
+    const aceOpportunities: Card[] = this.countAceOpportunity(player);
+
+    const stackFrom = this.pickedStack;
     this.pickedStack.deck.pop();
     this.pickedCard.picked = false;
     stackTo.deck.addCard(this.pickedCard);
@@ -105,7 +127,24 @@ export class CrapetteService {
     this.pickedCard = null;
     this.pickedStack = null;
 
+    const currentPlayer = this.appState.get('currentPlayer');
+    if (this.socket.isMultiGame && this.socket.playerId === currentPlayer.id) {
+      this.socket.syncPush(stackFrom, stackTo);
+    }
+
+    const newAceOpportunities: Card[] = this.countAceOpportunity(player);
+
+    // Check for Crapette
+    this.checkCrapette(aceOpportunities, newAceOpportunities);
+
+    // Check for end of game
+    this.checkVictory(player);
+
+    // Check for end of turn
+    this.checkEndTurn(stackFrom, stackTo);
+
     this.broadcaster.broadcast('postCardPush', {stack: stackTo});
+
   }
 
   public endTurn(): void {
@@ -137,6 +176,9 @@ export class CrapetteService {
 
     // Reset crapette! state
     this.crapetteAvailable = false;
+    if (this.socket.isMultiGame) {
+      this.socket.syncTurn(nextPlayer);
+    }
   }
 
   public resetPickedCard() {
@@ -159,6 +201,11 @@ export class CrapetteService {
     discard.deck.cards = [];
 
     main.deck.cards.forEach((c) => c.visible = false);
+
+    const currentPlayer = this.appState.get('currentPlayer');
+    if (this.socket.isMultiGame && this.socket.playerId === currentPlayer.id) {
+      this.socket.syncRefillMain(currentPlayer);
+    }
   }
 
   public countAceOpportunity(player: Player): Card[] {
@@ -189,7 +236,7 @@ export class CrapetteService {
   }
 
   public get rotate() {
-    return this.settings.rotateBoard && this.appState.get('currentPlayer').id === 0;
+    return (this.settings.rotateBoard && this.appState.get('currentPlayer').id === 0) || this.lockRotate;
   }
 
   private initPlayer(id): Player {
@@ -201,5 +248,54 @@ export class CrapetteService {
     this.cardToolsService.shuffleDeck(player.deck);
 
     return player;
+  }
+
+  private initPlayerWithoutCards(id): Player {
+    let player = new Player(id);
+
+    return player;
+  }
+
+  private checkCrapette(aceOpportunities: Card[], newAceOpportunities: Card[]) {
+    if (aceOpportunities.length > 0 && newAceOpportunities.length === aceOpportunities.length) {
+      // Need to check that every opportunity is the same because solving one may have created another
+      let same = true;
+      for (let i = 0; i < aceOpportunities.length; i++) {
+        const cardOld = aceOpportunities[i];
+        const cardNew = newAceOpportunities[i];
+
+        if (cardOld !== cardNew) {
+          same = false;
+          break;
+        }
+      }
+      this.crapetteAvailable = same;
+    } else {
+      this.crapetteAvailable = false;
+    }
+  }
+
+  private checkVictory(player: Player) {
+    const stacks = this.appState.get('stacks');
+    const crapette: Stack = stacks['player' + player.id + 'Crapette'];
+    const main: Stack = stacks['player' + player.id + 'Main'];
+    const discard: Stack = stacks['player' + player.id + 'Discard'];
+
+    if (crapette.isEmpty() && main.isEmpty() && discard.isEmpty()) {
+      console.log('Player', player.id, 'wins');
+      this.winner = player;
+
+      if (this.socket.isMultiGame) {
+        this.socket.syncWinner(player);
+      }
+    }
+  }
+
+  private checkEndTurn(stackFrom: Stack, stackTo: Stack) {
+    if (stackTo.type === StackTypes.DISCARD
+      && stackTo !== stackFrom
+      && stackTo.owner && stackTo.owner.id === this.appState.get('currentPlayer').id) {
+      this.endTurn();
+    }
   }
 }

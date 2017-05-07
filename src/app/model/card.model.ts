@@ -27,15 +27,13 @@ export class Card {
 
   public rotation: number;
 
-  constructor(player, type, value) {
+  constructor(player, type, value, visible?) {
     if (player) {
       this.player = player;
     }
     this.type = type;
     this.value = value;
-    this.visible = false;
+    this.visible = !!visible;
     this.picked = false;
-
-    player.deck.addCard(this);
   }
 }

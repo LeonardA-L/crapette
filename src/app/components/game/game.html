@@ -3,7 +3,7 @@
     (local)="startLocalGame()"
     [@hubFade]="hub || animationService.crapette || crapetteService.winner">
 </hub>
-<div id="game" [ngClass]="{'blurry': hub || crapetteService.winner}">
+<div *ngIf="stacks" id="game" [ngClass]="{'blurry': hub || crapetteService.winner}">
   <div id="hacks" style="position:fixed; top:0; left: 0;">
   </div>
   <div class="player-status" [ngClass]="{'red': appState.get('currentPlayer').id}"><span>{{'player' | translate}}</span><br /><span>{{appState.get('currentPlayer').id + 1}}</span></div>
