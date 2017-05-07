@@ -43,11 +43,16 @@ function deleteGame(hash) {
   delete _gameStore[hash];
 }
 
+function getSocketStore() {
+  return _socketStore;
+}
+
 module.exports = {
   deleteGame: deleteGame,
   getGame: getGame,
   getGameStore: getGameStore,
   getParticipants: getParticipants,
+  getSocketStore: getSocketStore,
   info: info,
   init: init,
   registerSocket: registerSocket,
