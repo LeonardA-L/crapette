@@ -38,6 +38,7 @@ export class SocketService {
     this.socket.on('game:pick', (msg) => this.incomingPick(msg));
     this.socket.on('game:push', (msg) => this.incomingPush(msg));
     this.socket.on('game:refillMain', (msg) => this.incomingRefill(msg));
+    this.socket.on('game:crapette', (msg) => this.incomingCrapette(msg));
     // this.socket.on('disconnect', () => this.disconnect());  // TODO
     this.socket.on('error', (error: string) => {
         console.log('ERROR', error, socketUrl);
@@ -72,6 +73,12 @@ export class SocketService {
   public syncRefillMain(player) {
     this.sendMessage('game:refillMain', {
       player: player.id
+    });
+  }
+
+  public syncCrapette(player) {
+    this.sendMessage('game:crapette', {
+      player
     });
   }
 
@@ -152,11 +159,19 @@ export class SocketService {
   }
 
   private incomingRefill(message) {
-    if (message.player === this.playerId) {
+    if (message.emitter === this.playerId) {
       return;
     }
     const players = this.appState.get('players');
     this.crapette.refillMain(players[message.player]);
+  }
+
+  private incomingCrapette(message) {
+    if (message.emitter === this.playerId) {
+      return;
+    }
+    const player = message.player;
+    this.broadcaster.broadcast('clickCrapette', message);
   }
 
   private sendMessage(event, msg) {

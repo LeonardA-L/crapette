@@ -118,6 +118,11 @@ function push(hash, message) {
   stackTo.push(card);
 }
 
+function crapette(hash, message) {
+  console.log('Crapette', hash, message)
+  socketService.send(hash, 'game:crapette', message);
+}
+
 function turn(hash, message) {
   console.log('Turn change', hash, message)
 
@@ -173,5 +178,6 @@ module.exports = {
   push: push,
   turn: turn,
   refillMain: refillMain,
-  winner: winner
+  winner: winner,
+  crapette: crapette
 }

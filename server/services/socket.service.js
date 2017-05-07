@@ -44,6 +44,12 @@ function gameRefillMain(socket, params){
   }
 }
 
+function gameCrapette(socket, params){
+  if (params.hash) {
+    game.crapette(params.hash, params);
+  }
+}
+
 function registerEvent(event, socket, fn) {
   socket.on(event, function(msg) {
     fn(socket, msg);
@@ -60,6 +66,7 @@ function setup(socket) {
   registerEvent('game:turn', socket, gameTurn);
   registerEvent('game:winner', socket, gameWinner);
   registerEvent('game:refillMain', socket, gameRefillMain);
+  registerEvent('game:crapette', socket, gameCrapette);
 }
 
 function init(http) {

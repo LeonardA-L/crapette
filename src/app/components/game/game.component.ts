@@ -96,6 +96,7 @@ export class GameComponent implements OnInit {
     const service = this;
     this.broadcaster.on<any>('newGame').subscribe((event) => service.startGame(event.stacks, event.players, event.starter, event.stacksByName));
 
+    this.broadcaster.on<any>('clickCrapette').subscribe((event) => service.crapette(event.player));
   }
 
   public startGame(stacks, players, starter, stacksByName?) {
@@ -133,9 +134,14 @@ export class GameComponent implements OnInit {
 
     if (this.crapetteService.crapetteAvailable) {
       this.broadcaster.broadcast('crapette');
+      let delay = 1700;
+      if (this.socketService.isMultiGame && this.socketService.playerId === playerId) {
+        this.socketService.syncCrapette(playerId);
+        delay += 200;
+      }
       setTimeout(() => {
         this.crapetteService.endTurn();
-      }, 1700);
+      }, delay);
     } else {
       this.broadcaster.broadcast('noCrapette', {playerId});
     }
