@@ -20,6 +20,9 @@ function registerSocket(hash, socket) {
 }
 
 function getGame(hash) {
+  if (_gameStore[hash]) {
+    _gameStore[hash].lastActivity = new Date();
+  }
   return _gameStore[hash];
 }
 

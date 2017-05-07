@@ -9,10 +9,12 @@ var PORT = process.env.PORT || 3535;
 var socketService = require('./services/socket.service');
 var storeService = require('./services/store.service');
 var gameService = require('./services/game.service');
+var cronsService = require('./services/crons.service');
 
 socketService.init(http);
 storeService.init();
 gameService.init(socketService);
+cronsService.init();
 
 app.get('/', function(req, res){
   res.send('<h1>Hello world</h1>');
