@@ -24,10 +24,12 @@ const GITHUB = process.env.GITHUB;
 // Set absolute addresses based on environment
 
 ENV_CONFIG['baseUrl'] = config.baseUrl.local;
+ENV_CONFIG['multiServerUrl'] = config.multiServerUrl.local;
 ENV_CONFIG['root'] = config.root.default;
 if (GITHUB) {
   ENV_CONFIG['baseUrl'] = config.baseUrl.github;
   ENV_CONFIG['root'] = config.root.github;
+  ENV_CONFIG['multiServerUrl'] = config.multiServerUrl.github;
 }
 
 if ('production' === process.env.ENV) {

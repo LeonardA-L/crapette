@@ -1,7 +1,9 @@
 // Menu component
-import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 import { CONFIG } from '../../environment';
 
@@ -12,11 +14,11 @@ import { CONFIG } from '../../environment';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class HubComponent {
+export class HubComponent implements OnInit {
   public showMulti = false;
   public hash;
   public baseUrl = CONFIG.baseUrl;
-  public enableOnline = CONFIG.enableOnline;
+  public enableOnline = false;
 
   @Output()
   public local = new EventEmitter();
@@ -27,7 +29,14 @@ export class HubComponent {
   constructor(
     public router: Router,
     public translate: TranslateService,
+    private http: Http,
   ) {
+  }
+
+  public ngOnInit() {
+    this.http.get(CONFIG.multiServerUrl + '/status')
+      .catch(this.handleHttpError)
+      .subscribe((res: Response) => this.extractData(res));
   }
 
   public winnerTranslate() {
@@ -47,5 +56,16 @@ export class HubComponent {
     const hash = Math.floor(Math.pow(16, 6) * Math.random()).toString(16);
     this.showMulti = true;
     this.hash = hash;
+  }
+
+  private extractData(res: Response) {
+    let body = res.json();
+    if (body.status === 'ok') {
+      this.enableOnline = CONFIG.enableOnline;
+    }
+  }
+
+  private handleHttpError(err, obs): any {
+    return Observable.throw('Server not found');
   }
 }

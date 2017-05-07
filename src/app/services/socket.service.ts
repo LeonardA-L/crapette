@@ -8,6 +8,8 @@ import { AppState } from '../app.service';
 
 import { Card, CardType } from '../model/card.model';
 
+import { CONFIG } from '../environment';
+
 import * as io from 'socket.io-client';
 
 @Injectable()
@@ -31,7 +33,7 @@ export class SocketService {
     this.gameHash = hash;
     this.isMultiGame = true;
 
-    const socketUrl = 'http://localhost:3535'; // TODO config
+    const socketUrl = CONFIG.multiServerUrl;
     this.socket = io.connect(socketUrl);
     this.socket.on('connect', () => this.connect());
     this.socket.on('game', (msg) => this.incomingGame(msg));

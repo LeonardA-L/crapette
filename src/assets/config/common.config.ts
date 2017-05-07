@@ -9,6 +9,11 @@ export const config = {
     github: 'https://LeonardA-L.github.io/crapette'
   },
 
+  multiServerUrl: {
+    local: 'http://localhost:3535',
+    github: 'https://LeonardA-L.github.io/crapette'
+  },
+
   enableOnline: true,
 
   animations: {
