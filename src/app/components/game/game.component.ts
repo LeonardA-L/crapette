@@ -71,7 +71,6 @@ export class GameComponent implements OnInit {
 
   public ngOnInit() {
     const routeParams = this.route.snapshot.params;
-    console.log(routeParams)
     if (routeParams.seed && routeParams.player) {
       this.together.init(routeParams);
       this.hub = false;
@@ -96,7 +95,6 @@ export class GameComponent implements OnInit {
 
     const service = this;
     this.broadcaster.on<any>('newGame').subscribe((event) => service.startGame(event.stacks, event.players, event.starter, event.stacksByName));
-
     this.broadcaster.on<any>('clickCrapette').subscribe((event) => service.crapette(event.player));
   }
 
