@@ -31,7 +31,7 @@ if (GITHUB) {
   ENV_CONFIG['root'] = config.root.github;
   ENV_CONFIG['multiServerUrl'] = config.multiServerUrl.github;
 }
-ENV_CONFIG['baseUrlStripped'] = ENV_CONFIG['baseUrlStripped'].replace(/\/\#\/\!/, '').replace(/https?:/, '');
+ENV_CONFIG['baseUrlStripped'] = ENV_CONFIG['baseUrl'].replace(/\/\#\/\!/, '').replace(/https?:/, '');
 
 if ('production' === process.env.ENV) {
   enableProdMode();
