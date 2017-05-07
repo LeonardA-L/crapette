@@ -18,6 +18,7 @@ export class HubComponent implements OnInit {
   public showMulti = false;
   public hash;
   public baseUrl = CONFIG.baseUrl;
+  public baseUrlStripped = CONFIG.baseUrlStripped;
   public enableOnline = false;
 
   @Output()

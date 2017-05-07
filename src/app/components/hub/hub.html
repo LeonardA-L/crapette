@@ -1,8 +1,8 @@
 <div class="overlay"></div>
 <div id="hub">
   <div class="splash-wrap">
-  	<img [src]="baseUrl + '/assets/img/splash/splash_cra.png'" class="splash left" />
-  	<img [src]="baseUrl + '/assets/img/splash/splash_ette.png'" class="splash right" />
+  	<img [src]="baseUrlStripped + '/assets/img/splash/splash_cra.png'" class="splash left" />
+  	<img [src]="baseUrlStripped + '/assets/img/splash/splash_ette.png'" class="splash right" />
   </div>
   <div *ngIf="!winner">
     <button class="large" (click)="startLocal()">{{ 'hub.local' | translate}}</button><br>

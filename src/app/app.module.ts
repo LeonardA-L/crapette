@@ -39,7 +39,7 @@ import { Broadcaster } from './services/broadcast.service';
 import { CONFIG } from './environment';
 
 export function HttpLoaderFactory(http: Http) {
-    return new TranslateHttpLoader(http, CONFIG.baseUrl + '/assets/i18n/', '.json');
+    return new TranslateHttpLoader(http, CONFIG.baseUrlStripped + '/assets/i18n/', '.json');
 }
 
 // Application wide providers
