@@ -10,7 +10,7 @@ This is an implementation, using Angular 2, of the French traditional game of Cr
 
 ## Upcoming features
 
-* Online multiplayer
+* ~Online multiplayer~
 * Local game against the machine
 
 ## Contributing
